@@ -1,16 +1,25 @@
 "use client";
 
 import { Suspense } from "react";
-
-import { Authenticated } from "@refinedev/core";
-import { NavigateToResource } from "@refinedev/nextjs-router";
+import { Spin } from "antd";
+import Products from "@components/products/products";
 
 export default function IndexPage() {
   return (
-    <Suspense>
-      <Authenticated key="home-page">
-        <NavigateToResource />
-      </Authenticated>
+    <Suspense
+      fallback={
+        <Spin
+          size="large"
+          style={{
+            minHeight: "65vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      }
+    >
+      <Products category={"electronics"} query={"phone"} />
     </Suspense>
   );
 }

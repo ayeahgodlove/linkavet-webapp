@@ -1,17 +1,20 @@
 import { DevtoolsProvider } from "@providers/devtools";
 import { useNotificationProvider } from "@refinedev/antd";
-import { GitHubBanner, Refine } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import React, { Suspense } from "react";
-
+import { TbCategoryPlus } from "react-icons/tb";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ColorModeContextProvider } from "@contexts/color-mode";
 import { authProvider } from "@providers/auth-provider";
 import { dataProvider } from "@providers/data-provider";
 import "@refinedev/antd/dist/reset.css";
+import { GrBlog, GrDashboard, GrServices } from "react-icons/gr";
+import DefaultLayout from "@layouts/default-layout";
+import PageContent from "@components/page-content/page-content";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -34,7 +37,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
-          <GitHubBanner />
           <RefineKbarProvider>
             <AntdRegistry>
               <ColorModeContextProvider defaultMode={defaultMode}>
@@ -46,24 +48,31 @@ export default function RootLayout({
                     authProvider={authProvider}
                     resources={[
                       {
+                        name: "dashboard",
+                        list: "/dashboard",
+                        icon: <GrDashboard />,
+                      },
+                      {
                         name: "blog_posts",
-                        list: "/blog-posts",
-                        create: "/blog-posts/create",
-                        edit: "/blog-posts/edit/:id",
-                        show: "/blog-posts/show/:id",
+                        list: "/dashboard/blog-posts",
+                        create: "/dashboard/blog-posts/create",
+                        edit: "/dashboard/blog-posts/edit/:id",
+                        show: "/dashboard/blog-posts/show/:id",
                         meta: {
                           canDelete: true,
                         },
+                        icon: <GrBlog />,
                       },
                       {
                         name: "categories",
-                        list: "/categories",
-                        create: "/categories/create",
-                        edit: "/categories/edit/:id",
-                        show: "/categories/show/:id",
+                        list: "/dashboard/categories",
+                        create: "/dashboard/categories/create",
+                        edit: "/dashboard/categories/edit/:id",
+                        show: "/dashboard/categories/show/:id",
                         meta: {
                           canDelete: true,
                         },
+                        icon: <TbCategoryPlus />,
                       },
                     ]}
                     options={{
@@ -73,7 +82,9 @@ export default function RootLayout({
                       projectId: "JVzy3N-QCyo8k-c3ejgO",
                     }}
                   >
-                    {children}
+                    <DefaultLayout>
+                      <PageContent hasSider>{children}</PageContent>
+                    </DefaultLayout>
                     <RefineKbar />
                   </Refine>
                 </DevtoolsProvider>
