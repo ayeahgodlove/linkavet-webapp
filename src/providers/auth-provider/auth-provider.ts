@@ -1,6 +1,7 @@
 "use client";
 
 import { TOKEN_KEY, USER_DATA } from "@constants/constant";
+import { emptyUser } from "@model/user.model";
 import { AuthBindings } from "@refinedev/core";
 import { authService } from "@services/auth.service";
 import { userService } from "@services/user.service";
@@ -35,6 +36,32 @@ export const authProvider: AuthBindings = {
         success: false,
         error: {
           name: "LoginError",
+          message,
+        },
+      };
+    }
+  },
+  register: async ({ email, username, password, remember }): Promise<any> => {
+    try {
+      const response = await userService.create({
+        ...emptyUser,
+        email,
+        password,
+      });
+      const user = response.data;
+
+      if (user) {
+        return {
+          success: true,
+          redirectTo: "/login",
+        };
+      }
+    } catch (error: any) {
+      const { message } = error.response.data;
+      return {
+        success: false,
+        error: {
+          name: "Registration Error",
           message,
         },
       };

@@ -30,8 +30,6 @@ export default function IndexPage({ params }: { params: { id: string } }) {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const navigator = useRouter();
 
-  debugger
-
   const key = params.id;
   console.log("🚀 ~ file: index.js:8 ~ Product ~ key:", hashidsDecode(key));
 

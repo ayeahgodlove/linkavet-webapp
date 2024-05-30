@@ -19,7 +19,7 @@ function AppHeader() {
           <Image
             src={`/honeyman.png`}
             height={60}
-            width={70}
+            width={80}
             quality={100}
             alt="Cumi logo"
             style={{ marginRight: 15 }}

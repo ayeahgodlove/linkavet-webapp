@@ -1,5 +1,7 @@
 import { AuthPage } from "@components/auth-page";
 import { authProviderServer } from "@providers/auth-provider";
+import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Login() {
@@ -9,7 +11,25 @@ export default async function Login() {
     redirect(data?.redirectTo || "/dashboard");
   }
 
-  return <AuthPage type="login" />;
+  return (
+    <AuthPage
+      type="login"
+      title={
+        <>
+          <Link href="/">
+            <Image
+              src={`/honeyman.png`}
+              height={80}
+              width={100}
+              quality={100}
+              alt="Cumi logo"
+              style={{ marginRight: 15 }}
+            />
+          </Link>
+        </>
+      }
+    />
+  );
 }
 
 async function getData() {
