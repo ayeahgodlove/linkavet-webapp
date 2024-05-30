@@ -10,7 +10,6 @@ const MainMenu = () => {
   const menuBtnRef = useRef(null);
 
   const onClick = (e: any) => {
-    console.log("click ", e);
     setCurrent(e.key);
     setVisible(false);
   };
@@ -97,7 +96,7 @@ const MainMenu = () => {
     visible = true,
     menuItems,
   }: {
-    mode?: 'horizontal' | 'vertical' | 'inline';
+    mode?: "horizontal" | "vertical" | "inline";
     visible?: boolean;
     menuItems: any[];
   }) => {

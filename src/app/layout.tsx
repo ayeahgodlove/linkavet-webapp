@@ -12,9 +12,12 @@ import { ColorModeContextProvider } from "@contexts/color-mode";
 import { authProvider } from "@providers/auth-provider";
 import { dataProvider } from "@providers/data-provider";
 import "@refinedev/antd/dist/reset.css";
-import { GrBlog, GrDashboard, GrServices } from "react-icons/gr";
+import { GrBlog, GrDashboard } from "react-icons/gr";
 import DefaultLayout from "@layouts/default-layout";
 import PageContent from "@components/page-content/page-content";
+import { MdOutlineInventory } from "react-icons/md";
+import { RiCustomerService2Fill } from "react-icons/ri";
+import { FcSalesPerformance } from "react-icons/fc";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -73,6 +76,33 @@ export default function RootLayout({
                           canDelete: true,
                         },
                         icon: <TbCategoryPlus />,
+                      },
+                      {
+                        name: "customers",
+                        list: "/dashboard/customers",
+                        show: "/dashboard/customers/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                        icon: <RiCustomerService2Fill />,
+                      },
+                      {
+                        name: "inventory",
+                        list: "/dashboard/inventory",
+                        show: "/dashboard/inventory/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                        icon: <MdOutlineInventory />,
+                      },
+                      {
+                        name: "orders",
+                        list: "/dashboard/orders",
+                        show: "/dashboard/orders/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                        icon: <FcSalesPerformance  />,
                       },
                     ]}
                     options={{

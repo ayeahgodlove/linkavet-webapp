@@ -2,10 +2,11 @@ import { Avatar, Badge, Button, List, Popover, Typography } from "antd";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import {  useEffect, useState } from "react";
 import { removeCartItem } from "../../utils";
+import { useRouter } from "next/navigation";
 
 const ShoppingCart = () => {
   const [ cartItems, setCartItems ] = useState<any>([]);
-  // const navigator = useNavigate();
+  const navigator = useRouter();
   const [popovervisible, setPopovervisible] = useState(false);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const ShoppingCart = () => {
   }, [cartItems]);
 
   const handleCheckoutSubmit = () => {
-    // navigator("/cart");
+    navigator.push("/cart");
     setPopovervisible(false);
   };
 

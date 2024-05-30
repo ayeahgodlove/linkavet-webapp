@@ -1,11 +1,12 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Badge, Button, Form, Input, Popover } from "antd";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function SearchBox() {
   const [form] = Form.useForm();
   const [popovervisible, setPopovervisible] = useState(false);
-  // const navigator = useNavigate();
+  const navigator = useRouter();
 
   const handlePopoverChange = (newOpen: boolean) => {
     setPopovervisible(newOpen);
@@ -14,7 +15,7 @@ function SearchBox() {
   const onFinish = ({ query }: {query: string}) => {
     console.log("Success:", query);
     setPopovervisible(false);
-    // navigator(`/products/search?q=${query}`);
+    navigator.push(`/products/search?q=${query}`);
   };
 
   const SearchBoxForm = () => {

@@ -1,16 +1,16 @@
 import { Card, Checkbox } from "antd";
 import { useEffect, useState } from "react";
-import { getAllProductsCategories } from "../../services";
+import { getAllProductsCategories } from "../../services/mock-endpoints";
 import { makeUpLabel } from "../../utils";
 import { FilterOutlined } from "@ant-design/icons";
 import "./sidebar.scss";
-// import { useNavigate } from "react-router-dom";
 import ShoppingImg from "../../assets/images/shopping.svg";
+import { useRouter } from "next/navigation";
 
 function Sidebar() {
   const [checkedList, setCheckedList] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
-  // const navigator = useNavigate();
+  const navigator = useRouter();
 
   useEffect(() => {
     getAllProductsCategories().then((resp) => {
@@ -25,7 +25,7 @@ function Sidebar() {
   const onChange = (list: any) => {
     console.log("🚀 ~ file: index.js:22 ~ onChange ~ list:", list);
     setCheckedList(list);
-    // navigator(`/products/categories/${list[0]}`);
+    navigator.push(`/products/categories/${list[0]}`);
   };
 
   return (

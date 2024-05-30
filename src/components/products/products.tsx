@@ -3,7 +3,7 @@ import {
   getAllProducts,
   getProductsByCategory,
   getProductsByKeyword,
-} from "../../services";
+} from "../../services/mock-endpoints";
 import { Button, Card, Image, List, Rate, Tabs, message } from "antd";
 import Meta from "antd/es/card/Meta";
 
@@ -145,7 +145,7 @@ const ListProducts = ({ products }: { products: any[] }) => {
   );
 };
 
-function Products({ category, query }: { category: any, query: string }) {
+function Products({ category, query }: { category: any, query?: string }) {
   const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {

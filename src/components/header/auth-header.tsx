@@ -7,7 +7,7 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { getComments, getSingleCart } from "../../services";
+import { getComments, getSingleCart } from "../../services/mock-endpoints";
 import Link from "next/link";
 import AuthMenu from "@components/menu/auth-menu";
 

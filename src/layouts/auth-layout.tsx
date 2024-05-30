@@ -1,12 +1,14 @@
+"use client";
 import { Layout, theme } from "antd";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AuthHeader from "@components/header/auth-header";
 import AppFooter from "@components/footer/app-footer";
 import AuthSider from "@components/sidebar/auth-sider";
+import { redirect } from "next/navigation";
 const { Header, Footer, Content } = Layout;
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 function AuthLayout(props: Props) {
   const {
@@ -45,7 +47,7 @@ function AuthLayout(props: Props) {
     backgroundColor: "black",
   };
 
-  const [ user, setUser ] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
   const userInfo = localStorage.getItem("user");
 
   useEffect(() => {
@@ -61,7 +63,7 @@ function AuthLayout(props: Props) {
     console.log("🚀 ~ file: AuthLayout.js:61 ~ AuthLayout ~ user:", user);
 
     // user is not authenticated
-    // return <Navigate to="/login" />;
+    return redirect("/login");
   }
 
   return (
@@ -74,17 +76,13 @@ function AuthLayout(props: Props) {
           <Content style={bodyStyle}>
             <Layout>
               <AuthSider />
-              <Content style={contentStyle}>
-                {props.children}
-              </Content>
+              <Content style={contentStyle}>{props.children}</Content>
             </Layout>
           </Content>
         </>
       ) : (
         <>
-          <Content style={bodyStyle}>
-            {props.children}
-          </Content>
+          <Content style={bodyStyle}>{props.children}</Content>
         </>
       )}
 

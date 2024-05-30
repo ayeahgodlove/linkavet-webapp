@@ -8,10 +8,12 @@ import {
 import { Menu } from "antd";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const AuthMenu = () => {
   const [current, setCurrent] = useState("home");
   const [user, setUser] = useState<any>("");
+  const navigator = useRouter();
 
   const sibebarMenu = [
     {
@@ -49,7 +51,7 @@ const AuthMenu = () => {
         setUser(null);
       }, 1000);
     }
-    // navigator(`/${e.key}`);
+    navigator.push(`/${e.key}`);
   };
 
   return (

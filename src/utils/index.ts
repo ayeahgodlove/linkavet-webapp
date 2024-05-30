@@ -1,10 +1,11 @@
+"use client";
 import { useEffect, useMemo, useState } from "react";
 import Hashids from "hashids";
 
 const hashids = new Hashids("Toni", 10);
 
 export function makeUpLabel(item: any) {
-  console.log("item: ", item)
+  console.log("item: ", item);
   let newTitle: string = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
   return newTitle.replace(/-(.)/g, function (match, group) {
@@ -51,7 +52,10 @@ export function addCartItem(cartItems: any, addedItem: any) {
         total: addedItem.price,
         discountedPrice: Number(
           parseFloat(
-            (addedItem.price * (100 - addedItem.discountPercentage)) / 100
+            (
+              (addedItem.price * (100 - addedItem.discountPercentage)) /
+              100
+            ).toString()
           ).toFixed(0)
         ),
       },
@@ -82,18 +86,20 @@ export function clearCart() {
 export default function useOnScreen(ref: any) {
   const [isIntersecting, setIntersecting] = useState(false);
 
-  const observer = useMemo(
-    () =>
-      new IntersectionObserver(([entry]) =>
-        setIntersecting(entry.isIntersecting)
-      ),
-    [ref]
-  );
+  const observer = useMemo(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      return null; // Return null if IntersectionObserver is not defined
+    }
+    return new IntersectionObserver(([entry]) =>
+      setIntersecting(entry.isIntersecting)
+    );
+  }, [ref]);
 
   useEffect(() => {
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+    if (!observer || !ref.current) return;
+    observer?.observe(ref.current);
+    return () => observer?.disconnect();
+  }, [observer, ref]);
 
   return isIntersecting;
 }

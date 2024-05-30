@@ -1,153 +1,35 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { API_URL } from "../constants/api-url";
+import { TOKEN_KEY } from "@constants/constant";
 
-export const getAllProducts = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/products");
-    console.log("🚀 ~ file: index.js:6 ~ getAllProducts ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:8 ~ getAllProducts ~ error:", error);
-    return [];
-  }
+const apiHeaders = {
+  baseURL: `${API_URL}`,
+  headers: {
+    Accept: "application/json",
+    Authorization: "",
+  },
 };
 
-export const getSingleProduct = async (id = 1) => {
-  try {
-    const resp = await axios.get(`https://dummyjson.com/products/${id}`);
-    console.log("🚀 ~ file: index.js:6 ~ getSingleProduct ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:8 ~ getSingleProduct ~ error:", error);
-    return [];
-  }
+const apiConfig = () => {
+  const token = JSON.parse(window.localStorage.getItem(TOKEN_KEY)!);
+
+  apiHeaders.headers["Authorization"] = `Bearer ${token}`;
+  return apiHeaders;
 };
 
-export const getAllProductsCategories = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/products/categories");
-    console.log(
-      "🚀 ~ file: index.js:18 ~ getAllProductsCategories ~ resp:",
-      resp.data
-    );
-    return resp.data;
-  } catch (error) {
-    console.log(
-      "🚀 ~ file: index.js:8 ~ getAllProductsCategories ~ error:",
-      error
-    );
-    return [];
-  }
-};
+const responseBody = (response: AxiosResponse) => response.data;
 
-export const getProductsByCategory = async (category: any) => {
-  try {
-    const resp = await axios.get(
-      `https://dummyjson.com/products/category/${category}`
-    );
-    console.log(
-      "🚀 ~ file: index.js:18 ~ getProductsByCategory ~ resp:",
-      resp.data
-    );
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:8 ~ getAllProducts ~ error:", error);
-    return [];
-  }
-};
-
-export const getProductsByKeyword = async (query: string) => {
-  try {
-    console.log(
-      "🚀 ~ file: index.js:48 ~ getProductsByKeyword ~ query:",
-      query
-    );
-    const resp = await axios.get(
-      `https://dummyjson.com/products/search?q=${query}`
-    );
-    console.log(
-      "🚀 ~ file: index.js:18 ~ getProductsByKeyword ~ resp:",
-      resp.data
-    );
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:8 ~ getProductsByKeyword ~ error:", error);
-    return [];
-  }
-};
-
-export const addToCard = async (id: string) => {
-  try {
-    const resp = await axios.post("https://dummyjson.com/carts/add", {
-      userId: "1",
-      products: [
-        {
-          id: id,
-          quantity: 1,
-        },
-      ],
-    });
-    console.log("🚀 ~ file: index.js:25 ~ addToCard ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:28 ~ addToCard ~ error:", error);
-    return [];
-  }
-};
-
-export const getAllCarts = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/carts");
-    console.log("🚀 ~ file: index.js:69 ~ getAllCarts ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:55 ~ getAllCarts ~ error:", error);
-    return [];
-  }
-};
-
-export const getComments = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/comments");
-    console.log("🚀 ~ file: index.js:80 ~ getComments ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:83 ~ getComments ~ error:", error);
-    return [];
-  }
-};
-
-export const getAllUsers = async () => {
-  try {
-    const resp = await axios.get("https://dummyjson.com/users");
-    console.log("🚀 ~ file: index.js:80 ~ getAllUsers ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:55 ~ getAllUsers ~ error:", error);
-    return [];
-  }
-};
-
-export const getSingleCart = async (id = 1) => {
-  try {
-    const resp = await axios.get(`https://dummyjson.com/carts/${id}`);
-    console.log("🚀 ~ file: index.js:53 ~ getSingleCard ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:55 ~ getSingleCard ~ error:", error);
-    return [];
-  }
-};
-
-export const getAuth = async ({ username, password }: {username: string, password: string}) => {
-  try {
-    const resp = await axios.post("https://dummyjson.com/auth/login", {
-      username,
-      password,
-    });
-    console.log("🚀 ~ file: index.js:80 ~ getAuth ~ resp:", resp.data);
-    return resp.data;
-  } catch (error) {
-    console.log("🚀 ~ file: index.js:83 ~ getAuth ~ error:", error);
-    throw error;
-  }
+export const requestType = {
+  get: (url: string) => axios.get(url, apiConfig()).then(responseBody),
+  post: (url: string, body: {}) =>
+    axios.post(url, body, apiConfig()).then(responseBody),
+  put: (url: string, body: {}) =>
+    axios.put(url, body, apiConfig()).then(responseBody),
+  del: (url: string, body: {}) =>
+    axios
+      .delete(apiConfig().baseURL + url, {
+        headers: apiConfig().headers,
+        data: body,
+      })
+      .then(responseBody),
 };
