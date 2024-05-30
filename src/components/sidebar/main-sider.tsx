@@ -36,6 +36,7 @@ function Sidebar() {
             <FilterOutlined /> Products Categories
           </div>
         }
+        style={{ borderRadius: 0}}
       >
         <Checkbox.Group
           options={categories.map((cat) => {

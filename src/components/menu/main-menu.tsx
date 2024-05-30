@@ -1,13 +1,15 @@
-import { Button, Menu, Drawer } from "antd";
-import { HomeOutlined, MenuOutlined } from "@ant-design/icons";
-import { useRef, useState } from "react";
+import { Menu, Drawer } from "antd";
+import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
 import useOnScreen from "../../utils";
 import Link from "next/link";
 
-const MainMenu = () => {
-  const [visible, setVisible] = useState(false);
+interface Props {
+  visible: boolean;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  menuBtnRef: MutableRefObject<null>;
+}
+const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   const [current, setCurrent] = useState("home");
-  const menuBtnRef = useRef(null);
 
   const onClick = (e: any) => {
     setCurrent(e.key);
@@ -81,11 +83,7 @@ const MainMenu = () => {
 
   const menuLgScreen = [
     {
-      label: (
-        <Link href="/">
-          <HomeOutlined />
-        </Link>
-      ),
+      label: <Link href="/">Home</Link>,
       key: "home",
     },
     ...menuMobile,
@@ -95,10 +93,12 @@ const MainMenu = () => {
     mode = "horizontal",
     visible = true,
     menuItems,
+    className,
   }: {
     mode?: "horizontal" | "vertical" | "inline";
     visible?: boolean;
     menuItems: any[];
+    className: string;
   }) => {
     return visible ? (
       <Menu
@@ -107,7 +107,7 @@ const MainMenu = () => {
         mode={mode}
         items={menuItems}
         theme="light"
-        className="mainMenu"
+        className={`${className}`}
       />
     ) : (
       <></>
@@ -118,21 +118,23 @@ const MainMenu = () => {
 
   return (
     <>
-      <MenuShowing visible={!menuBtnVisible} menuItems={menuLgScreen} />
-      <Button
-        className="menuBtn"
-        type="dashed"
-        icon={<MenuOutlined />}
-        onClick={() => setVisible(true)}
-        ref={menuBtnRef}
+      <MenuShowing
+        visible={!menuBtnVisible}
+        menuItems={menuLgScreen}
+        className="mainMenu-lg"
       />
+
       <Drawer
         title="Toni Store"
         placement="left"
         onClose={() => setVisible(false)}
         open={visible}
       >
-        <MenuShowing mode="inline" menuItems={menuMobile} />
+        <MenuShowing
+          mode="inline"
+          menuItems={menuMobile}
+          className=""
+        />
       </Drawer>
     </>
   );

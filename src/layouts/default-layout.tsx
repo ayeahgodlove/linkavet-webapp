@@ -8,7 +8,7 @@ import React, { useState } from "react";
 const { Header, Footer, Content } = Layout;
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 const DefaultLayout = (props: Props) => {
   const {
@@ -64,11 +64,10 @@ const DefaultLayout = (props: Props) => {
               padding: "0px 15px",
             }}
             items={breadCrumbs}
-          ></Breadcrumb>
+          />
           <Layout
             style={{
-              padding: "24px 0",
-              background: colorBgContainer,
+                background: colorBgContainer,
             }}
           >
             {props.children}

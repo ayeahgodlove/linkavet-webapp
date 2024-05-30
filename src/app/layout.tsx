@@ -13,8 +13,6 @@ import { authProvider } from "@providers/auth-provider";
 import { dataProvider } from "@providers/data-provider";
 import "@refinedev/antd/dist/reset.css";
 import { GrBlog, GrDashboard } from "react-icons/gr";
-import DefaultLayout from "@layouts/default-layout";
-import PageContent from "@components/page-content/page-content";
 import { MdOutlineInventory } from "react-icons/md";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { FcSalesPerformance } from "react-icons/fc";
@@ -102,7 +100,7 @@ export default function RootLayout({
                         meta: {
                           canDelete: true,
                         },
-                        icon: <FcSalesPerformance  />,
+                        icon: <FcSalesPerformance />,
                       },
                     ]}
                     options={{
@@ -112,9 +110,7 @@ export default function RootLayout({
                       projectId: "JVzy3N-QCyo8k-c3ejgO",
                     }}
                   >
-                    <DefaultLayout>
-                      <PageContent hasSider>{children}</PageContent>
-                    </DefaultLayout>
+                    {children}
                     <RefineKbar />
                   </Refine>
                 </DevtoolsProvider>

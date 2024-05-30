@@ -7,10 +7,10 @@ import {
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { BaseRecord, useMany } from "@refinedev/core";
+import { BaseRecord } from "@refinedev/core";
 import { Space, Table } from "antd";
 
-export default function BlogPostList() {
+export default function RecentOrderList() {
   const { tableProps } = useTable({
     syncWithLocation: true,
   });

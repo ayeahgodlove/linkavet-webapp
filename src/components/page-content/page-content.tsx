@@ -3,6 +3,7 @@ import Sider from "antd/es/layout/Sider";
 import { Layout, theme } from "antd";
 import "./page-content.scss";
 import Sidebar from "@components/sidebar/main-sider";
+import React from "react";
 
 const { Content } = Layout;
 
@@ -15,7 +16,7 @@ function PageContent(props: IProps) {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const siderStyle = {
+  const siderStyle: React.CSSProperties = {
     background: colorBgContainer,
   };
 

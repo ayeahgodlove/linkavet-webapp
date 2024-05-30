@@ -1,17 +1,16 @@
 .appHeader {
   height: 64px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   align-content: center;
   justify-content: space-between;
+  width: 100%;
 
-  .appTitle {
-    h1,
-    h2,
-    h3 {
-      font-size: 1.5rem;
-    }
+  .menuBtn,
+  .mainMenu-mobile {
+    display: block !important;
+  }
+  .mainMenu-lg {
+    display: none !important;
   }
 
   .rightHeader {
@@ -67,9 +66,26 @@ li span {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-@media (min-width: 992px) {
-  .menuBtn {
-    display: none;
+// @media (min-width: 767px) {
+//   .appHeader {
+//     .menuBtn,
+//     .mainMenu-mobile {
+//       display: none !important;
+//     }
+//     .mainMenu-lg {
+//       display: block !important;
+//     }
+//   }
+// }
+@media (min-width: 991px) {
+  .appHeader {
+    .menuBtn,
+    .mainMenu-mobile {
+      display: none !important;
+    }
+    .mainMenu-lg {
+      display: block !important;
+    }
   }
   .menuHeader {
     width: 45%;
