@@ -12,9 +12,6 @@ import RecentOrderList from "@components/dashboard/recent-order";
 export default function IndexPage() {
   return (
     <div>
-      <Authenticated key="home-page">
-        <NavigateToResource />
-      </Authenticated>
       <Col span={24}>
         {/* <PageBreadCrumbs items={["Dashboard"]} /> */}
         <Row gutter={[32, 32]}>
@@ -58,6 +55,9 @@ export default function IndexPage() {
           </Col>
         </Row>
       </Col>
+      <Authenticated key="home-page">
+        <NavigateToResource />
+      </Authenticated>
     </div>
   );
 }

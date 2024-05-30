@@ -90,7 +90,7 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish }) => {
   );
 };
 
-function Cart() {
+export default function IndexPage() {
   const navigator = useRouter();
 
   const [cartItems, setCartItems] = useState<any[]>([]);
@@ -247,4 +247,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+

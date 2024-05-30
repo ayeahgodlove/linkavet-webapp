@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SuperThank from "../../assets/images/super_thank_you.svg";
 
-const ThankYou = () => {
+export default function IndexPage() {
   return (
     <div>
       <h2>
@@ -16,4 +16,3 @@ const ThankYou = () => {
   );
 };
 
-export default ThankYou;
