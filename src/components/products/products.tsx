@@ -1,9 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  getAllProducts,
-  getProductsByCategory,
-  getProductsByKeyword,
-} from "../../services/mock-endpoints";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Image, List, Rate, Tabs, message } from "antd";
 import Meta from "antd/es/card/Meta";
 
@@ -16,6 +12,9 @@ import {
   UpOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import { productAPI } from "@store/api/product_api";
+import { IProduct } from "@model/product.model";
+import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 
 const AddToCardButton = ({ item }: { item: any }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +44,7 @@ const AddToCardButton = ({ item }: { item: any }) => {
 };
 
 const ListProducts = ({ products }: { products: any[] }) => {
-  const [productsData, setproductsData] = useState<any[]>([]);
+  const [productsData, setproductsData] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -81,10 +80,12 @@ const ListProducts = ({ products }: { products: any[] }) => {
       }}
       loading={loading}
       dataSource={productsData}
-      renderItem={(product: any, index) => (
+      renderItem={(product, index) => (
         <div className="itemCard">
           <Badge.Ribbon
-            text={`${parseFloat(product.discountPercentage).toFixed()}% OFF`}
+            text={`${parseFloat(
+              product.discountPercentage.toString()
+            ).toFixed()}% OFF`}
             color="volcano"
             placement="start"
           >
@@ -92,9 +93,10 @@ const ListProducts = ({ products }: { products: any[] }) => {
               hoverable
               cover={
                 <Image
-                  alt={product.title}
+                  alt={product.name}
                   className="itemCardImage"
-                  src={`${product.thumbnail}`}
+                  src={`${API_URL_UPLOADS_PRODUCTS}/${product.images[0].url}`}
+                  style={{ width: "100%", objectFit: "cover", aspectRatio: 9 }}
                 />
               }
               actions={[
@@ -111,17 +113,19 @@ const ListProducts = ({ products }: { products: any[] }) => {
                   <>
                     <Typography.Paragraph>
                       <Typography.Title level={4} style={{ margin: 0 }}>
-                        <Link href={`/products/${hashidsEncode(product.id)}`}>
-                          {product.title}
+                        <Link href={`/products/${product.id}`}>
+                          {product.name}
                         </Link>
                       </Typography.Title>
                     </Typography.Paragraph>
                     <Typography.Paragraph>
                       Price: $
-                      {/* {parseFloat(
-                        (product.price * (100 - product.discountPercentage)) /
+                      {parseFloat(
+                        (
+                          (product.price * (100 - product.discountPercentage)) /
                           100
-                      ).toFixed(0)} */}
+                        ).toString()
+                      ).toFixed(0)}
                       <Typography.Text delete type="danger">
                         {" "}
                         ${product.price}
@@ -145,49 +149,40 @@ const ListProducts = ({ products }: { products: any[] }) => {
   );
 };
 
-function Products({ category, query }: { category: any, query?: string }) {
-  const [products, setProducts] = useState<any[]>([]);
+interface ProductProps {
+  category: any;
+  query?: string;
+}
+const Products: React.FC<ProductProps> = ({ category, query }) => {
+  const { data: productsByKeyWord } =
+    productAPI.useFetchAllProductsByKeyWordQuery(query || "");
+  const { data: productsByCategory } =
+    productAPI.useFetchAllProductsByCategoryQuery(category || "");
+  const { data: allProducts } = productAPI.useFetchAllProductsQuery();
+
+  const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    if (!!query) {
-      console.log("🚀 ~ file: index.js:143 ~ useEffect ~ query:", query);
-      getProductsByKeyword(query).then((resp) => {
-        console.log(
-          "🚀 ~ file: index.js:38 ~ getProductsByKeyword ~ resp:",
-          resp.products
-        );
-        setProducts(resp.products);
-      });
-    } else if (!!category) {
-      getProductsByCategory(category).then((resp) => {
-        console.log(
-          "🚀 ~ file: index.js:38 ~ getProductsByCategory ~ resp:",
-          resp.products
-        );
-        setProducts(resp.products);
-      });
+    if (query) {
+      setProducts(productsByKeyWord || []);
+    } else if (category) {
+      setProducts(productsByCategory || []);
     } else {
-      getAllProducts().then((resp) => {
-        console.log(
-          "🚀 ~ file: index.js:8 ~ getAllProducts ~ resp:",
-          resp.products
-        );
-        setProducts(resp.products);
-      });
+      setProducts(allProducts || []);
     }
-  }, [category, query]);
+  }, [query, category, productsByKeyWord, productsByCategory, allProducts]);
 
   const sortProductsBy = (sortedBy: any) => {
     const sortedArr = [...products].sort((a, b) => {
       if (sortedBy === "az")
-        return a.title > b.title ? 1 : a.title === b.title ? 0 : -1;
+        return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
       else if (sortedBy === "za")
-        return a.title > b.title ? -1 : a.title === b.title ? 0 : 1;
+        return a.name > b.name ? -1 : a.name === b.name ? 0 : 1;
       else if (sortedBy === "lh")
         return a.price > b.price ? 1 : a.price === b.price ? 0 : -1;
       else if (sortedBy === "hl")
         return a.price > b.price ? -1 : a.price === b.price ? 0 : 1;
-      else return a.title > b.title ? 1 : a.title === b.title ? 0 : -1;
+      else return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
     });
     setProducts(sortedArr);
   };
@@ -249,6 +244,6 @@ function Products({ category, query }: { category: any, query?: string }) {
       )}
     </>
   );
-}
+};
 
 export default Products;

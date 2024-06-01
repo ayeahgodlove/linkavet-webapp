@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL, API_URL_AUTH } from "../constants/api-url";
+import { API_URL } from "../constants/api-url";
 import { TOKEN_KEY } from "@constants/constant";
 
 const apiHeaders = {
-  baseURL: `${API_URL_AUTH}`,
+  baseURL: `${API_URL}`,
   headers: {
     Accept: "application/json",
     Authorization: "",

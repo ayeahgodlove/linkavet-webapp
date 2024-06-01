@@ -57,9 +57,9 @@ function LayoutWithSidebar(props: Props) {
               background: colorBgContainer,
             }}
           >
-            <Sider style={siderStyle} width={200}>
+            {/* <Sider style={siderStyle} width={200}>
               Sider
-            </Sider>
+            </Sider> */}
             <Content style={contentStyle}>
               {props.children}
             </Content>

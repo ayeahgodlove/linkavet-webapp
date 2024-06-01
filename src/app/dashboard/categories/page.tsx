@@ -1,5 +1,6 @@
 "use client";
 
+import { ICategory } from "@model/category.model";
 import {
   DeleteButton,
   EditButton,
@@ -11,7 +12,7 @@ import { BaseRecord } from "@refinedev/core";
 import { Space, Table } from "antd";
 
 export default function CategoryList() {
-  const { tableProps } = useTable({
+  const { tableProps } = useTable<ICategory>({
     syncWithLocation: true,
   });
 
@@ -19,7 +20,7 @@ export default function CategoryList() {
     <List>
       <Table {...tableProps} rowKey="id">
         <Table.Column dataIndex="id" title={"ID"} />
-        <Table.Column dataIndex="title" title={"title"} />
+        <Table.Column dataIndex="name" title={"Name"} />
         <Table.Column
           title={"Actions"}
           dataIndex="actions"

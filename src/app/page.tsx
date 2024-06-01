@@ -23,7 +23,7 @@ export default function IndexPage() {
             />
           }
         >
-          <Products category={"electronics"} query={"phone"} />
+          <Products category={""} query={""} />
         </Suspense>
       </PageContent>
     </DefaultLayout>

@@ -9,3 +9,7 @@ export const THEME: ThemeConfig = {
   },
 };
 
+export enum AVAILABILITY_STATUS {
+  IN_STOCK = "IN_STOCK",
+  OUT_STOCK = "OUT_STOCK"
+}

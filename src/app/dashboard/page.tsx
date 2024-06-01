@@ -50,7 +50,7 @@ export default function IndexPage() {
             />
           </Col>
 
-          <Col xs={22} md={18}>
+          <Col xs={22} md={24}>
             <RecentOrderList />
           </Col>
         </Row>

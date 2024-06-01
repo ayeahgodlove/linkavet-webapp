@@ -13,9 +13,10 @@ import { authProvider } from "@providers/auth-provider";
 import { dataProvider } from "@providers/data-provider";
 import "@refinedev/antd/dist/reset.css";
 import { GrBlog, GrDashboard } from "react-icons/gr";
-import { MdOutlineInventory } from "react-icons/md";
+import { MdOutlineInventory, MdProductionQuantityLimits } from "react-icons/md";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { FcSalesPerformance } from "react-icons/fc";
+import ClientProvider from "@contexts/provider";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -40,81 +41,95 @@ export default function RootLayout({
         <Suspense>
           <RefineKbarProvider>
             <AntdRegistry>
-              <ColorModeContextProvider defaultMode={defaultMode}>
-                <DevtoolsProvider>
-                  <Refine
-                    routerProvider={routerProvider}
-                    dataProvider={dataProvider}
-                    notificationProvider={useNotificationProvider}
-                    authProvider={authProvider}
-                    resources={[
-                      {
-                        name: "dashboard",
-                        list: "/dashboard",
-                        icon: <GrDashboard />,
-                      },
-                      {
-                        name: "blog_posts",
-                        list: "/dashboard/blog-posts",
-                        create: "/dashboard/blog-posts/create",
-                        edit: "/dashboard/blog-posts/edit/:id",
-                        show: "/dashboard/blog-posts/show/:id",
-                        meta: {
-                          canDelete: true,
+              <ClientProvider>
+                <ColorModeContextProvider defaultMode={defaultMode}>
+                  <DevtoolsProvider>
+                    <Refine
+                      routerProvider={routerProvider}
+                      dataProvider={dataProvider}
+                      notificationProvider={useNotificationProvider}
+                      authProvider={authProvider}
+                      resources={[
+                        {
+                          name: "dashboard",
+                          list: "/dashboard",
+                          icon: <GrDashboard />,
                         },
-                        icon: <GrBlog />,
-                      },
-                      {
-                        name: "categories",
-                        list: "/dashboard/categories",
-                        create: "/dashboard/categories/create",
-                        edit: "/dashboard/categories/edit/:id",
-                        show: "/dashboard/categories/show/:id",
-                        meta: {
-                          canDelete: true,
+                        // {
+                        //   name: "Articles",
+                        //   list: "/dashboard/blog-posts",
+                        //   create: "/dashboard/blog-posts/create",
+                        //   edit: "/dashboard/blog-posts/edit/:id",
+                        //   show: "/dashboard/blog-posts/show/:id",
+                        //   meta: {
+                        //     canDelete: true,
+                        //   },
+                        //   icon: <GrBlog />,
+                        // },
+                        {
+                          name: "categories",
+                          list: "/dashboard/categories",
+                          create: "/dashboard/categories/create",
+                          edit: "/dashboard/categories/edit/:id",
+                          show: "/dashboard/categories/show/:id",
+                          meta: {
+                            canDelete: true,
+                          },
+                          icon: <TbCategoryPlus />,
                         },
-                        icon: <TbCategoryPlus />,
-                      },
-                      {
-                        name: "customers",
-                        list: "/dashboard/customers",
-                        show: "/dashboard/customers/show/:id",
-                        meta: {
-                          canDelete: true,
+                        {
+                          name: "products",
+                          list: "/dashboard/products",
+                          create: "/dashboard/products/create",
+                          edit: "/dashboard/products/edit/:id",
+                          show: "/dashboard/products/show/:id",
+                          meta: {
+                            canDelete: true,
+                          },
+                          icon: <MdProductionQuantityLimits />,
                         },
-                        icon: <RiCustomerService2Fill />,
-                      },
-                      {
-                        name: "inventory",
-                        list: "/dashboard/inventory",
-                        show: "/dashboard/inventory/show/:id",
-                        meta: {
-                          canDelete: true,
+                        {
+                          name: "customers",
+                          list: "/dashboard/customers",
+                          show: "/dashboard/customers/show/:id",
+                          meta: {
+                            canDelete: true,
+                          },
+                          icon: <RiCustomerService2Fill />,
                         },
-                        icon: <MdOutlineInventory />,
-                      },
-                      {
-                        name: "orders",
-                        list: "/dashboard/orders",
-                        show: "/dashboard/orders/show/:id",
-                        meta: {
-                          canDelete: true,
+                        {
+                          name: "inventory",
+                          list: "/dashboard/inventory",
+                          show: "/dashboard/inventory/show/:id",
+                          meta: {
+                            canDelete: true,
+                          },
+                          icon: <MdOutlineInventory />,
                         },
-                        icon: <FcSalesPerformance />,
-                      },
-                    ]}
-                    options={{
-                      syncWithLocation: true,
-                      warnWhenUnsavedChanges: true,
-                      useNewQueryKeys: true,
-                      projectId: "JVzy3N-QCyo8k-c3ejgO",
-                    }}
-                  >
-                    {children}
-                    <RefineKbar />
-                  </Refine>
-                </DevtoolsProvider>
-              </ColorModeContextProvider>
+                        {
+                          name: "orders",
+                          list: "/dashboard/orders",
+                          show: "/dashboard/orders/show/:id",
+                          meta: {
+                            canDelete: true,
+                          },
+                          icon: <FcSalesPerformance />,
+                        },
+                      ]}
+                      options={{
+                        syncWithLocation: true,
+                        warnWhenUnsavedChanges: true,
+                        useNewQueryKeys: true,
+                        projectId: "JVzy3N-QCyo8k-c3ejgO",
+                        breadcrumb: true,
+                      }}
+                    >
+                      {children}
+                      <RefineKbar />
+                    </Refine>
+                  </DevtoolsProvider>
+                </ColorModeContextProvider>
+              </ClientProvider>
             </AntdRegistry>
           </RefineKbarProvider>
         </Suspense>

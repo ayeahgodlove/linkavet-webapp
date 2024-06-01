@@ -2,9 +2,11 @@
 
 import { BellOutlined, MailOutlined } from "@ant-design/icons";
 import { ColorModeContext } from "@contexts/color-mode";
+import { IReview } from "@model/review.model";
 import type { RefineThemedLayoutV2HeaderProps } from "@refinedev/antd";
 import { useGetIdentity } from "@refinedev/core";
-import { getComments, getSingleCart } from "@services/mock-endpoints";
+import { getSingleCart } from "@services/mock-endpoints";
+import { reviewAPI } from "@store/api/review_api";
 import {
   Layout as AntdLayout,
   Avatar,
@@ -35,8 +37,10 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   const { data: user } = useGetIdentity<IUser>();
   const { mode, setMode } = useContext(ColorModeContext);
   const [showingMessages, setShowingMessages] = useState(false);
-  const [comments, setComments] = useState<any>([]);
+  const [comments, setComments] = useState<IReview[]>([]);
   const [messages, setMessages] = useState([]);
+
+  const { data } = reviewAPI.useFetchAllReviewsQuery();
 
   const headerStyles: React.CSSProperties = {
     backgroundColor: token.colorBgElevated,
@@ -54,14 +58,12 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   }
 
   useEffect(() => {
-    getComments().then((res) => {
-      setComments(res.comments.slice(0, 10));
-    });
+    setComments(data!);
 
     getSingleCart().then((res) => {
       setMessages(res.products.slice(0, 10));
     });
-  }, []);
+  }, [data]);
 
   return (
     <AntdLayout.Header style={headerStyles}>

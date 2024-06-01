@@ -10,8 +10,8 @@ export default function CategoryCreate() {
     <Create saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
-          label={"Title"}
-          name={["title"]}
+          label={"Name"}
+          name={["name"]}
           rules={[
             {
               required: true,

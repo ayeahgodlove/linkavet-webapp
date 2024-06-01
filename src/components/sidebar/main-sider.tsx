@@ -1,32 +1,24 @@
-import { Card, Checkbox } from "antd";
+import { Card, Checkbox, Image } from "antd";
 import { useEffect, useState } from "react";
-import { getAllProductsCategories } from "../../services/mock-endpoints";
 import { makeUpLabel } from "../../utils";
 import { FilterOutlined } from "@ant-design/icons";
 import "./sidebar.scss";
-import ShoppingImg from "../../assets/images/shopping.svg";
 import { useRouter } from "next/navigation";
+import { categoryAPI } from "@store/api/category_api";
 
 function Sidebar() {
   const [checkedList, setCheckedList] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
   const navigator = useRouter();
 
-  useEffect(() => {
-    getAllProductsCategories().then((resp) => {
-      console.log(
-        "🚀 ~ file: index.js:8 ~ getAllProductsCategories ~ resp:",
-        resp
-      );
-      setCategories([...resp]);
-    });
-  }, []);
+  const { data, isLoading, isFetching } =
+    categoryAPI.useFetchAllCategoriesQuery();
 
   const onChange = (list: any) => {
-    console.log("🚀 ~ file: index.js:22 ~ onChange ~ list:", list);
     setCheckedList(list);
     navigator.push(`/products/categories/${list[0]}`);
   };
+  useEffect(() => {
+  }, [data, isLoading, isFetching]);
 
   return (
     <>
@@ -36,20 +28,24 @@ function Sidebar() {
             <FilterOutlined /> Products Categories
           </div>
         }
-        style={{ borderRadius: 0}}
+        style={{ borderRadius: 0 }}
       >
         <Checkbox.Group
-          options={categories.map((cat) => {
-            return { label: makeUpLabel(cat), value: cat };
-          })}
+          options={
+            isLoading || isFetching
+              ? []
+              : data?.map((cat) => {
+                  return { label: makeUpLabel(cat), value: cat.id };
+                })
+          }
           value={checkedList}
           onChange={onChange}
           className="categoriesGrp"
         />
       </Card>
 
-      <img
-        src={ShoppingImg}
+      <Image
+        src={"/images/shopping.svg"}
         alt="Shopping with us"
         style={{ width: "350px", maxWidth: "80%" }}
       />

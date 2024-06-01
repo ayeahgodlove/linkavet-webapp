@@ -2,10 +2,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Hashids from "hashids";
 
-const hashids = new Hashids("Toni", 10);
+const hashids = new Hashids("Cumi", 10);
 
 export function makeUpLabel(item: any) {
-  console.log("item: ", item);
   let newTitle: string = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
   return newTitle.replace(/-(.)/g, function (match, group) {
@@ -14,6 +13,7 @@ export function makeUpLabel(item: any) {
 }
 
 export function hashidsEncode(anything: any) {
+  debugger
   return hashids.encode(anything);
 }
 

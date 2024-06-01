@@ -1,8 +1,10 @@
+"use client";
 import { Menu, Drawer } from "antd";
 import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
 import useOnScreen from "../../utils";
 import Link from "next/link";
-
+import { ItemType, MenuItemType } from "antd/es/menu/interface";
+import { useParams } from "next/navigation";
 interface Props {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
@@ -10,7 +12,9 @@ interface Props {
 }
 const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   const [current, setCurrent] = useState("home");
-
+  const router = useParams();
+  const currentPath = router;
+  console.log(currentPath);
   const onClick = (e: any) => {
     setCurrent(e.key);
     setVisible(false);
@@ -18,70 +22,66 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
 
   const menuMobile = [
     {
-      label: <Link href="/products/categories/smartphones">Smartphones</Link>,
-      key: "smartphones",
+      label: <Link href="/products/categories/honey">Honey</Link>,
+      key: "honey",
     },
     {
-      label: <Link href="/products/categories/laptops">Laptops</Link>,
-      key: "laptops",
-    },
-    {
-      label: "Men Accessories",
-      key: "menAccessories",
+      label: (
+        <Link href="/products/categories/honey-products">Honey Products</Link>
+      ),
+      key: "honey-products",
       children: [
         {
-          label: <Link href="/products/categories/mens-shirts">Shirts</Link>,
-          key: "menShirts",
+          label: <Link href="/products/categories/wax">Wax</Link>,
+          key: "wax",
         },
         {
-          label: <Link href="/products/categories/mens-shoes">Shoes</Link>,
-          key: "menShoes",
-        },
-        {
-          label: <Link href="/products/categories/mens-watches">Watches</Link>,
-          key: "menWatches",
+          label: <Link href="/products/categories/wine">Wine</Link>,
+          key: "wine",
         },
       ],
     },
     {
-      label: "Women Accessories",
-      key: "womenAccessories",
+      label: "Accessories",
+      key: "Accessories",
       children: [
         {
-          label: (
-            <Link href="/products/categories/womens-dresses">Dresses</Link>
-          ),
-          key: "womenDresses",
+          label: <Link href="/products/categories/bee-suit">Bee Suit</Link>,
+          key: "bee-suit",
         },
         {
-          label: <Link href="/products/categories/womens-shoes">Shoes</Link>,
-          key: "womenShoes",
+          label: <Link href="/products/categories/gloves">Gloves</Link>,
+          key: "gloves",
         },
         {
-          label: (
-            <Link href="/products/categories/womens-watches">Watches</Link>
-          ),
-          key: "womenWatches",
+          label: <Link href="/products/categories/smoker">Smoker</Link>,
+          key: "smoker",
         },
         {
-          label: <Link href="/products/categories/womens-bags">Bags</Link>,
-          key: "womenBags",
+          label: <Link href="/products/categories/veil">Veil</Link>,
+          key: "veil",
         },
         {
-          label: (
-            <Link href="/products/categories/womens-jewellery">Jewellery</Link>
-          ),
-          key: "womenJewellery",
+          label: <Link href="/products/categories/brush">Brush</Link>,
+          key: "brush",
+        },
+        {
+          label: <Link href="/products/categories/honey-extractor">Honey Extractor</Link>,
+          key: "honey-extractor",
         },
       ],
     },
     {
-      label: <Link href="/about">About</Link>,
-      key: "about",
+      label: <Link href="/contact_us">Contact_us</Link>,
+      key: "contact_us",
+    },
+    {
+      label: <Link href="/about_us">About_us</Link>,
+      key: "about_us",
     },
   ];
 
-  const menuLgScreen = [
+  const menuLgScreen: ItemType<MenuItemType>[] = [
     {
       label: <Link href="/">Home</Link>,
       key: "home",
@@ -102,7 +102,7 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   }) => {
     return visible ? (
       <Menu
-        onClick={onClick}
+        // onClick={onClick}
         selectedKeys={[current]}
         mode={mode}
         items={menuItems}
@@ -125,16 +125,12 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       />
 
       <Drawer
-        title="Toni Store"
+        title="Honeyman Shop"
         placement="left"
         onClose={() => setVisible(false)}
         open={visible}
       >
-        <MenuShowing
-          mode="inline"
-          menuItems={menuMobile}
-          className=""
-        />
+        <MenuShowing mode="inline" menuItems={menuMobile} className="" />
       </Drawer>
     </>
   );

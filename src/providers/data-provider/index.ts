@@ -4,7 +4,9 @@
 import axios from "axios";
 import dataProviderSimpleRest from "@refinedev/simple-rest";
 import { TOKEN_KEY } from "@constants/constant";
-import { API_URL } from "@constants/api-url";
+import { API_URL as API_URL_BASE } from "@constants/api-url";
+
+export const API_URL = `${API_URL_BASE}/api`;
 
 const axiosInstance = () => {
     let headers = {
@@ -20,7 +22,6 @@ const axiosInstance = () => {
     }
   
     return axios.create({
-      // baseURL: API_URL, // Replace with your API base URL
       headers,
     });
   };
