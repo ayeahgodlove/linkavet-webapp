@@ -13,6 +13,9 @@ export default function IndexPage() {
   return (
     <div>
       <Col span={24}>
+        <Authenticated key="home-page">
+          <NavigateToResource />
+        </Authenticated>
         {/* <PageBreadCrumbs items={["Dashboard"]} /> */}
         <Row gutter={[32, 32]}>
           <Col span={24}>
@@ -55,9 +58,6 @@ export default function IndexPage() {
           </Col>
         </Row>
       </Col>
-      <Authenticated key="home-page">
-        <NavigateToResource />
-      </Authenticated>
     </div>
   );
 }

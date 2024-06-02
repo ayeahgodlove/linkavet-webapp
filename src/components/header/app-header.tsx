@@ -21,8 +21,8 @@ function AppHeader() {
             height={60}
             width={80}
             quality={100}
-            alt="Cumi logo"
-            style={{ marginRight: 15 }}
+            alt="Honeyman logo"
+            style={{ marginRight: 15, aspectRatio: 10 }}
           />
         </Link>
       </div>

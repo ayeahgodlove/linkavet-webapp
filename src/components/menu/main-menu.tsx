@@ -4,7 +4,6 @@ import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
 import useOnScreen from "../../utils";
 import Link from "next/link";
 import { ItemType, MenuItemType } from "antd/es/menu/interface";
-import { useParams } from "next/navigation";
 interface Props {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
@@ -12,9 +11,7 @@ interface Props {
 }
 const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   const [current, setCurrent] = useState("home");
-  const router = useParams();
-  const currentPath = router;
-  console.log(currentPath);
+  
   const onClick = (e: any) => {
     setCurrent(e.key);
     setVisible(false);
@@ -102,7 +99,7 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   }) => {
     return visible ? (
       <Menu
-        // onClick={onClick}
+        onClick={onClick}
         selectedKeys={[current]}
         mode={mode}
         items={menuItems}

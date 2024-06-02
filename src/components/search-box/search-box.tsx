@@ -13,7 +13,6 @@ function SearchBox() {
   };
 
   const onFinish = ({ query }: {query: string}) => {
-    console.log("Success:", query);
     setPopovervisible(false);
     navigator.push(`/products/search?q=${query}`);
   };

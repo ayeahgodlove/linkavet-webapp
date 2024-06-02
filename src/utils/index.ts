@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Hashids from "hashids";
+import { CartItem } from "@model/cart-item.model";
 
 const hashids = new Hashids("Cumi", 10);
 
@@ -21,16 +22,16 @@ export function hashidsDecode(anything: any) {
   return hashids.decode(anything);
 }
 
-export function addCartItems(cartItems: any, addedItems: any) {
-  let newCartItems = [];
+export function addCartItems(cartItems: CartItem[], addedItems: CartItem[]) {
+  let newCartItems: CartItem[] = [];
   for (const item of addedItems) {
     newCartItems = addCartItem(newCartItems, item);
   }
   return newCartItems;
-}
+} 
 
-export function addCartItem(cartItems: any, addedItem: any) {
-  let newCartItems: any[] = [];
+export function addCartItem(cartItems: CartItem[], addedItem: CartItem) {
+  let newCartItems: CartItem[] = [];
   const tmpCart = [...cartItems];
   let isExist: boolean = tmpCart.some((_item) => _item.id === addedItem.id);
   if (!!isExist) {

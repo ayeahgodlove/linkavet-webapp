@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Checkbox,
@@ -9,12 +10,16 @@ import {
   Typography,
   message,
 } from "antd";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import ShoppingImg from "../../assets/images/shopping.svg";
-import { clearCart, removeCartItem, updateCart } from "../../utils";
 import { DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import DefaultLayout from "@layouts/default-layout";
+import PageContent from "@components/page-content/page-content";
+import { useCart } from "@hook/cart.hook";
+import { CartItem } from "@model/cart-item.model";
+import { format } from "@utils/format";
 
 interface ICheckoutBtn {
   onFinish: () => void;
@@ -93,18 +98,23 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish }) => {
 export default function IndexPage() {
   const navigator = useRouter();
 
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const {
+    cartItems,
+    addCartItems,
+    clearCartItems,
+    removeFromCart,
+    updateCart,
+  } = useCart();
 
   const handleCheckoutSubmit = () => {
     message.success("Your order has been placed successfully.");
-    setCartItems([]);
-    clearCart();
+    addCartItems([]);
+    clearCartItems();
     navigator.push("/thank-you");
   };
 
-  const handleRemoveCartItem = (item: any) => {
-    const newCartItems = removeCartItem(cartItems, item);
-    setCartItems(newCartItems);
+  const handleRemoveCartItem = (item: CartItem) => {
+    removeFromCart(item.id);
   };
 
   const getCartSummary = () => {
@@ -124,13 +134,14 @@ export default function IndexPage() {
     return (
       <>
         <div className="cartSummary">
-          Discounted amount: ${parseFloat((total - discountPrice).toString()).toFixed(0)}
+          Discounted amount: $
+          {parseFloat((total - discountPrice).toString()).toFixed(0)}
         </div>
         <div className="cartSummary">
           Total amount ({totalQty} items): $
-          {parseFloat(discountPrice).toFixed(0)}{" "}
+          {parseFloat(discountPrice.toString()).toFixed(0)}{" "}
           <Typography.Text delete type="danger">
-            ${parseFloat(total).toFixed(0)}
+            ${parseFloat(total.toString()).toFixed(0)}
           </Typography.Text>
         </div>
       </>
@@ -138,113 +149,128 @@ export default function IndexPage() {
   };
 
   return (
-    <>
-      {!!cartItems && cartItems.length > 0 ? (
-        <>
-          <h2>🥰 Just a minute to finish your checkout.</h2>
-          <div className="checkoutForm">
-            <Table
-              dataSource={cartItems}
-              pagination={false}
-              scroll={{ x: 860 }}
-              rowKey={(data) => data.id}
-              columns={[
-                {
-                  title: "Action",
-                  key: "action",
-                  fixed: "left",
-                  width: 80,
-                  render: (_, record) => (
-                    <a
-                      href="#delete"
-                      onClick={() => handleRemoveCartItem(record)}
-                    >
-                      <DeleteOutlined style={{ color: "red" }} />
-                    </a>
-                  ),
-                },
-                {
-                  title: "Title",
-                  dataIndex: "title",
-                },
-                {
-                  title: "Quantity",
-                  dataIndex: "quantity",
-                  width: 120,
-                  render: (value, record) => {
-                    return (
-                      <InputNumber
-                        defaultValue={value}
-                        min={0}
-                        style={{ width: "65px" }}
-                        onChange={(value) => {
-                          console.log(
-                            "🚀 ~ file: index.js:160 ~ ShoppingCart ~ record:",
-                            record
-                          );
-                          console.log(
-                            "🚀 ~ file: index.js:160 ~ ShoppingCart ~ value:",
-                            value
-                          );
+    <DefaultLayout>
+      <PageContent>
+        {!!cartItems && cartItems.length > 0 ? (
+          <>
+            <h2>🥰 Just a minute to finish your checkout.</h2>
+            <div className="checkoutForm">
+              <Table
+                dataSource={cartItems}
+                pagination={false}
+                scroll={{ x: 860 }}
+                rowKey={(data) => data.id}
+                columns={[
+                  {
+                    title: "Serial",
+                    dataIndex: "serial",
+                    render(value, record, index) {
+                      return (
+                        <span key={record.id}>
+                          {format.twoChar((index + 1).toString())}
+                        </span>
+                      );
+                    },
+                    width: "5rem"
+                  },
+                  {
+                    title: "Name",
+                    dataIndex: "name",
+                    width: "13rem"
+                  },
+                  {
+                    title: "Quantity",
+                    dataIndex: "quantity",
+                    width: 120,
+                    render: (value, record) => {
+                      return (
+                        <InputNumber
+                          defaultValue={value}
+                          min={0}
+                          style={{ width: "65px" }}
+                          onChange={(value) => {
+                            console.log(
+                              "🚀 ~ file: index.js:160 ~ ShoppingCart ~ record:",
+                              record
+                            );
+                            console.log(
+                              "🚀 ~ file: index.js:160 ~ ShoppingCart ~ value:",
+                              value
+                            );
 
-                          const newCartItems = cartItems.map((item) => {
-                            return item.id === record.id
-                              ? {
-                                  ...item,
-                                  quantity: value,
-                                  total: item.price * value,
-                                  discountedPrice:
-                                    (item.price *
-                                      value *
-                                      (100 - item.discountPercentage)) /
-                                    100,
-                                }
-                              : item;
-                          });
-                          setCartItems(newCartItems);
-                          updateCart(newCartItems);
-                        }}
-                      />
-                    );
+                            const newCartItems = cartItems.map((item) => {
+                              return item.id === record.id
+                                ? {
+                                    ...item,
+                                    quantity: value,
+                                    total: item.price * value,
+                                    discountedPrice:
+                                      (item.price *
+                                        value *
+                                        (100 - item.discountPercentage)) /
+                                      100,
+                                  }
+                                : item;
+                            });
+                            addCartItems(newCartItems);
+                            updateCart(newCartItems);
+                          }}
+                        />
+                      );
+                    },
                   },
-                },
-                {
-                  title: "Price",
-                  dataIndex: "price",
-                  width: 220,
-                  render: (value, record) => {
-                    return `$${value}`;
+                  {
+                    title: "Price",
+                    dataIndex: "price",
+                    width: 220,
+                    render: (value, record) => {
+                      return `${format.number(value)} XAF`;
+                    },
+                    align: "right"
                   },
-                },
-                {
-                  title: "Total",
-                  dataIndex: "total",
-                  width: 220,
-                  render: (value, record) => {
-                    return `$${value}`;
+                  {
+                    title: "Total",
+                    dataIndex: "total",
+                    width: 220,
+                    render: (value, record) => {
+                      return `${format.number(value)} XAF`;
+                    },
+                    align: "right"
                   },
-                },
-              ]}
+                  {
+                    title: "Action",
+                    key: "action",
+                    fixed: "left",
+                    width: 80,
+                    render: (_, record) => (
+                      <a
+                        href="#delete"
+                        onClick={() => handleRemoveCartItem(record)}
+                      >
+                        <DeleteOutlined style={{ color: "red" }} />
+                      </a>
+                    ),
+                  },
+                ]}
+              />
+              <Typography.Paragraph>{getCartSummary()}</Typography.Paragraph>
+              <CheckoutCartBtn onFinish={() => handleCheckoutSubmit()} />
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>
+              👋 Your shopping cart is empty. How about adding some items to it?{" "}
+              <br /> Return <Link href="/"> home page</Link>.
+            </h2>
+            <img
+              src={ShoppingImg}
+              alt="Shopping with us"
+              style={{ width: "280px", maxWidth: "80%" }}
             />
-            <Typography.Paragraph>{getCartSummary()}</Typography.Paragraph>
-            <CheckoutCartBtn onFinish={() => handleCheckoutSubmit()} />
-          </div>
-        </>
-      ) : (
-        <>
-          <h2>
-            👋 Your shopping cart is empty. How about adding some items to it?{" "}
-            <br /> Return <Link href="/"> home page</Link>.
-          </h2>
-          <img
-            src={ShoppingImg}
-            alt="Shopping with us"
-            style={{ width: "280px", maxWidth: "80%" }}
-          />
-        </>
-      )}
-    </>
+          </>
+        )}
+      </PageContent>
+    </DefaultLayout>
   );
 }
-
-

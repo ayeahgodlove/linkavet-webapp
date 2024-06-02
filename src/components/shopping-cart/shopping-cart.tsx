@@ -1,22 +1,20 @@
 import { Avatar, Badge, Button, List, Popover, Typography } from "antd";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { removeCartItem } from "../../utils";
 import { useRouter } from "next/navigation";
+import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
+import { useCart } from "@hook/cart.hook";
 
 const ShoppingCart = () => {
-  const [ cartItems, setCartItems ] = useState<any>([]);
+  const {cartItems, addCartItems}= useCart();
   const navigator = useRouter();
   const [popovervisible, setPopovervisible] = useState(false);
 
   useEffect(() => {
     const cartHistory = JSON.parse(localStorage.getItem("order")!);
     if (!!cartHistory) {
-      console.log(
-        "🚀 ~ file: index.js:16 ~ useEffect ~ cartHistory:",
-        cartHistory
-      );
-      setCartItems([...cartHistory]);
+      addCartItems([...cartHistory]);
     }
   }, []);
 
@@ -33,7 +31,7 @@ const ShoppingCart = () => {
   const CartHolder = () => {
     const handleRemoveCartItem = (item: any) => {
       const newCartItems = removeCartItem(cartItems, item);
-      setCartItems(newCartItems);
+      addCartItems(newCartItems);
     };
 
     return (
@@ -51,11 +49,17 @@ const ShoppingCart = () => {
           renderItem={(item: any, index: number) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={`${item.thumbnail}`} size={"small"} />}
-                title={<a href="/">{item.title}</a>}
+                avatar={
+                  <Avatar
+                    src={`${API_URL_UPLOADS_PRODUCTS}/${item.imageUrl}`}
+                    size={"large"}
+                    alt={item.name}
+                  />
+                }
+                title={<a href="/">{item.name}</a>}
                 description={
                   <Typography.Text type="danger" strong>
-                    {item.quantity} x ${item.price}
+                    {item.quantity * item.price}
                   </Typography.Text>
                 }
               />

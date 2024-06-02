@@ -43,7 +43,6 @@ function Sidebar() {
           className="categoriesGrp"
         />
       </Card>
-
       <Image
         src={"/images/shopping.svg"}
         alt="Shopping with us"

@@ -4,7 +4,7 @@ import { Button, Card, Image, List, Rate, Tabs, message } from "antd";
 import Meta from "antd/es/card/Meta";
 
 import { Typography, Badge } from "antd";
-import { addCartItem, hashidsEncode } from "../../utils";
+// import { addCartItem, hashidsEncode } from "../../utils";
 import {
   DownOutlined,
   SortAscendingOutlined,
@@ -15,21 +15,24 @@ import Link from "next/link";
 import { productAPI } from "@store/api/product_api";
 import { IProduct } from "@model/product.model";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
+import { useCart } from "@hook/cart.hook";
+import { emptyCartItem } from "@model/cart-item.model";
 
-const AddToCardButton = ({ item }: { item: any }) => {
+const AddToCardButton = ({ item }: { item: IProduct }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const { addToCart } = useCart();
 
   const onClick = () => {
     setIsLoading(true);
-    message.success(`${item.title} has been added to cart 👌`);
-    let newCartItems = addCartItem(cartItems, item);
-    setCartItems(newCartItems);
-    console.log(
-      "🚀 ~ file: index.js:24 ~ CartHolder ~ cartItems:",
-      newCartItems
-    );
+    message.success(`${item.name} has been added to cart 👌`);
+    addToCart({
+      ...emptyCartItem,
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.qtty,
+      imageUrl: item.images[0].url,
+    });
 
     setTimeout(() => {
       setIsLoading(false);
@@ -119,16 +122,15 @@ const ListProducts = ({ products }: { products: any[] }) => {
                       </Typography.Title>
                     </Typography.Paragraph>
                     <Typography.Paragraph>
-                      Price: $
+                      Price:
                       {parseFloat(
                         (
                           (product.price * (100 - product.discountPercentage)) /
                           100
                         ).toString()
                       ).toFixed(0)}
-                      <Typography.Text delete type="danger">
-                        {" "}
-                        ${product.price}
+                      <Typography.Text delete type="danger">{" "}
+                        {product.price} {" XAF"}
                       </Typography.Text>
                     </Typography.Paragraph>
                   </>

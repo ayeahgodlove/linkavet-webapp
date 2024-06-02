@@ -64,7 +64,6 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     }, 1500);
   };
 
-  console.log("data: ", data);
   useEffect(() => {}, [data, isLoading, isFetching]);
 
   return (

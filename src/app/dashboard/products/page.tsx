@@ -11,6 +11,7 @@ import {
   useTable,
 } from "@refinedev/antd";
 import { BaseRecord, useSelect } from "@refinedev/core";
+import { format } from "@utils/format";
 import { Image, Space, Table } from "antd";
 
 export default function BlogPostList() {
@@ -23,7 +24,7 @@ export default function BlogPostList() {
   });
 
   const { data } = queryResult;
-  console.log("data: ", data)
+  console.log("data: ", data);
   return (
     <List>
       <Table {...tableProps} rowKey="id">
@@ -45,7 +46,7 @@ export default function BlogPostList() {
           dataIndex="id"
           title={"ID"}
           render={(value, record, index) => (
-            <strong key={value}>{index + 1}</strong>
+            <span key={value.id}>{format.twoChar((index + 1).toString())}</span>
           )}
         />
         <Table.Column dataIndex="name" title={"Name"} />
@@ -53,9 +54,8 @@ export default function BlogPostList() {
           dataIndex={"categoryId"}
           title={"Category"}
           render={(value, record) => {
-            return data?.data.find((item) => item.id === value)?.name
-          }
-          }
+            return data?.data.find((item) => item.id === value)?.name;
+          }}
         />
         <Table.Column dataIndex="price" title={"Price"} />
         <Table.Column dataIndex="qtty" title={"Qtty"} />

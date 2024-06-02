@@ -9,6 +9,7 @@ import {
   useTable,
 } from "@refinedev/antd";
 import { BaseRecord } from "@refinedev/core";
+import { format } from "@utils/format";
 import { Space, Table } from "antd";
 
 export default function CategoryList() {
@@ -19,7 +20,17 @@ export default function CategoryList() {
   return (
     <List>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title={"ID"} />
+        <Table.Column
+          dataIndex="id"
+          title={"ID"}
+          render={(value: any, record: string, index: number) => {
+            return (
+              <span key={value.id}>
+                {format.twoChar((index + 1).toString())}
+              </span>
+            );
+          }}
+        />
         <Table.Column dataIndex="name" title={"Name"} />
         <Table.Column
           title={"Actions"}

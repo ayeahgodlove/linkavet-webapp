@@ -1,26 +1,67 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { categoryAPI } from "./api/category_api";
 import { userAPI } from "./api/user_api";
 import { productAPI } from "./api/product_api";
 import { orderAPI } from "./api/order_api";
 import { paymentAPI } from "./api/payment_api";
+import { reviewAPI } from "./api/review_api";
+import { categoryReducer } from "./slice/category.slice";
+import { productReducer } from "./slice/product.slice";
+import { reviewReducer } from "./slice/review.slice";
+import { userReducer } from "./slice/user.slice";
+import logger from "redux-logger";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { cartReducer } from "./slice/cart.slice";
+
+// Persist configuration
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+};
+
+export const rootReducer = combineReducers({
+  [categoryAPI.reducerPath]: categoryAPI.reducer,
+  [userAPI.reducerPath]: userAPI.reducer,
+  [productAPI.reducerPath]: productAPI.reducer,
+  [orderAPI.reducerPath]: orderAPI.reducer,
+  [paymentAPI.reducerPath]: paymentAPI.reducer,
+  [reviewAPI.reducerPath]: reviewAPI.reducer,
+  category: categoryReducer,
+  product: productReducer,
+  review: reviewReducer,
+  user: userReducer,
+  cart: cartReducer,
+});
+
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    [categoryAPI.reducerPath]: categoryAPI.reducer,
-    [userAPI.reducerPath]: userAPI.reducer,
-    [productAPI.reducerPath]: productAPI.reducer,
-    [orderAPI.reducerPath]: orderAPI.reducer,
-    [paymentAPI.reducerPath]: paymentAPI.reducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat([
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat([
+      logger,
       categoryAPI.middleware,
       paymentAPI.middleware,
       userAPI.middleware,
       productAPI.middleware,
       orderAPI.middleware,
       productAPI.middleware,
+      reviewAPI.middleware,
     ]),
 });
 
