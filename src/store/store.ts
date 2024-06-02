@@ -5,13 +5,8 @@ import { productAPI } from "./api/product_api";
 import { orderAPI } from "./api/order_api";
 import { paymentAPI } from "./api/payment_api";
 import { reviewAPI } from "./api/review_api";
-import { categoryReducer } from "./slice/category.slice";
-import { productReducer } from "./slice/product.slice";
-import { reviewReducer } from "./slice/review.slice";
-import { userReducer } from "./slice/user.slice";
 import logger from "redux-logger";
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -37,10 +32,6 @@ export const rootReducer = combineReducers({
   [orderAPI.reducerPath]: orderAPI.reducer,
   [paymentAPI.reducerPath]: paymentAPI.reducer,
   [reviewAPI.reducerPath]: reviewAPI.reducer,
-  category: categoryReducer,
-  product: productReducer,
-  review: reviewReducer,
-  user: userReducer,
   cart: cartReducer,
 });
 

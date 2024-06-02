@@ -171,12 +171,12 @@ export default function IndexPage() {
                         </span>
                       );
                     },
-                    width: "5rem"
+                    width: "5rem",
                   },
                   {
                     title: "Name",
                     dataIndex: "name",
-                    width: "13rem"
+                    width: "13rem",
                   },
                   {
                     title: "Quantity",
@@ -221,12 +221,12 @@ export default function IndexPage() {
                   },
                   {
                     title: "Price",
-                    dataIndex: "price",
+                    dataIndex: "discountedPrice",
                     width: 220,
                     render: (value, record) => {
                       return `${format.number(value)} XAF`;
                     },
-                    align: "right"
+                    align: "right",
                   },
                   {
                     title: "Total",
@@ -235,7 +235,7 @@ export default function IndexPage() {
                     render: (value, record) => {
                       return `${format.number(value)} XAF`;
                     },
-                    align: "right"
+                    align: "right",
                   },
                   {
                     title: "Action",

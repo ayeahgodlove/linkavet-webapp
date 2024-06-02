@@ -1,13 +1,12 @@
 import { Avatar, Badge, Button, List, Popover, Typography } from "antd";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { removeCartItem } from "../../utils";
 import { useRouter } from "next/navigation";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 import { useCart } from "@hook/cart.hook";
 
 const ShoppingCart = () => {
-  const {cartItems, addCartItems}= useCart();
+  const { cartItems, addCartItems, removeFromCart } = useCart();
   const navigator = useRouter();
   const [popovervisible, setPopovervisible] = useState(false);
 
@@ -30,8 +29,7 @@ const ShoppingCart = () => {
 
   const CartHolder = () => {
     const handleRemoveCartItem = (item: any) => {
-      const newCartItems = removeCartItem(cartItems, item);
-      addCartItems(newCartItems);
+      removeFromCart(item.id);
     };
 
     return (
@@ -59,16 +57,15 @@ const ShoppingCart = () => {
                 title={<a href="/">{item.name}</a>}
                 description={
                   <Typography.Text type="danger" strong>
-                    {item.quantity * item.price}
+                    {item.quantity * item.discountedPrice}
                   </Typography.Text>
                 }
               />
-              <div
+              <Button
                 className="removeCartItem"
+                icon={<DeleteOutlined style={{ color: "red" }} />}
                 onClick={() => handleRemoveCartItem(item)}
-              >
-                <DeleteOutlined style={{ color: "red" }} />
-              </div>
+              />
             </List.Item>
           )}
         />

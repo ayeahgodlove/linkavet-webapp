@@ -16,7 +16,6 @@ import { productAPI } from "@store/api/product_api";
 import { IProduct } from "@model/product.model";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 import { useCart } from "@hook/cart.hook";
-import { emptyCartItem } from "@model/cart-item.model";
 
 const AddToCardButton = ({ item }: { item: IProduct }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,12 +25,14 @@ const AddToCardButton = ({ item }: { item: IProduct }) => {
     setIsLoading(true);
     message.success(`${item.name} has been added to cart 👌`);
     addToCart({
-      ...emptyCartItem,
       id: item.id,
       name: item.name,
       price: item.price,
       quantity: item.qtty,
       imageUrl: item.images[0].url,
+      discountPercentage: item.discountPercentage,
+      total: 0,
+      discountedPrice: 0,
     });
 
     setTimeout(() => {
@@ -129,7 +130,8 @@ const ListProducts = ({ products }: { products: any[] }) => {
                           100
                         ).toString()
                       ).toFixed(0)}
-                      <Typography.Text delete type="danger">{" "}
+                      <Typography.Text delete type="danger">
+                        {" "}
                         {product.price} {" XAF"}
                       </Typography.Text>
                     </Typography.Paragraph>
