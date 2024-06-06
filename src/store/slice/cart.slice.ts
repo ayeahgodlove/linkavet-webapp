@@ -20,7 +20,7 @@ const cartSlice = createSlice({
             ? {
                 ..._item,
                 quantity: _item.quantity + 1,
-                total: _item.total + addedItem.price,
+                total: Number(_item.total) + Number(addedItem.price),
               }
             : _item
         );

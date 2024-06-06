@@ -15,7 +15,7 @@ const ShoppingCart = () => {
     if (!!cartHistory) {
       addCartItems([...cartHistory]);
     }
-  }, []);
+  }, [addCartItems]);
 
   useEffect(() => {
     if (!!cartItems) localStorage.setItem("order", JSON.stringify(cartItems));

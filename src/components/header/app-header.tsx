@@ -18,8 +18,8 @@ function AppHeader() {
         <Link href="/">
           <Image
             src={`/honeyman.png`}
-            height={60}
-            width={80}
+            height={65}
+            width={75}
             quality={100}
             alt="Honeyman logo"
             style={{ marginRight: 15, aspectRatio: 10 }}

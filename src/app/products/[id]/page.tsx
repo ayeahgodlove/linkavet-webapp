@@ -15,7 +15,7 @@ import {
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import "./product.scss";
 import { useRouter } from "next/navigation";
-import { addCartItem, addCartItems, hashidsDecode, makeUpLabel } from "@utils";
+import { makeUpLabel } from "@utils";
 import Link from "next/link";
 import LayoutWithSidebar from "@layouts/layout-with-sidebar";
 import PageContent from "@components/page-content/page-content";
@@ -23,12 +23,13 @@ import { productAPI } from "@store/api/product_api";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 import { IImage } from "@model/image.model";
 import DefaultLayout from "@layouts/default-layout";
+import { useCart } from "@hook/cart.hook";
 
 export default function IndexPage({ params }: { params: { id: string } }) {
   const [cartQty, setCartQty] = useState<number>(1);
   const [loadingCheckOut, setLoadingCheckOut] = useState<boolean>(false);
   const [loadingAddToCart, setLoadingAddToCart] = useState<boolean>(false);
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const { cartItems, addCartItems, addToCart } = useCart();
   const navigator = useRouter();
   const key = params.id;
 
@@ -39,14 +40,21 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     setLoadingAddToCart(true);
 
     message.success(`${data?.name} has been added to cart 👌`);
-    let addedItems = Array.from({ length: cartQty }, () => data);
-    console.log(
-      "🚀 ~ file: index.js:50 ~ handleAddToCart ~ addedItems:",
-      addedItems
-    );
-
-    let newCartItems = addCartItems(cartItems, addedItems);
-    setCartItems(newCartItems);
+    if (data) {
+      let addedItems = Array.from({ length: cartQty }, () => data);
+      addCartItems(addedItems.map(a=> {
+        return {
+          id: a.id,
+          name: a.name,
+          price: a.price,
+          quantity: a.qtty,
+          imageUrl: a.images[0].url,
+          discountPercentage: data.discountPercentage,
+          discountedPrice: 0,
+          total: 0,
+        }
+      }));
+    }
     setTimeout(() => {
       setLoadingAddToCart(false);
     }, 1500);
@@ -56,8 +64,18 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     setLoadingCheckOut(true);
 
     message.success(`${data?.name} has been added to cart 👌`);
-    let newCartItems = addCartItem(cartItems, data);
-    setCartItems(newCartItems);
+    if (data) {
+      addToCart({
+        id: data.id,
+        name: data.name,
+        price: data.price,
+        quantity: data.qtty,
+        imageUrl: data.images[0].url,
+        discountPercentage: data.discountPercentage,
+        total: 0,
+        discountedPrice: 0,
+      });
+    }
     setTimeout(() => {
       setLoadingCheckOut(false);
       navigator.push("/cart");
@@ -147,6 +165,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       height: "auto",
                       display: "block",
                     }}
+                    alt={data.name}
                   />
                 </div>
                 <div className="imageGallery">
@@ -164,6 +183,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                           src={`${API_URL_UPLOADS_PRODUCTS}/${img.url}`}
                           width={100}
                           key={index}
+                          alt={img.name}
                         />
                       ))}
                     </Space>
@@ -178,14 +198,14 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                   <Space>
                     <Rate value={data.rating} allowHalf disabled></Rate>
                     <Typography.Text strong>
-                      Weight {data.weight}
+                      {"Hanco Inc"}
                     </Typography.Text>
                   </Space>
                 </div>
                 <div className="productPrice">
                   Price:{" "}
                   <span className="spanPrice">
-                    $
+                    
                     {parseFloat(
                       (
                         (data.price * (100 - data.discountPercentage)) /
@@ -213,13 +233,13 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       fontSize: "1rem",
                     }}
                   >
-                    ${data.price}
+                    {data.price}
                   </Typography.Text>
                 </div>
                 <div className="productMeta">
                   <div className="productMetaRow">
                     <span className="productMetaLeft">Weight</span>
-                    <span className="productMetaRight">{data.weight}</span>
+                    <span className="productMetaRight">{data.weight + "g"}</span>
                   </div>
                   <div className="productMetaRow">
                     <span className="productMetaLeft">Category</span>

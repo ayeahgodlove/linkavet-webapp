@@ -1,5 +1,5 @@
 .appHeader {
-  height: 64px;
+  min-height: 70px;
   display: flex;
   align-content: center;
   justify-content: space-between;
@@ -66,17 +66,7 @@ li span {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-// @media (min-width: 767px) {
-//   .appHeader {
-//     .menuBtn,
-//     .mainMenu-mobile {
-//       display: none !important;
-//     }
-//     .mainMenu-lg {
-//       display: block !important;
-//     }
-//   }
-// }
+
 @media (min-width: 991px) {
   .appHeader {
     .menuBtn,
@@ -85,6 +75,7 @@ li span {
     }
     .mainMenu-lg {
       display: block !important;
+      min-height: 70px;
     }
   }
   .menuHeader {

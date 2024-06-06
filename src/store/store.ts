@@ -17,6 +17,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { cartReducer } from "./slice/cart.slice";
+import { categoryReducer } from "./slice/category.slice";
 
 // Persist configuration
 const persistConfig = {
@@ -33,6 +34,7 @@ export const rootReducer = combineReducers({
   [paymentAPI.reducerPath]: paymentAPI.reducer,
   [reviewAPI.reducerPath]: reviewAPI.reducer,
   cart: cartReducer,
+  category: categoryReducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

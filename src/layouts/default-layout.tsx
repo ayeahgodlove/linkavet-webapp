@@ -19,7 +19,7 @@ const DefaultLayout = (props: Props) => {
   const headerStyle: React.CSSProperties = {
     overflow: "hidden",
     textAlign: "center",
-    height: 64,
+    minHeight: 70,
     paddingInline: 50,
     lineHeight: "64px",
     background: colorBgContainer,

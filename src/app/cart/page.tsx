@@ -20,6 +20,7 @@ import PageContent from "@components/page-content/page-content";
 import { useCart } from "@hook/cart.hook";
 import { CartItem } from "@model/cart-item.model";
 import { format } from "@utils/format";
+import Image from "next/image";
 
 interface ICheckoutBtn {
   onFinish: () => void;
@@ -263,7 +264,7 @@ export default function IndexPage() {
               👋 Your shopping cart is empty. How about adding some items to it?{" "}
               <br /> Return <Link href="/"> home page</Link>.
             </h2>
-            <img
+            <Image
               src={ShoppingImg}
               alt="Shopping with us"
               style={{ width: "280px", maxWidth: "80%" }}

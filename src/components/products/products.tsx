@@ -92,6 +92,7 @@ const ListProducts = ({ products }: { products: any[] }) => {
             ).toFixed()}% OFF`}
             color="volcano"
             placement="start"
+            key={index}
           >
             <Card
               hoverable
@@ -104,10 +105,10 @@ const ListProducts = ({ products }: { products: any[] }) => {
                 />
               }
               actions={[
-                <div className="itemRating">
+                <div className="itemRating" key={"rate"}>
                   <Rate value={product.rating} allowHalf disabled />
                 </div>,
-                <div>
+                <div key={"add-to-cart"}>
                   <AddToCardButton item={product} />
                 </div>,
               ]}

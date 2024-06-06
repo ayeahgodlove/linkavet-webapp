@@ -3,6 +3,7 @@ import Link from "next/link";
 import SuperThank from "../../assets/images/super_thank_you.svg";
 import DefaultLayout from "@layouts/default-layout";
 import PageContent from "@components/page-content/page-content";
+import Image from "next/image";
 
 export default function IndexPage() {
   return (
@@ -11,7 +12,7 @@ export default function IndexPage() {
         <h2>
           🥰 Thanks for your order. Return <Link href="/"> home page</Link>.
         </h2>
-        <img
+        <Image
           src={SuperThank}
           style={{ width: "280px", maxWidth: "60%" }}
           alt="Thank you"
