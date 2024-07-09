@@ -15,12 +15,12 @@ export default async function Login() {
     <AuthPage
       type="login"
       title={
-        <>
+        <> 
           <Link href="/">
             <Image
-              src={`/honeyman.png`}
+              src={`/logo/logo-2-removebg-preview.png`}
               height={80}
-              width={100}
+              width={130}
               quality={100}
               alt="Cumi logo"
               style={{ marginRight: 15 }}

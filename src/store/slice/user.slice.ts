@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
   user: IUser;
-  categories: IUser[];
+  users: IUser[];
 }
-
+ 
 const initialState: UserState = {
   user: emptyUser,
-  categories: [],
+  users: [],
 };
 
 const userSlice = createSlice({

@@ -18,6 +18,32 @@ import {
 import storage from "redux-persist/lib/storage";
 import { cartReducer } from "./slice/cart.slice";
 import { categoryReducer } from "./slice/category.slice";
+import { userReducer } from "./slice/user.slice";
+import { productReducer } from "./slice/product.slice";
+import { tagReducer } from "./slice/tag.slice";
+import { postReducer } from "./slice/post.slice";
+import { documentReducer } from "./slice/document.slice";
+import { orderReducer } from "./slice/order.slice";
+import { paymentReducer } from "./slice/payment.slice";
+import { reviewReducer } from "./slice/review.slice";
+import { storeReducer } from "./slice/store.slice";
+import { bannerReducer } from "./slice/banner.slice";
+import { userRoleReducer } from "./slice/user-role.slice";
+import { roleReducer } from "./slice/role.slice";
+import { specialtyReducer } from "./slice/specialty.slice";
+import { eventReducer } from "./slice/event.slice";
+import { subscriberReducer } from "./slice/subscriber.slice";
+import { mailReducer } from "./slice/mail.slice";
+import { contactReducer } from "./slice/contact.slice";
+import { appointmentReducer } from "./slice/health/appointment.slice";
+import { consultationReducer } from "./slice/health/consultation.slice";
+import { userDocReducer } from "./slice/user-doc.slice";
+import { quizReducer } from "./slice/lms/quiz.slice";
+import { enrollmentReducer } from "./slice/lms/enrollment.slice";
+import { lessonReducer } from "./slice/lms/lesson.slice";
+import { courseReducer } from "./slice/lms/course.slice";
+import { commentReducer } from "./slice/comment.slice";
+import { eventAPI } from "./api/event_api";
 
 // Persist configuration
 const persistConfig = {
@@ -33,8 +59,37 @@ export const rootReducer = combineReducers({
   [orderAPI.reducerPath]: orderAPI.reducer,
   [paymentAPI.reducerPath]: paymentAPI.reducer,
   [reviewAPI.reducerPath]: reviewAPI.reducer,
+  [eventAPI.reducerPath]: eventAPI.reducer,
   cart: cartReducer,
   category: categoryReducer,
+  user: userReducer,
+  product: productReducer,
+  tag: tagReducer,
+  post: postReducer,
+  document: documentReducer,
+  order: orderReducer,
+  payment: paymentReducer,
+  review: reviewReducer,
+  banner: bannerReducer,
+  store: storeReducer,
+  comment: commentReducer,
+  course: courseReducer,
+  lesson: lessonReducer,
+  enrollment: enrollmentReducer,
+  quiz: quizReducer,
+  // health
+  consultation: consultationReducer,
+  appointment: appointmentReducer,
+
+  // roles
+  userRole: userRoleReducer,
+  role: roleReducer,
+  specialty: specialtyReducer,
+  event: eventReducer,
+  subscriber: subscriberReducer,
+  mail: mailReducer,
+  contact: contactReducer,
+  userDoc: userDocReducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -55,6 +110,7 @@ export const store = configureStore({
       orderAPI.middleware,
       productAPI.middleware,
       reviewAPI.middleware,
+      eventAPI.middleware,
     ]),
 });
 

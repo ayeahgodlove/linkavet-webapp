@@ -14,7 +14,7 @@ import { BaseRecord, useSelect } from "@refinedev/core";
 import { format } from "@utils/format";
 import { Image, Space, Table } from "antd";
 
-export default function BlogPostList() {
+export default function ProductList() {
   const { tableProps } = useTable<IProduct>({
     syncWithLocation: true,
   });

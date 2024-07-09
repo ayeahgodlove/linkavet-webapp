@@ -1,19 +1,20 @@
-import { IProduct, IProductResponse, IProductResponses } from "@model/product.model";
-import { requestType } from "./.";
+import {
+  IProduct,
+  IProductResponse,
+  IProductResponses,
+} from "@model/product.model";
+import { requestType } from "@services";
 
-export const productService = {
-  list: async (): Promise<IProductResponses> =>
-    requestType.get("/api/products"),
-  getSingleProduct: async (id: string): Promise<IProductResponse> =>
-    requestType.get(`/api/products/${id}`),
-  getProductsByCategory: async (category: string): Promise<IProductResponses> =>
-    requestType.get(`/api/products/category/${category}`),
-  getProductsByKeyWord: async (query: string): Promise<IProductResponses> =>
-    requestType.get(`/api/products/search/query?q=${query}`),
-  create: (product: IProduct): Promise<IProductResponse> =>
-    requestType.post(`/api/products`, product),
-  update: (product: IProduct): Promise<IProductResponse> => 
-    requestType.put(`/api/products`, product),
+export const ProductService = {
+  list: (): Promise<IProductResponses> => requestType.get("/api/products"),
+  details: (code: string): Promise<IProductResponse> =>
+    requestType.get(`/api/products/${code}`),
+  create: (user: IProduct): Promise<IProductResponse> =>
+    requestType.post(`/api/products`, user),
+  update: (product: IProduct): Promise<IProductResponse> =>
+    requestType.put(`/api/products/${product.id}`, product),
   delete: (product: IProduct): Promise<IProductResponse> =>
-    requestType.del(`/api/products`, product),
+    requestType.del(`/api/products/${product.id}`, product),
+  search: (value: string): Promise<IProduct[]> =>
+    requestType.get(`/api/products/search/?searchTerm=${value}`),
 };

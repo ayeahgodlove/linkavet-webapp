@@ -6,7 +6,21 @@ import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "@constants/api-url";
 
-const UploadImage = ({ onUpload }: { onUpload: (url: string) => void }) => {
+const UploadImage = ({
+  onUpload,
+  maxCount = 1,
+  folderName,
+  name,
+  extra = false,
+  uri = "",
+}: {
+  onUpload: (url: string) => void;
+  maxCount?: number;
+  folderName: string;
+  name: string;
+  extra?: boolean;
+  uri?: string;
+}) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleChange = (info: any) => {
@@ -20,10 +34,12 @@ const UploadImage = ({ onUpload }: { onUpload: (url: string) => void }) => {
 
   const customRequest = async ({ file, onSuccess }: any) => {
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append(name, file);
 
     const response = await axios.post(
-      `${API_URL}/api/uploads/products`,
+      extra
+        ? `${API_URL}/api/uploads/${folderName}/${uri}`
+        : `${API_URL}/api/uploads/${folderName}`,
       formData,
       {
         headers: {
@@ -37,7 +53,8 @@ const UploadImage = ({ onUpload }: { onUpload: (url: string) => void }) => {
 
   return (
     <Upload
-      name="image"
+      maxCount={maxCount}
+      name={name}
       customRequest={customRequest}
       onChange={handleChange}
       fileList={fileList}

@@ -12,7 +12,7 @@ import { Typography } from "antd";
 
 const { Title } = Typography;
 
-export default function BlogPostShow() {
+export default function CustomerShow() {
   const { queryResult } = useShow({});
   const { data, isLoading } = queryResult;
 

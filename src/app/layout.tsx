@@ -6,7 +6,14 @@ import routerProvider from "@refinedev/nextjs-router";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import React, { Suspense } from "react";
-import { TbCategoryPlus } from "react-icons/tb";
+import {
+  TbBook,
+  TbCalendarEvent,
+  TbCategoryPlus,
+  TbDots,
+  TbMessage,
+  TbTags,
+} from "react-icons/tb";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ColorModeContextProvider } from "@contexts/color-mode";
 import { authProvider } from "@providers/auth-provider";
@@ -14,9 +21,22 @@ import { dataProvider } from "@providers/data-provider";
 import "@refinedev/antd/dist/reset.css";
 import { GrBlog, GrDashboard } from "react-icons/gr";
 import { MdOutlineInventory, MdProductionQuantityLimits } from "react-icons/md";
-import { RiCustomerService2Fill } from "react-icons/ri";
+import { RiCustomerService2Fill, RiUserSettingsLine } from "react-icons/ri";
 import { FcSalesPerformance } from "react-icons/fc";
 import ClientProvider from "@contexts/provider";
+import "../styles/main.scss";
+import "../styles/app.css";
+import { FiFileText, FiMessageCircle, FiRepeat, FiUsers } from "react-icons/fi";
+import { CommentOutlined } from "@ant-design/icons";
+import { SiAmazonsimpleemailservice, SiGoogleclassroom } from "react-icons/si";
+import {
+  BiCategoryAlt,
+  BiHealth,
+  BiLogIn,
+  BiMoneyWithdraw,
+  BiPen,
+  BiSolidDashboard,
+} from "react-icons/bi";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -37,6 +57,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+          href="https://fonts.gstatic.com"
+          rel="preconnect"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <Suspense>
           <RefineKbarProvider>
@@ -55,27 +83,156 @@ export default function RootLayout({
                           list: "/dashboard",
                           icon: <GrDashboard />,
                         },
-                        // {
-                        //   name: "Articles",
-                        //   list: "/dashboard/blog-posts",
-                        //   create: "/dashboard/blog-posts/create",
-                        //   edit: "/dashboard/blog-posts/edit/:id",
-                        //   show: "/dashboard/blog-posts/show/:id",
-                        //   meta: {
-                        //     canDelete: true,
-                        //   },
-                        //   icon: <GrBlog />,
-                        // },
                         {
-                          name: "categories",
-                          list: "/dashboard/categories",
-                          create: "/dashboard/categories/create",
-                          edit: "/dashboard/categories/edit/:id",
-                          show: "/dashboard/categories/show/:id",
+                          name: "settings",
+                          meta: {
+                            canDelete: true,
+                            label: "Settings",
+                          },
+                          icon: <MdProductionQuantityLimits />,
+                        },
+                        {
+                          name: "roles",
+                          list: "/dashboard/roles",
+                          create: "/dashboard/roles/create",
+                          edit: "/dashboard/roles/edit/:id",
+                          show: "/dashboard/roles/show/:id",
+                          parentName: "settings",
+                          meta: {
+                            canDelete: true,
+                            parent: "settings",
+                          },
+                          icon: <FiRepeat />,
+                        },
+                        {
+                          name: "reviews",
+                          list: "/dashboard/reviews",
+                          create: "/dashboard/reviews/create",
+                          edit: "/dashboard/reviews/edit/:id",
+                          show: "/dashboard/reviews/show/:id",
+                          parentName: "settings",
+                          meta: {
+                            canDelete: true,
+                            parent: "settings",
+                          },
+                          icon: <CommentOutlined />,
+                        },
+
+                        {
+                          name: "blogging",
+                          meta: {
+                            label: "Blogging",
+                          },
+                          icon: <SiAmazonsimpleemailservice />,
+                        },
+
+                        {
+                          name: "posts",
+                          list: "/dashboard/posts",
+                          create: "/dashboard/posts/create",
+                          edit: "/dashboard/posts/edit/:id",
+                          show: "/dashboard/posts/show/:id",
+                          meta: {
+                            canDelete: true,
+                            parent: "blogging",
+                            label: "Blog Posts",
+                          },
+                          icon: <FiFileText />,
+                        },
+                        {
+                          name: "events",
+                          list: "/dashboard/events",
+                          create: "/dashboard/events/create",
+                          edit: "/dashboard/events/edit/:id",
+                          show: "/dashboard/events/show/:id",
+                          meta: {
+                            canDelete: true,
+                            parent: "blogging",
+                          },
+                          icon: <TbCalendarEvent />,
+                        },
+
+                        {
+                          name: "lms",
+                          meta: {
+                            label: "LMS",
+                          },
+                          icon: <SiAmazonsimpleemailservice />,
+                        },
+                        {
+                          name: "courses",
+                          list: "/dashboard/courses",
+                          create: "/dashboard/courses/create",
+                          edit: "/dashboard/courses/edit/:id",
+                          show: "/dashboard/courses/show/:id",
+                          meta: {
+                            canDelete: true,
+                            parent: "lms",
+                          },
+                          icon: <TbBook />,
+                        },
+
+                        {
+                          name: "account",
+                          meta: {
+                            label: "Account",
+                          },
+                          icon: <SiAmazonsimpleemailservice />,
+                        },
+                        {
+                          name: "verification",
+                          list: "/dashboard/verification",
+                          meta: {
+                            parent: "account",
+                          },
+                          icon: <TbDots />,
+                        },
+                        {
+                          name: "appointments",
+                          list: "/dashboard/appointments",
+                          meta: {
+                            parent: "account",
+                            label: "My Appointments",
+                          },
+                          icon: <TbDots />,
+                        },
+                        {
+                          name: "classroom",
+                          list: "/dashboard/classroom",
+                          meta: {
+                            parent: "account",
+                          },
+                          icon: <SiGoogleclassroom />,
+                        },
+                        {
+                          name: "profile",
+                          list: "/profile/personal-information",
+                          meta: {
+                            parent: "account",
+                            label: "Personal Information",
+                          },
+                          icon: <RiUserSettingsLine />,
+                        },
+
+                        {
+                          name: "specialties",
+                          list: "/dashboard/specialties",
+                          create: "/dashboard/specialties/create",
+                          edit: "/dashboard/specialties/edit/:id",
+                          show: "/dashboard/specialties/show/:id",
                           meta: {
                             canDelete: true,
                           },
-                          icon: <TbCategoryPlus />,
+                          icon: <TbDots />,
+                        },
+
+                        {
+                          name: "ecommerce",
+                          meta: {
+                            canDelete: true,
+                            label: "Ecommerce",
+                          },
+                          icon: <MdProductionQuantityLimits />,
                         },
                         {
                           name: "products",
@@ -85,6 +242,7 @@ export default function RootLayout({
                           show: "/dashboard/products/show/:id",
                           meta: {
                             canDelete: true,
+                            parent: "ecommerce",
                           },
                           icon: <MdProductionQuantityLimits />,
                         },
@@ -94,6 +252,7 @@ export default function RootLayout({
                           show: "/dashboard/customers/show/:id",
                           meta: {
                             canDelete: true,
+                            parent: "ecommerce",
                           },
                           icon: <RiCustomerService2Fill />,
                         },
@@ -103,17 +262,101 @@ export default function RootLayout({
                           show: "/dashboard/inventory/show/:id",
                           meta: {
                             canDelete: true,
+                            parent: "ecommerce",
                           },
                           icon: <MdOutlineInventory />,
                         },
                         {
                           name: "orders",
+                          parentName: "ecommerce",
                           list: "/dashboard/orders",
                           show: "/dashboard/orders/show/:id",
                           meta: {
                             canDelete: true,
+                            parent: "ecommerce",
                           },
                           icon: <FcSalesPerformance />,
+                        },
+
+                        {
+                          name: "confiuragtion",
+                          meta: {
+                            canDelete: true,
+                            label: "Confiuragtion",
+                          },
+                          icon: <BiSolidDashboard />,
+                        },
+                        {
+                          name: "categories",
+                          list: "/dashboard/categories",
+                          create: "/dashboard/categories/create",
+                          edit: "/dashboard/categories/edit/:id",
+                          show: "/dashboard/categories/show/:id",
+                          parentName: "confiuragtion",
+                          meta: {
+                            canDelete: true,
+                            parent: "confiuragtion",
+                          },
+                          icon: <TbCategoryPlus />,
+                        },
+                        {
+                          name: "tags",
+                          list: "/dashboard/tags",
+                          create: "/dashboard/tags/create",
+                          edit: "/dashboard/tags/edit/:id",
+                          show: "/dashboard/tags/show/:id",
+                          parentName: "confiuragtion",
+                          meta: {
+                            canDelete: true,
+                            parent: "confiuragtion",
+                          },
+                          icon: <TbTags />,
+                        },
+
+                        {
+                          name: "mailing",
+                          meta: {
+                            label: "Mailing",
+                          },
+                          icon: <SiAmazonsimpleemailservice />,
+                        },
+                        {
+                          name: "subscribers",
+                          list: "/dashboard/subscribers",
+                          create: "/dashboard/subscribers/create",
+                          edit: "/dashboard/subscribers/edit/:id",
+                          show: "/dashboard/subscribers/show/:id",
+                          meta: {
+                            canDelete: true,
+                            parent: "mailing",
+                          },
+                          icon: <FiUsers />,
+                        },
+
+                        {
+                          name: "contacts",
+                          list: "/dashboard/contacts",
+                          create: "/dashboard/contacts/create",
+                          edit: "/dashboard/contacts/edit/:id",
+                          show: "/dashboard/contacts/show/:id",
+                          meta: {
+                            canDelete: true,
+                            label: "Messages",
+                            parent: "mailing",
+                          },
+                          icon: <FiMessageCircle />,
+                        },
+                        {
+                          name: "mails",
+                          list: "/dashboard/mails",
+                          create: "/dashboard/mails/create",
+                          edit: "/dashboard/mails/edit/:id",
+                          show: "/dashboard/mails/show/:id",
+                          meta: {
+                            canDelete: true,
+                            parent: "mailing",
+                          },
+                          icon: <TbMessage />,
                         },
                       ]}
                       options={{
@@ -122,6 +365,7 @@ export default function RootLayout({
                         useNewQueryKeys: true,
                         projectId: "JVzy3N-QCyo8k-c3ejgO",
                         breadcrumb: true,
+                        liveMode: "auto",
                       }}
                     >
                       {children}
@@ -133,6 +377,16 @@ export default function RootLayout({
             </AntdRegistry>
           </RefineKbarProvider>
         </Suspense>
+        <script
+          src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64bc51e851d39e9358ee467b"
+          type="text/javascript"
+          integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+          crossOrigin="anonymous"
+        ></script>
+        <script
+          src="https://assets-global.website-files.com/64bc51e851d39e9358ee467b/js/webflow.fd77f6562.js"
+          type="text/javascript"
+        ></script>
       </body>
     </html>
   );

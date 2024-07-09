@@ -1,7 +1,8 @@
 "use client";
 
+import { CategoryFormField } from "@components/form-fields/category/category-form-field.component";
 import { Create, useForm } from "@refinedev/antd";
-import { Form, Input } from "antd";
+import { Form } from "antd";
 
 export default function CategoryCreate() {
   const { formProps, saveButtonProps } = useForm({});
@@ -9,17 +10,7 @@ export default function CategoryCreate() {
   return (
     <Create saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
-        <Form.Item
-          label={"Name"}
-          name={["name"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        <CategoryFormField />
       </Form>
     </Create>
   );

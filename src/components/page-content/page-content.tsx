@@ -23,7 +23,7 @@ function PageContent(props: IProps) {
   const contentStyle: React.CSSProperties = {
     lineHeight: "auto",
     padding: "0 20px",
-    width: "10  0%",
+    width: "100%",
     maxWidth: "100%",
   };
 
@@ -43,7 +43,7 @@ function PageContent(props: IProps) {
         </Sider>
       )}
 
-      <Content style={contentStyle}>{children}</Content>
+      <Content>{children}</Content>
     </div>
   );
 }

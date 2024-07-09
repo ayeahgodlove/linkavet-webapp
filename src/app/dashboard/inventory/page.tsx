@@ -13,7 +13,7 @@ import {
 import { BaseRecord, useMany } from "@refinedev/core";
 import { Image, Space, Table } from "antd";
 
-export default function BlogPostList() {
+export default function InventoryList() {
   const { tableProps } = useTable({
     syncWithLocation: true,
   });

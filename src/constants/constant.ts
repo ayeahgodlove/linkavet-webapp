@@ -1,15 +1,35 @@
 export const TOKEN_KEY = "TOKEN_KEY";
 export const USER_DATA = "USER_DATA";
-import type { ThemeConfig } from 'antd';
+import type { ThemeConfig } from "antd";
 
 export const THEME: ThemeConfig = {
   token: {
     fontSize: 16,
-    colorPrimary: '#81ce89',
+    colorPrimary: "#81ce89",
   },
 };
 
 export enum AVAILABILITY_STATUS {
   IN_STOCK = "IN_STOCK",
-  OUT_STOCK = "OUT_STOCK"
+  OUT_STOCK = "OUT_STOCK",
 }
+
+export const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
+};

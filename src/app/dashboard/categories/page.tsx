@@ -32,6 +32,7 @@ export default function CategoryList() {
           }}
         />
         <Table.Column dataIndex="name" title={"Name"} />
+        <Table.Column dataIndex="description" title={"Description"} />
         <Table.Column
           title={"Actions"}
           dataIndex="actions"

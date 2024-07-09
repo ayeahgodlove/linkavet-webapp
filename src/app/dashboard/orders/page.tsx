@@ -1,5 +1,6 @@
 "use client";
 
+import { IOrder } from "@model/order.model";
 import {
   DeleteButton,
   EditButton,
@@ -10,8 +11,8 @@ import {
 import { BaseRecord } from "@refinedev/core";
 import { Space, Table } from "antd";
 
-export default function BlogPostList() {
-  const { tableProps } = useTable({
+export default function OrderList() {
+  const { tableProps } = useTable<IOrder>({
     syncWithLocation: true,
   });
 

@@ -58,17 +58,18 @@ export const ColorModeContextProvider: React.FC<
         setMode: setColorMode,
         mode,
       }}
-    >
+    > 
       <ConfigProvider
         theme={
           {
             algorithm: mode === "light" ? defaultAlgorithm : darkAlgorithm,
             token: {
-              colorPrimary: "#f77908", // Primary color
+              colorPrimary: "#317610", // Primary color
               // colorLink: "#e66a07", // Link color
-              colorLink: "#884006",
-              colorSuccess: "#52c41a", //success
+              colorLink: "#1A73E8",
+              colorSuccess: "#D4AF37", //success
               colorText: "#333333",
+              colorWarning: "#FF9800",
             },
           }!
         }

@@ -4,6 +4,14 @@
   align-content: center;
   justify-content: space-between;
   width: 100%;
+  overflow: hidden;
+  padding-inline: 50px;
+  line-height: 64px;
+  text-align: center;
+  position: relative;
+  top: 0;
+  box-shadow: 1px 4px 4px #00000033;
+  z-index: 1;
 
   .menuBtn,
   .mainMenu-mobile {
@@ -11,6 +19,16 @@
   }
   .mainMenu-lg {
     display: none !important;
+    li {
+      border-bottom: 0 !important;
+      &:hover {
+        color: #08a30a;
+      }
+
+      &:active {
+        color: #08a30a;
+      }
+    }
   }
 
   .rightHeader {
@@ -65,7 +83,6 @@ li span {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
-
 
 @media (min-width: 991px) {
   .appHeader {

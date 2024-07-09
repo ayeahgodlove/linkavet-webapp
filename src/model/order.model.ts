@@ -1,4 +1,5 @@
 import { IBaseState } from "./base-state.model";
+import { IProduct } from "./product.model";
 import { IResponseBase } from "./response-base.model";
 
 export interface IOrder {
@@ -26,6 +27,7 @@ export const emptyOrder: IOrder = {
 export interface IOrderState extends IBaseState {
   readonly orders: IOrder[];
   readonly order: IOrder;
+  readonly productOrders: IProduct[]
 }
 
 export interface IOrderResponse extends IResponseBase {
