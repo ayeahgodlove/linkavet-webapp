@@ -8,7 +8,6 @@ export const initialState: IEventState = {
   selectedEvent: emptyEvent,
   isLoading: false,
   initialFetch: true,
-  selectedCalendars: ["Important", "Work", "Social", "Travel"],
 };
 
 const FETCH_EVENTS = "calendar/fetchEvents";
@@ -60,19 +59,6 @@ export const eventSlice = createSlice({
         (item) => item.id !== action.payload.id
       ); // Assuming items have an 'id' property
     },
-    updateFilters(state, action: PayloadAction<string>) {
-      const filterIndex = state.selectedCalendars.findIndex(
-        (cal) => cal === action.payload
-      );
-      if (filterIndex !== -1) {
-        state.selectedCalendars.splice(filterIndex, 1);
-      } else {
-        state.selectedCalendars.push(action.payload);
-      }
-      if (state.selectedCalendars.length === 0) {
-        state.events.length = 0;
-      }
-    },
     updateAllFilters(state, action) {
       const value = action.payload;
       let selected: string[] = [];
@@ -106,7 +92,6 @@ export const {
   addEventSuccess,
   setActiveEvent,
   deleteEvent,
-  updateFilters,
   updateAllFilters,
 } = eventSlice.actions;
 

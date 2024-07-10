@@ -12,7 +12,7 @@ import { BaseRecord } from "@refinedev/core";
 import { format } from "@utils/format";
 import { Space, Table } from "antd";
 
-export default function SpecialtyList() {
+export default function TagList() {
   const { tableProps } = useTable<ITag>({
     syncWithLocation: true,
   });

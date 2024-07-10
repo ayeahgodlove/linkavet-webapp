@@ -24,7 +24,6 @@ export const emptyEvent: IEvent = {
 export interface IEventState extends IBaseState {
   readonly events: IEvent[];
   readonly selectedEvent: IEvent;
-  readonly selectedCalendars: string[];
 }
 
 export interface IEventResponses extends IResponseBase {

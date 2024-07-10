@@ -9,7 +9,6 @@ import {
   fetchEvents,
   setActiveEvent,
   updateAllFilters,
-  updateFilters,
 } from "@store/slice/event.slice";
 import { EventService } from "@services/event.service";
 
@@ -25,10 +24,6 @@ const useEvent = () => {
   );
   const selectedEvent = useSelector<RootState, IEvent>(
     (state) => state.event.selectedEvent
-  );
-
-  const selectedCalendars = useSelector<RootState, string[]>(
-    (state) => state.event.selectedCalendars
   );
 
   const dispatch = useDispatch();
@@ -73,10 +68,6 @@ const useEvent = () => {
     dispatch(deleteEventThunk(event) as any);
   };
 
-  const updateFilter = async (label: string) => {
-    dispatch(updateFilters(label) as any);
-  };
-
   const updateAllFiltersAction = async (checked: boolean) => {
     dispatch(updateAllFilters(checked));
   };
@@ -104,9 +95,7 @@ const useEvent = () => {
     initialFetch,
     setEvent,
     getEvent,
-    updateFilter,
     updateAllFiltersAction,
-    selectedCalendars,
     addEvent,
     updateEvent,
     fetchEvent,
