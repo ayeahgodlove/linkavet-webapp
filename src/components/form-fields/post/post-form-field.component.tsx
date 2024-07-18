@@ -2,17 +2,26 @@ import React from "react";
 import { Col, Form, Input, Row, Select } from "antd";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useForm } from "@refinedev/antd";
-import { useSelect } from "@refinedev/core";
+import { useForm, useSelect } from "@refinedev/antd";
 import { useTag } from "@hook/tag.hook";
 import UploadImage from "@components/products/upload-image";
 import { modules } from "@constants/constant";
+import { ICategory } from "@model/category.model";
+import { IPost } from "@model/post";
+import { ITag } from "@model/tag.model";
 
 const PostFormFields = () => {
-  const { form } = useForm({});
-  const { queryResult, ...selectProps } = useSelect({
+  const { form } = useForm<IPost>({});
+  const { selectProps: categorySelectProps } = useSelect<ICategory>({
     resource: "categories",
   });
+
+  const { selectProps: tagSelectProps } = useSelect<ITag>({
+    resource: "tags",
+  });
+  // const { queryResult, ...selectProps } = useSelect({
+  //   resource: "categories",
+  // });
   const { tags } = useTag();
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -26,7 +35,6 @@ const PostFormFields = () => {
     form.setFieldValue("imageUrl", url);
   };
 
-  const { data } = queryResult;
   return (
     <>
       <Row align={"middle"} justify={"space-between"} gutter={[8, 8]}>
@@ -40,7 +48,8 @@ const PostFormFields = () => {
               },
             ]}
           >
-            <Select
+            <Select {...categorySelectProps} />
+            {/* <Select
               showSearch
               onSearch={selectProps.onSearch}
               options={
@@ -53,7 +62,7 @@ const PostFormFields = () => {
                     })
                   : []
               }
-            />
+            /> */}
           </Form.Item>
         </Col>
         <Col xs={24} md={12}>
@@ -69,6 +78,20 @@ const PostFormFields = () => {
             ]}
           >
             <Select
+              size="large"
+              showSearch
+              placeholder="Select a tag"
+              mode="multiple"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toString()
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              {...tagSelectProps}
+            />
+            {/* <Select
               size="large"
               showSearch
               placeholder="Select a person"
@@ -87,7 +110,7 @@ const PostFormFields = () => {
                   label: c.name,
                 };
               })}
-            />
+            /> */}
           </Form.Item>
         </Col>
       </Row>

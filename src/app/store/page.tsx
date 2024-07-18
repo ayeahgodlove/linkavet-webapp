@@ -1,13 +1,22 @@
 "use client";
-import OfficesComponent from "@components/location/location.component";
 import PageContent from "@components/page-content/page-content";
 import ProductItem from "@components/products/product-item.component";
+import SpinnerList from "@components/shared/spinner-list";
 import DefaultLayout from "@layouts/default-layout";
-import { Spin } from "antd";
+import { productAPI } from "@store/api/product_api";
+import { Col, Empty, Spin } from "antd";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default function IndexPage() {
+  const {
+    data: products,
+    error,
+    isLoading,
+    isFetching,
+  } = productAPI.useFetchAllProductsQuery(1);
+
   return (
     <Suspense
       fallback={
@@ -169,7 +178,7 @@ export default function IndexPage() {
               </div>
               <div className="right-white-bg"></div>
             </div>
-            <a
+            <Link
               href="#Intro"
               data-w-id="216a2f04-c66f-984c-2748-590a9115ebe6"
               style={{
@@ -193,7 +202,7 @@ export default function IndexPage() {
                   willChange: "transform",
                 }}
               />
-            </a>
+            </Link>
             <div
               style={{ width: "0%", display: "block", height: "757.825px" }}
               className="hero-bg"
@@ -215,12 +224,41 @@ export default function IndexPage() {
                   className="divider-line"
                 ></div>
               </div>
+
               <PageContent hasSider>
-                <div role="list" className="flex w-dyn-items">
-                  <ProductItem />
-                  <ProductItem />
-                  <ProductItem />
-                </div>
+                {error && <h1>Something wrong...</h1>}
+                {(isLoading || isFetching) && (
+                  <motion.div
+                    className="box"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <SpinnerList />
+                  </motion.div>
+                )}
+                {products && products.length ? (
+                  <div role="list" className="flex w-dyn-items" style={{ width: "100%"}}>
+                    {/* Product Item 1 */}
+                    {products?.map((product) => (
+                      <motion.div
+                        className="box"
+                        initial={{ opacity: 0, y: "-5%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        key={product.id}
+                      >
+                        <ProductItem product={product} />
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <Col span={24}>
+                    <div className="empty-wrap">
+                      <Empty />
+                    </div>
+                  </Col>
+                )}
               </PageContent>
             </div>
           </div>

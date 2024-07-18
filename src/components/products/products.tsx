@@ -27,7 +27,7 @@ const AddToCardButton = ({ item }: { item: IProduct }) => {
     addToCart({
       id: item.id,
       name: item.name,
-      price: item.price,
+      amount: item.amount,
       quantity: item.qtty,
       imageUrl: item.images[0].url,
       discountPercentage: item.discountPercentage,
@@ -100,7 +100,7 @@ const ListProducts = ({ products }: { products: any[] }) => {
                 <Image
                   alt={product.name}
                   className="itemCardImage"
-                  src={`${API_URL_UPLOADS_PRODUCTS}/${product.images[0].url}`}
+                  src={`${API_URL_UPLOADS_PRODUCTS}/${product.productImages[0]}`}
                   style={{ width: "100%", objectFit: "cover", aspectRatio: 9 }}
                 />
               }
@@ -127,13 +127,13 @@ const ListProducts = ({ products }: { products: any[] }) => {
                       Price:
                       {parseFloat(
                         (
-                          (product.price * (100 - product.discountPercentage)) /
+                          (product.amount * (100 - product.discountPercentage)) /
                           100
                         ).toString()
                       ).toFixed(0)}
                       <Typography.Text delete type="danger">
                         {" "}
-                        {product.price} {" XAF"}
+                        {product.amount} {" XAF"}
                       </Typography.Text>
                     </Typography.Paragraph>
                   </>
@@ -161,7 +161,7 @@ interface ProductProps {
 const Products: React.FC<ProductProps> = ({ category, query }) => {
   const { data: productsByKeyWord } =
     productAPI.useFetchAllProductsByKeyWordQuery(query || "");
-  const { data: productsByCategory } =
+  const { data: productsByCategory } = 
     productAPI.useFetchAllProductsByCategoryQuery(category || "");
   const { data: allProducts } = productAPI.useFetchAllProductsQuery();
 
@@ -184,9 +184,9 @@ const Products: React.FC<ProductProps> = ({ category, query }) => {
       else if (sortedBy === "za")
         return a.name > b.name ? -1 : a.name === b.name ? 0 : 1;
       else if (sortedBy === "lh")
-        return a.price > b.price ? 1 : a.price === b.price ? 0 : -1;
+        return a.amount > b.amount ? 1 : a.amount === b.amount ? 0 : -1;
       else if (sortedBy === "hl")
-        return a.price > b.price ? -1 : a.price === b.price ? 0 : 1;
+        return a.amount > b.amount ? -1 : a.amount === b.amount ? 0 : 1;
       else return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
     });
     setProducts(sortedArr);

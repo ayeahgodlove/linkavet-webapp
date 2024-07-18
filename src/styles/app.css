@@ -5578,8 +5578,8 @@ blockquote {
 .discount-badge {
     width: 65px;
     height: 65px;
-    background-color: var(--font-color);
-    color: var(--white);
+    background-color: var(--bg-5);
+    color: var(--font);
     text-align: center;
     border-radius: 50px;
     justify-content: center;
@@ -6857,14 +6857,14 @@ blockquote {
     display: inline;
 }
 
-.image-2,
+/* .image-2,
 .image-3,
 .image-4,
 .main-image,
 .image-5 {
     width: 100%;
     margin-bottom: 20px;
-}
+} */
 
 .product-description {
     position: -webkit-sticky;

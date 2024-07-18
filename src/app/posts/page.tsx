@@ -1,15 +1,46 @@
 "use client";
 import NewsletterForm from "@components/blog/newsletter.component";
 import PostItem from "@components/blog/post-item.component";
-import OfficesComponent from "@components/location/location.component";
-import PageContent from "@components/page-content/page-content";
-import ProductItem from "@components/products/product-item.component";
+import SpinnerList from "@components/shared/spinner-list";
 import DefaultLayout from "@layouts/default-layout";
-import { Spin } from "antd";
+import { categoryAPI } from "@store/api/category_api";
+import { postAPI } from "@store/api/post_api";
+import { tagAPI } from "@store/api/tag_api";
+import { userAPI } from "@store/api/user_api";
+import { Col, Empty, Spin } from "antd";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default function IndexPage() {
+  const {
+    data: posts,
+    error,
+    isLoading,
+    isFetching,
+  } = postAPI.useFetchAllPostsQuery({
+    searchTitle: "",
+    sortBy: "date",
+  });
+
+  const {
+    data: categories,
+    isLoading: isLoadingCategory,
+    isFetching: isFetchCategory,
+  } = categoryAPI.useFetchAllCategoriesQuery(1);
+
+  const {
+    data: tags,
+    isLoading: isLoadingTag,
+    isFetching: isFetchTag,
+  } = tagAPI.useFetchAllTagsQuery(1);
+
+  const {
+    data: users,
+    isLoading: isLoadingUser,
+    isFetching: isFetchUser,
+  } = userAPI.useFetchAllUsersQuery(1);
+
   return (
     <Suspense
       fallback={
@@ -25,7 +56,10 @@ export default function IndexPage() {
       }
     >
       <DefaultLayout>
-        <div style={{ opacity: 1, width: "100%", marginBottom: 30 }} className="content">
+        <div
+          style={{ opacity: 1, width: "100%", marginBottom: 30 }}
+          className="content"
+        >
           <div className="w-dyn-list">
             <div role="list" className="w-dyn-items">
               <div role="listitem" className="w-dyn-item">
@@ -65,7 +99,7 @@ export default function IndexPage() {
                                 opacity: 1,
                                 transformStyle: "preserve-3d",
                               }}
-                              href="/post/we-launch-pet-doctor-webflow-template-this-week"
+                              href="/posts/we-launch-pet-doctor-webflow-template-this-week"
                               className="hero-heading-link"
                             >
                               We Launch Pet Doctor Webflow Template this Week!
@@ -91,7 +125,7 @@ export default function IndexPage() {
                             <div className="top-margin _20-pixels">
                               <div className="button-box">
                                 <a
-                                  href="/post/we-launch-pet-doctor-webflow-template-this-week"
+                                  href="/posts/we-launch-pet-doctor-webflow-template-this-week"
                                   style={{
                                     transform:
                                       "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
@@ -121,52 +155,89 @@ export default function IndexPage() {
               </div>
             </div>
           </div>
+          {error && <h1>Something wrong...</h1>}
           <div className="content-section blog-page">
             <div className="content-wrapper w-container">
               <div className="flex">
                 <div className="blog-left">
                   <h4 className="no-top-margin">Latest posts</h4>
-                  <div className="top-margin">
-                    <div className="w-dyn-list">
-                      <div role="list" className="flex w-dyn-items">
-                        {/* Your dynamic content items go here */}
-                        <PostItem />
-                        <PostItem />
-                        <PostItem />
-                        <PostItem />
-                      </div>
-                      <div
-                        role="navigation"
-                        aria-label="List"
-                        className="w-pagination-wrapper pagination"
-                      >
-                        <a
-                          href="?d9123e5e_page=2"
-                          aria-label="Next Page"
-                          className="w-pagination-next button-outline-small"
+                  {(isLoading || isFetching) && (
+                    <motion.div
+                      className="box"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <SpinnerList />
+                    </motion.div>
+                  )}
+
+                  {posts && posts.length ? (
+                    <div className="top-margin">
+                      <div className="w-dyn-list">
+                        <div role="list" className="flex w-dyn-items">
+                          {/* Your dynamic content items go here */}
+                          {posts?.map((post) => (
+                            <motion.div
+                              className="box"
+                              initial={{ opacity: 0, y: "-5%" }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.5 }}
+                              key={post.id}
+                            >
+                              <PostItem
+                                users={
+                                  isFetchUser || isLoadingUser ? [] : users
+                                }
+                                categories={
+                                  isFetchCategory || isLoadingCategory
+                                    ? []
+                                    : categories
+                                }
+                                post={post}
+                              />
+                            </motion.div>
+                          ))}
+                        </div>
+                        <div
+                          role="navigation"
+                          aria-label="List"
+                          className="w-pagination-wrapper pagination"
                         >
-                          <div className="w-inline-block">Next</div>
-                          <svg
-                            className="w-pagination-next-icon"
-                            height="12px"
-                            width="12px"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 12 12"
-                            transform="translate(0, 1)"
+                          <a
+                            href="?d9123e5e_page=2"
+                            aria-label="Next Page"
+                            className="w-pagination-next button-outline-small"
                           >
-                            <path
-                              fill="none"
-                              stroke="currentColor"
-                              fillRule="evenodd"
-                              d="M4 2l4 4-4 4"
-                            ></path>
-                          </svg>
-                        </a>
-                        {/* Replace <link> with React's <link> is not valid inside JSX */}
-                        <link rel="prerender" href="?d9123e5e_page=2" />
+                            <div className="w-inline-block">Next</div>
+                            <svg
+                              className="w-pagination-next-icon"
+                              height="12px"
+                              width="12px"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 12 12"
+                              transform="translate(0, 1)"
+                            >
+                              <path
+                                fill="none"
+                                stroke="currentColor"
+                                fillRule="evenodd"
+                                d="M4 2l4 4-4 4"
+                              ></path>
+                            </svg>
+                          </a>
+                          {/* Replace <link> with React's <link> is not valid inside JSX */}
+                          <link rel="prerender" href="?d9123e5e_page=2" />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <Col span={24}>
+                      <div className="empty-wrap">
+                        <Empty />
+                      </div>
+                    </Col>
+                  )}
                 </div>
                 <NewsletterForm />
               </div>

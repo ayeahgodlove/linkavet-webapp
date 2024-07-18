@@ -107,12 +107,12 @@ export const authProvider: AuthBindings = {
         const userInfo = await userService.details(user.id);
         return userInfo.data;
       } catch (error) {
-        console.warn(error);
+        // console.warn(error);
         return null;
       }
     }
     return null;
-  },
+  }, 
   onError: async (error) => {
     if (error.response?.status === 401) {
       return {

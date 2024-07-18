@@ -2,11 +2,23 @@
 import AboutServiceItem from "@components/app-service/about-service-item.component";
 import ExperienceCard from "@components/experience/experience-card.component";
 import OfficesComponent from "@components/location/location.component";
+import SpinnerList from "@components/shared/spinner-list";
 import DefaultLayout from "@layouts/default-layout";
-import { Spin } from "antd";
+import { serviceAPI } from "@store/api/service_api";
+import { Col, Empty, Spin } from "antd";
+import { motion } from "framer-motion";
 import { Suspense } from "react";
 
 export default function IndexPage() {
+  const {
+    data: services,
+    error,
+    isLoading,
+    isFetching,
+  } = serviceAPI.useFetchAllServicesQuery({
+    searchTitle: "",
+  });
+
   return (
     <Suspense
       fallback={
@@ -81,7 +93,7 @@ export default function IndexPage() {
             ></div>
           </div>
 
-          <div className="content-section">
+          <div className="content-section inner-pages">
             <div className="content-wrapper w-container">
               <div
                 data-w-id="589d8496-d92b-5bc1-f03f-9b851f3cdac8"
@@ -97,14 +109,42 @@ export default function IndexPage() {
                   className="divider-line"
                 ></div>
               </div>
+
+              {error && <h1>Something wrong...</h1>}
+              {(isLoading || isFetching) && (
+                <motion.div
+                  className="box"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <SpinnerList />
+                </motion.div>
+              )}
+
               <div className="w-dyn-list">
-                <div role="list" className="flex w-dyn-items">
-                  {/* Service Item 1 */}
-                  <AboutServiceItem />
-                  <AboutServiceItem />
-                  <AboutServiceItem />
-                  <AboutServiceItem />
-                </div>
+                {services && services.length ? (
+                  <div role="list" className="flex w-dyn-items">
+                    {/* Service Item 1 */}
+                    {services?.map((service) => (
+                      <motion.div
+                        className="box"
+                        initial={{ opacity: 0, y: "-5%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        key={service.id}
+                      >
+                        <AboutServiceItem service={service} />
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <Col span={24}>
+                    <div className="empty-wrap">
+                      <Empty />
+                    </div>
+                  </Col>
+                )}
               </div>
             </div>
           </div>

@@ -10,7 +10,8 @@
     "build": "refine build",
     "start": "refine start",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
-    "refine": "refine"
+    "refine": "refine",
+    "generate": "node generate.js"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -31,6 +32,8 @@
     "@refinedev/nextjs-router": "^6.0.0",
     "@refinedev/simple-rest": "^5.0.1",
     "antd": "^5.0.5",
+    "dayjs": "^1.11.11",
+    "framer-motion": "^11.3.4",
     "hashids": "^2.3.0",
     "js-cookie": "^3.0.5",
     "moment": "^2.30.1",

@@ -1,6 +1,19 @@
+import SpinnerList from "@components/shared/spinner-list";
+import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
+import { productAPI } from "@store/api/product_api";
+import { format } from "@utils/format";
+import { Col, Empty } from "antd";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const ProductSection = () => {
+  const {
+    data: products,
+    error,
+    isLoading,
+    isFetching,
+  } = productAPI.useFetchAllProductsQuery(1);
+
   return (
     <div
       data-w-id="b808df7e-00da-bdc5-baef-8a6390d1003e"
@@ -23,154 +36,103 @@ const ProductSection = () => {
           <h3 className="no-top-margin">Featured Veterinary products</h3>
         </div>
         <div className="w-dyn-list">
-          <div role="list" className="flex center w-dyn-items">
-            <div
-              data-w-id="b808df7e-00da-bdc5-baef-8a6390d10049"
-              style={{
-                opacity: 1,
-                transform:
-                  "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
-                transformStyle: "preserve-3d",
-              }}
-              role="listitem"
-              className="product-item w-dyn-item"
+          {error && <h1>Something wrong...</h1>}
+          {(isLoading || isFetching) && (
+            <motion.div
+              className="box"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              <a
-                data-w-id="b808df7e-00da-bdc5-baef-8a6390d1004a"
-                href="/product/dog-trash-bag"
-                className="preview-block w-inline-block"
-              >
-                <img
-                  src="/images/cute-cats.jpg"
-                  loading="lazy"
-                  sizes="(max-width: 479px) 100vw, (max-width: 991px) 29vw, (max-width: 1279px) 30vw, 364.25px"
-                  alt=""
-                />
-                <div className="discount-badge">-30%</div>
-              </a>
-              <div className="product-text-box">
-                <a href="/product/dog-trash-bag" className="text-link">
-                  Dog Trash Bag
-                </a>
-                <div className="paragraph-box _5-pixels">
-                  <p>Pet Place Webflow eCommerce Template is a modern</p>
-                </div>
-                <div className="price-vertical-flex">
-                  <a
-                    data-wf-sku-bindings='[{"from":"f_price_","to":"innerHTML"}]'
-                    href="/product/dog-trash-bag"
-                    className="link-price"
-                  >
-                    $ 99.00 USD
-                  </a>
-                  <div
-                    data-wf-sku-bindings='[{"from":"f_compare_at_price_7dr10dr","to":"innerHTML"}]'
-                    className="compare-at-price"
-                  >
-                    $ 149.00 USD
-                  </div>
-                </div>
-              </div>
-            </div>
-
+              <SpinnerList />
+            </motion.div>
+          )}
+          {products && products.length ? (
             <div
-              data-w-id="b808df7e-00da-bdc5-baef-8a6390d10049"
-              style={{
-                opacity: 1,
-                transform:
-                  "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
-                transformStyle: "preserve-3d",
-              }}
-              role="listitem"
-              className="product-item w-dyn-item"
+              role="list"
+              className="flex w-dyn-items"
+              style={{ width: "100%" }}
             >
-              <Link
-                data-w-id="b808df7e-00da-bdc5-baef-8a6390d1004a"
-                href="/product/pet-accessories"
-                className="preview-block w-inline-block"
-              >
-                <img
-                  src="/images/dachshund-1519374.jpg"
-                  loading="lazy"
-                  sizes="(max-width: 479px) 100vw, (max-width: 991px) 29vw, (max-width: 1279px) 30vw, 364.25px"
-                  alt=""
-                />
-                <div className="discount-badge">-30%</div>
-              </Link>
-              <div className="product-text-box">
-                <Link href="/product/pet-accessories" className="text-link">
-                  Pet Accessories
-                </Link>
-                <div className="paragraph-box _5-pixels">
-                  <p>Pet Place Webflow eCommerce Template is a modern</p>
-                </div>
-                <div className="price-vertical-flex">
-                  <Link
-                    data-wf-sku-bindings='[{"from":"f_price_","to":"innerHTML"}]'
-                    href="/product/pet-accessories"
-                    className="link-price"
-                  >
-                    $ 99.00 USD
-                  </Link>
-                  <div
-                    data-wf-sku-bindings='[{"from":"f_compare_at_price_7dr10dr","to":"innerHTML"}]'
-                    className="compare-at-price"
-                  >
-                    $ 149.00 USD
+              {/* Product Item 1 */}
+              {products?.map((product) => (
+                <motion.div
+                  className="box"
+                  initial={{ opacity: 0, y: "-5%" }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  key={product.id}
+                >
+                  <div role="list" className="flex center w-dyn-items">
+                    <div
+                      data-w-id="b808df7e-00da-bdc5-baef-8a6390d10049"
+                      style={{
+                        opacity: 1,
+                        transform:
+                          "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                        transformStyle: "preserve-3d",
+                      }}
+                      role="listitem"
+                      className="product-item w-dyn-item"
+                    >
+                      <Link
+                        data-w-id="b808df7e-00da-bdc5-baef-8a6390d1004a"
+                        href={`/store/${product.id}`}
+                        className="preview-block w-inline-block"
+                      >
+                        <img
+                          src={`${API_URL_UPLOADS_PRODUCTS}/${product.productImages[0]}`}
+                          loading="lazy"
+                          sizes="(max-width: 479px) 100vw, (max-width: 991px) 29vw, (max-width: 1279px) 30vw, 364.25px"
+                          alt={product.name}
+                        />
+                        <div className="discount-badge">
+                          -{product.discountPercentage}%
+                        </div>
+                      </Link>
+                      <div className="product-text-box">
+                        <Link
+                          href={`/store/${product.id}`}
+                          className="text-link"
+                        >
+                          {product.name}
+                        </Link>
+                        <div className="paragraph-box _5-pixels">
+                          <p>{product.shortDescription}</p>
+                        </div>
+                        <div className="price-vertical-flex">
+                          <Link
+                            data-wf-sku-bindings='[{"from":"f_price_","to":"innerHTML"}]'
+                            href={`/store/${product.id}`}
+                            className="link-price"
+                          >
+                            {parseFloat(
+                              (
+                                (product.amount *
+                                  (100 - product.discountPercentage)) /
+                                100
+                              ).toString()
+                            ).toFixed(0)}
+                          </Link>
+                          <div
+                            data-wf-sku-bindings='[{"from":"f_compare_at_price_7dr10dr","to":"innerHTML"}]'
+                            className="compare-at-price"
+                          >
+                            {format.number(product.amount) + " XAF"}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </div>
-            {/* Repeat similar structure for other products */}
-            <div
-              data-w-id="b808df7e-00da-bdc5-baef-8a6390d10049"
-              style={{
-                opacity: 1,
-                transform:
-                  "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
-                transformStyle: "preserve-3d",
-              }}
-              role="listitem"
-              className="product-item w-dyn-item"
-            >
-              <Link
-                data-w-id="b808df7e-00da-bdc5-baef-8a6390d1004a"
-                href="/product/pet-accessories"
-                className="preview-block w-inline-block"
-              >
-                <img
-                  src="/images/dog-423398.jpg"
-                  loading="lazy"
-                  sizes="(max-width: 479px) 100vw, (max-width: 991px) 29vw, (max-width: 1279px) 30vw, 364.25px"
-                  alt=""
-                />
-                <div className="discount-badge">-30%</div>
-              </Link>
-              <div className="product-text-box">
-                <Link href="/product/pet-accessories" className="text-link">
-                  Pet Accessories
-                </Link>
-                <div className="paragraph-box _5-pixels">
-                  <p>Pet Place Webflow eCommerce Template is a modern</p>
-                </div>
-                <div className="price-vertical-flex">
-                  <Link
-                    data-wf-sku-bindings='[{"from":"f_price_","to":"innerHTML"}]'
-                    href="/product/pet-accessories"
-                    className="link-price"
-                  >
-                    $ 99.00 USD
-                  </Link>
-                  <div
-                    data-wf-sku-bindings='[{"from":"f_compare_at_price_7dr10dr","to":"innerHTML"}]'
-                    className="compare-at-price"
-                  >
-                    $ 149.00 USD
-                  </div>
-                </div>
+          ) : (
+            <Col span={24}>
+              <div className="empty-wrap">
+                <Empty />
               </div>
-            </div>
-          </div>
+            </Col>
+          )}
         </div>
       </div>
     </div>

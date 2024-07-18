@@ -9,6 +9,20 @@ export const THEME: ThemeConfig = {
   },
 };
 
+export enum STATUS {
+  APPROVED = "APPROVED",
+  PENDING = "PENDING",
+  CANCELED = "CANCELED",
+}
+export const ROLES = {
+  ADMIN: "ADMIN", // post products
+  DOCTOR: "DOCTOR", //review appointments
+  CREATOR: "CREATOR", //posting articles,
+  PETOWNER: "PETOWNER", //or USERS make appointments
+  TRAINER: "TRAINER",
+  STUDENT: "STUDENT",
+};
+
 export enum AVAILABILITY_STATUS {
   IN_STOCK = "IN_STOCK",
   OUT_STOCK = "OUT_STOCK",

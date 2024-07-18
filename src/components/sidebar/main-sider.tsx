@@ -25,7 +25,7 @@ function Sidebar() {
       <Card
         title={
           <div className="cardHeader">
-            <FilterOutlined /> Products Categories
+            <FilterOutlined /> Categories
           </div>
         }
         style={{ borderRadius: 0 }}
@@ -44,7 +44,7 @@ function Sidebar() {
         />
       </Card>
       <Image
-        src={"/images/shopping.svg"}
+        src={"/images/64bc53a158e886d3f50a8cb8_Dog.png"}
         alt="Shopping with us"
         style={{ width: "350px", maxWidth: "80%" }}
       />

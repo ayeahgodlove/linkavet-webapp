@@ -7,6 +7,7 @@ export interface IReview {
   userId: string;
   rating: number;
   comment: string;
+  toggle: boolean;
 }
 
 export const emptyReview: IReview = {
@@ -14,7 +15,8 @@ export const emptyReview: IReview = {
   productId: "",
   userId: "",
   rating: 0,
-  comment: ""
+  comment: "",
+  toggle: false,
 };
 
 export interface IReviewState extends IBaseState {

@@ -3,7 +3,7 @@ import { IResponseBase } from "./response-base.model";
 export interface CartItem {
   id: string;
   name: string;
-  price: number;
+  amount: number;
   quantity: number;
   imageUrl: string;
   total: number;
@@ -18,7 +18,7 @@ export interface CartState {
 export const emptyCartItem: CartItem = {
   id: "",
   name: "",
-  price: 0,
+  amount: 0,
   quantity: 0,
   imageUrl: "",
   total: 0,

@@ -34,7 +34,7 @@ function PageContent(props: IProps) {
       {hasSider && (
         <Sider
           style={siderStyle}
-          width={200}
+          width={180}
           breakpoint={"lg"}
           collapsedWidth={0}
           trigger={null}

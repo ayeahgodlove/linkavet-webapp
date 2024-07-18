@@ -1,29 +1,40 @@
+import { API_URL_UPLOADS_POSTS } from "@constants/api-url";
+import { ICategory } from "@model/category.model";
+import { IPost } from "@model/post";
+import { IUser } from "@model/user.model";
+import { Space, Typography } from "antd";
+import Link from "next/link";
 import React from "react";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { CiCalendarDate, CiFolderOn } from "react-icons/ci";
+import { format } from "@utils/format";
+interface IProp {
+  post: IPost;
+  categories: ICategory[] | undefined;
+  users: IUser[] | undefined;
+}
+const PostItem: React.FC<IProp> = ({ post, categories, users }) => {
+  const categoryDescription = categories?.find((c) => c.id === post.categoryId);
+  const userDescription = users?.find((c) => c.id === post.authorId);
 
-const PostItem = () => {
   return (
     <div role="listitem" className="post-preview-full w-dyn-item">
       <div className="left-blog-posst">
-        <a
-          href="/post/paw-some-nutrition-fueling-your-pets-health"
+        <Link
+          href={`/posts/${post.slug}`}
           className="preview-link-block full-height w-inline-block"
         >
           <img
-            src="https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bd6895491c490b412ad614_Post-bg.jpg"
+            src={`${API_URL_UPLOADS_POSTS}/${post.imageUrl}`}
             loading="lazy"
             width="560"
             sizes="(max-width: 479px) 44vw, (max-width: 991px) 29vw, (max-width: 1279px) 33vw, 408.78125px"
-            alt=""
-            srcSet="
-              https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bd6895491c490b412ad614_Post-bg-p-500.jpg  500w,
-              https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bd6895491c490b412ad614_Post-bg-p-800.jpg  800w,
-              https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bd6895491c490b412ad614_Post-bg.jpg       1073w
-            "
+            alt={post.title}
           />
           <div
             style={{
               backgroundImage:
-                "url('https://assets-global.website-files.com/64bc53263f9cb6f9722de0cd/64bd67e21b90be3b5f841263_cerca-mujer-abrazando-su-perro-mascota%20(3).jpg')",
+                `url("${API_URL_UPLOADS_POSTS}/${post.imageUrl}")`,
             }}
             className="hover-image"
           ></div>
@@ -44,34 +55,38 @@ const PostItem = () => {
               Read more
             </div>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="preview-text-container">
         <div>
-          <a
+          <Link
             style={{ backgroundColor: "#e7ffea", color: "#6fb678" }}
-            href="/post-category/ask-pet-doctor"
+            href={`/posts/category/${post.categoryId}`}
             className="category-link"
           >
-            Ask Pet Doctor
-          </a>
+             <CiFolderOn /> {categoryDescription?.name}
+          </Link>
         </div>
         <div className="preview-link-box">
-          <a
-            href="/post/paw-some-nutrition-fueling-your-pets-health"
-            className="preview-link"
-          >
-            Paw-some Nutrition: Fueling Your Pet's Health
-          </a>
+          <Link href={`/posts/${post.slug}`} className="preview-link">
+            {post.title}
+          </Link>
         </div>
         <div className="preview-link-box">
-          <p className="paragraph-medium">
-            Pet Place is a Webflow Non Code Template for Business like you
-          </p>
+          <p className="paragraph-medium">{post.summary.slice(0, 100) + "..."}</p>
         </div>
         <div className="link-block-box">
-          <div className="mintures-to-read">3 min</div>
+          <div className="mintures-to-read">{post.readTime}</div>
         </div>
+
+        <Space style={{ marginBottom: 5, flexWrap: "wrap" }}>
+          <Typography.Link className="text-secondary">
+            <FaRegCircleUser /> {userDescription?.username}
+          </Typography.Link>
+          <Typography.Text className="text-secondary">
+            <CiCalendarDate /> {format.date(post?.publishedAt)}
+          </Typography.Text>
+        </Space>
       </div>
     </div>
   );

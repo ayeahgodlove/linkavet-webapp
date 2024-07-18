@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Authenticated } from "@refinedev/core";
+import { Authenticated, useIsAuthenticated } from "@refinedev/core";
 import { NavigateToResource } from "@refinedev/nextjs-router";
 import { Card, Col, Row } from "antd";
 import { FcMoneyTransfer, FcSalesPerformance } from "react-icons/fc";
@@ -9,7 +9,6 @@ import { MdOutlineInventory } from "react-icons/md";
 import { RiCustomerService2Line } from "react-icons/ri";
 import RecentOrderList from "@components/dashboard/recent-order";
 import EventCalendar from "@components/event-calendar/event-calendar.component";
-import { IEvent } from "@model/event.model";
 import { eventAPI } from "@store/api/event_api";
 
 export default function IndexPage() {
@@ -18,6 +17,10 @@ export default function IndexPage() {
     isLoading: isLoadingEvent,
     isFetching: isFetchEvent,
   } = eventAPI.useFetchAllEventsQuery(1);
+
+  const { data: item, isSuccess, isLoading, isError } = useIsAuthenticated();
+
+  console.log("item: ", item);
 
   return (
     <div>

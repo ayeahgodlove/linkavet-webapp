@@ -44,6 +44,9 @@ import { lessonReducer } from "./slice/lms/lesson.slice";
 import { courseReducer } from "./slice/lms/course.slice";
 import { commentReducer } from "./slice/comment.slice";
 import { eventAPI } from "./api/event_api";
+import { tagAPI } from "./api/tag_api";
+import { postAPI } from "./api/post_api";
+import { serviceAPI } from "./api/service_api";
 
 // Persist configuration
 const persistConfig = {
@@ -60,6 +63,9 @@ export const rootReducer = combineReducers({
   [paymentAPI.reducerPath]: paymentAPI.reducer,
   [reviewAPI.reducerPath]: reviewAPI.reducer,
   [eventAPI.reducerPath]: eventAPI.reducer,
+  [tagAPI.reducerPath]: tagAPI.reducer,
+  [postAPI.reducerPath]: postAPI.reducer,
+  [serviceAPI.reducerPath]: serviceAPI.reducer,
   cart: cartReducer,
   category: categoryReducer,
   user: userReducer,
@@ -111,6 +117,9 @@ export const store = configureStore({
       productAPI.middleware,
       reviewAPI.middleware,
       eventAPI.middleware,
+      tagAPI.middleware,
+      postAPI.middleware,
+      serviceAPI.middleware,
     ]),
 });
 

@@ -46,7 +46,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
         return {
           id: a.id,
           name: a.name,
-          price: a.price,
+          amount: a.amount,
           quantity: a.qtty,
           imageUrl: a.images[0].url,
           discountPercentage: data.discountPercentage,
@@ -68,7 +68,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
       addToCart({
         id: data.id,
         name: data.name,
-        price: data.price,
+        amount: data.amount,
         quantity: data.qtty,
         imageUrl: data.images[0].url,
         discountPercentage: data.discountPercentage,
@@ -208,7 +208,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                     
                     {parseFloat(
                       (
-                        (data.price * (100 - data.discountPercentage)) /
+                        (data.amount * (100 - data.discountPercentage)) /
                         100
                       ).toString()
                     ).toFixed(0)}
@@ -233,14 +233,10 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       fontSize: "1rem",
                     }}
                   >
-                    {data.price}
+                    {data.amount}
                   </Typography.Text>
                 </div>
                 <div className="productMeta">
-                  <div className="productMetaRow">
-                    <span className="productMetaLeft">Weight</span>
-                    <span className="productMetaRight">{data.weight + "g"}</span>
-                  </div>
                   <div className="productMetaRow">
                     <span className="productMetaLeft">Category</span>
                     <span className="productMetaRight">

@@ -7,11 +7,14 @@ import { IImage } from "./image.model";
 export interface IProduct {
   id: string;
   name: string;
-  price: number;
+  amount: number;
   description: string;
   categoryId: string;
+  shortDescription: string;
+  productImages: string[];
   qtty: number;
-  weight: number;
+  tags: string[];
+
   availabilityStatus: AVAILABILITY_STATUS;
   rating: number;
   discountPercentage: number;
@@ -23,16 +26,18 @@ export interface IProduct {
 export const emptyProduct: IProduct = {
   id: "",
   name: "",
-  price: 0,
+  amount: 0,
   description: "",
   qtty: 0,
-  weight: 0,
   availabilityStatus: AVAILABILITY_STATUS.IN_STOCK,
   rating: 0,
   discountPercentage: 0,
   images: [],
   category: emptyCategory,
-  categoryId: ""
+  categoryId: "",
+  shortDescription: "",
+  productImages: [],
+  tags: [],
 };
 
 export interface IProductState extends IBaseState {

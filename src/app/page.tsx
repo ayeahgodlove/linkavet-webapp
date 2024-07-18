@@ -32,7 +32,7 @@ export default function IndexPage() {
         <AppHero />
         <IntroSection />
         <AboutUs />
-        <ProductSection />
+        <ProductSection /> 
         <TeamSection />
         <ServicesSection />
         <FaqSection />
