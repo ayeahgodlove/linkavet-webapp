@@ -35,7 +35,7 @@ const SpecialtyFormField = () => {
         <Select
           size="large"
           showSearch
-          placeholder="Select Runner Period"
+          placeholder="Select ..."
           optionFilterProp="children"
           onChange={onSearch}
           onSearch={onSearch}

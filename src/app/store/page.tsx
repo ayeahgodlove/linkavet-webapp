@@ -123,8 +123,10 @@ export default function IndexPage() {
                         }}
                         className="hero-subtitle"
                       >
-                        Pets Webflow eCommerce Template is a modern and fresh
-                        approach of an online store.
+                        Browse through a carefully curated collection of
+                        vet-approved products and Elevate your pet's
+                        lifestyle with our premium range of nutrition, grooming
+                        essentials, toys, and wellness products.
                       </p>
                     </div>
                     <div className="hero-button-box _40-pixels">
@@ -172,7 +174,7 @@ export default function IndexPage() {
                 <div className="hero-mini-pic"></div>
                 <div className="curve-text-box">
                   <a href="#" className="mini-title-link">
-                    Call Us Today &nbsp;800-236-789
+                    Call Us Today &nbsp;990-004-450
                   </a>
                 </div>
               </div>
@@ -238,7 +240,11 @@ export default function IndexPage() {
                   </motion.div>
                 )}
                 {products && products.length ? (
-                  <div role="list" className="flex w-dyn-items" style={{ width: "100%"}}>
+                  <div
+                    role="list"
+                    className="flex w-dyn-items"
+                    style={{ width: "100%" }}
+                  >
                     {/* Product Item 1 */}
                     {products?.map((product) => (
                       <motion.div

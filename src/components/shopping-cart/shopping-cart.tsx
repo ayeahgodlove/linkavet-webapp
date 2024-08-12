@@ -1,26 +1,20 @@
 import { Avatar, Badge, Button, List, Popover, Typography } from "antd";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 import { useCart } from "@hook/cart.hook";
+import { CartItem } from "@model/cart-item.model";
+import Link from "next/link";
 
-const ShoppingCart = () => {
-  const { cartItems, addCartItems, removeFromCart } = useCart();
+interface Props {
+  cartCount: number;
+  cartItems: CartItem[];
+}
+const ShoppingCart: React.FC<Props> = ({ cartCount, cartItems }) => {
+  const { removeItem } = useCart();
   const navigator = useRouter();
   const [popovervisible, setPopovervisible] = useState(false);
-
-  useEffect(() => {
-    const cartHistory = JSON.parse(localStorage.getItem("order")!);
-    if (!!cartHistory) {
-      addCartItems([...cartHistory]);
-    }
-  }, [addCartItems]);
-
-  useEffect(() => {
-    if (!!cartItems) localStorage.setItem("order", JSON.stringify(cartItems));
-    else localStorage.setItem("order", "");
-  }, [cartItems]);
 
   const handleCheckoutSubmit = () => {
     navigator.push("/cart");
@@ -29,7 +23,7 @@ const ShoppingCart = () => {
 
   const CartHolder = () => {
     const handleRemoveCartItem = (item: any) => {
-      removeFromCart(item.id);
+      removeItem(item.id);
     };
 
     return (
@@ -49,12 +43,12 @@ const ShoppingCart = () => {
               <List.Item.Meta
                 avatar={
                   <Avatar
-                    src={`${API_URL_UPLOADS_PRODUCTS}/${item.imageUrl}`}
+                    src={`${API_URL_UPLOADS_PRODUCTS}/${item.product.productImages[0]}`}
                     size={"large"}
-                    alt={item.name}
+                    alt={item.product.name}
                   />
                 }
-                title={<a href="/">{item.name}</a>}
+                title={<Link href={`/store/${item.productId}`}>{item.product.name}</Link>}
                 description={
                   <Typography.Text type="danger" strong>
                     {item.quantity * item.discountedPrice}
@@ -95,7 +89,7 @@ const ShoppingCart = () => {
         open={popovervisible}
         onOpenChange={handlePopoverChange}
       >
-        <Badge count={cartItems.length || 0}>
+        <Badge count={cartCount || 0} style={{ color: "#ddd" }}>
           <ShoppingCartOutlined className="shoppingCardIcon" />
         </Badge>
       </Popover>

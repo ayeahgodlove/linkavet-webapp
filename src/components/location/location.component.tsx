@@ -7,7 +7,9 @@ const OfficesComponent = () => {
         <div>
           <div className="heading-box-full">
             <div className="title-regular">Our Offices</div>
-            <h2 className="no-top-margin">Find us everywhere...</h2>
+            <h2 className="no-top-margin">
+              Find at the following locations...
+            </h2>
           </div>
           <div className="bottom-line">
             <div className="flex full-width">
@@ -23,15 +25,9 @@ const OfficesComponent = () => {
                   }}
                 >
                   <img
-                    src="https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c0070c_Bg-1.jpg"
+                    src="/images/francois-germain-w_PQddj2fUs-unsplash.jpg"
                     width="635.5"
                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 53vw, (max-width: 1279px) 54vw, 635.5px"
-                    srcSet="
-                      https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c0070c_Bg-1-p-500.jpeg   500w,
-                      https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c0070c_Bg-1-p-800.jpeg   800w,
-                      https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c0070c_Bg-1-p-1080.jpeg 1080w,
-                      https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c0070c_Bg-1.jpg         1271w
-                    "
                     alt=""
                   />
                   <div className="change-this-image _11">
@@ -51,7 +47,7 @@ const OfficesComponent = () => {
                     <div
                       data-w-id="372ffafb-3ae7-06ce-fb1e-6c3c5203205d"
                       className="contact-column"
-                      style={{ opacity: 0 }}
+                      // style={{ opacity: 0 }}
                     >
                       <div>
                         <div className="contact-icon pin"></div>
@@ -60,12 +56,12 @@ const OfficesComponent = () => {
                         <h5 className="h5">Address</h5>
                         <div>
                           <p>
-                            Evergreen 27 <br />
-                            San Francisco, CA
+                            Sand Pit <br />
+                            Buea, South West Region
+                            {/* <br />
+                            90210 */}
                             <br />
-                            90210
-                            <br />
-                            USA
+                            Cameroon
                           </p>
                         </div>
                       </div>
@@ -73,7 +69,7 @@ const OfficesComponent = () => {
                     <div
                       data-w-id="372ffafb-3ae7-06ce-fb1e-6c3c5203206c"
                       className="contact-column"
-                      style={{ opacity: 0 }}
+                      // style={{ opacity: 0 }}
                     >
                       <div>
                         <div className="contact-icon clock"></div>
@@ -82,13 +78,13 @@ const OfficesComponent = () => {
                         <h5 className="h5">Schedule</h5>
                         <div>
                           <p>
-                            Monday to Friday
+                            Monday to Saturday
                             <br />
-                            9:00 am to 5:00 pm
+                            8:00 am to 5:00 pm
                             <br />
                             <strong>Holidays</strong>
                             <br />
-                            9:00 am to 3:00 pm
+                            8:00 am to 3:00 pm
                           </p>
                         </div>
                       </div>
@@ -110,7 +106,7 @@ const OfficesComponent = () => {
                     <div className="title-regular">Phone</div>
                     <div>
                       <a href="#" className="contact-link">
-                        800-345-678
+                        990-004-450
                       </a>
                     </div>
                   </div>
@@ -127,7 +123,7 @@ const OfficesComponent = () => {
                     <div>Email</div>
                     <div>
                       <a href="#" className="contact-link">
-                        hello@website.com
+                        support@linkavet.com
                       </a>
                     </div>
                   </div>

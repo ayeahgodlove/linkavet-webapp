@@ -1,10 +1,10 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Badge, Button, Form, Input, Popover } from "antd";
+import { Badge, Input, Popover } from "antd";
+import { SearchProps } from "antd/es/input";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function SearchBox() {
-  const [form] = Form.useForm();
   const [popovervisible, setPopovervisible] = useState(false);
   const navigator = useRouter();
 
@@ -12,41 +12,29 @@ function SearchBox() {
     setPopovervisible(newOpen);
   };
 
-  const onFinish = ({ query }: {query: string}) => {
+  const onFinish = ({ query }: { query: string }) => {
     setPopovervisible(false);
     navigator.push(`/products/search?q=${query}`);
   };
 
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
+    console.log(info?.source, value);
+
   const SearchBoxForm = () => {
     return (
-      <Form
-        layout="inline"
-        form={form}
-        onFinish={onFinish}
-        style={{
-          width: "340px",
-          maxWidth: "68vw",
-        }}
-      >
-        <Form.Item name="query">
-          <Input
-            placeholder="iphone, watch, shoes ..."
-            style={{ minWidth: "220px", maxWidth: "45%" }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Search
-          </Button>
-        </Form.Item>
-      </Form>
+      <Input.Search
+        placeholder="accessories, animals, services ..."
+        style={{ width: "100%" }}
+        onSearch={onSearch}
+        enterButton
+        size="large"
+      />
     );
   };
 
   return (
     <Popover
       placement="bottomRight"
-      title={"Searching products"}
       content={<SearchBoxForm />}
       trigger="click"
       open={popovervisible}

@@ -130,8 +130,8 @@ export default function IndexPage() {
                         }}
                         className="hero-subtitle"
                       >
-                        Pets Webflow eCommerce Template is a modern and fresh
-                        approach of an online store.
+                        Your Trusted Partner in Pet Care Discover a World Where
+                        Your Pets are Always a Priority
                       </p>
                     </div>
                     <div className="hero-button-box _40-pixels">
@@ -179,7 +179,7 @@ export default function IndexPage() {
                 <div className="hero-mini-pic"></div>
                 <div className="curve-text-box">
                   <Link href="#" className="mini-title-link">
-                    Call Us Today &nbsp;800-236-789
+                    Call Us Today &nbsp;990-004-450
                   </Link>
                 </div>
               </div>
@@ -298,13 +298,13 @@ export default function IndexPage() {
                         <div>About Us</div>
                       </div>
                       <div className="top-margin">
-                        <a href="#Philosophy" className="title-link-medium">
+                        <a href="/pet-expers" className="title-link-medium">
                           Pet Experts
                         </a>
                         <div className="top-margin _5-pixels">
                           <p>
-                            Top spa resort in the US for 10 years visit us
-                            today.
+                            LinkaVet connects pet owners to thousands of
+                            licenced veterinarians
                           </p>
                         </div>
                       </div>
@@ -380,10 +380,7 @@ export default function IndexPage() {
                           Grooming Care
                         </a>
                         <div className="top-margin _5-pixels">
-                          <p>
-                            Top spa resort in the US for 10 years visit us
-                            today.
-                          </p>
+                          <p>Discover top-notch veterinary care</p>
                         </div>
                       </div>
                     </div>
@@ -459,8 +456,8 @@ export default function IndexPage() {
                         </a>
                         <div className="top-margin _5-pixels">
                           <p>
-                            Top spa resort in the US for 10 years visit us
-                            today.
+                            Have a question, need assistance, or simply want to
+                            reach out?
                           </p>
                         </div>
                       </div>
@@ -496,7 +493,7 @@ export default function IndexPage() {
                 >
                   <div className="relative">
                     <img
-                      src="https://assets-global.website-files.com/5f0dd058e83fdf4ff06e83bf/5f0f1ad39ec309a8f390026f_Bg-1.jpg"
+                      src="/images/mauricio-fanfa-qoUD1YmMZOM-unsplash.jpg"
                       width="635.5"
                       alt=""
                     />
@@ -520,8 +517,8 @@ export default function IndexPage() {
                     </div>
                     <div className="subtile-box">
                       <p>
-                        Feel refreshed, less stressed and more balanced with
-                        over 50 spa treatments and services.
+                        Join us on a journey to redefine pet care. Because at
+                        LinkaVet, we believe every pet deserves the best.
                       </p>
                     </div>
                   </div>
@@ -552,9 +549,7 @@ export default function IndexPage() {
                   <div>
                     <div className="title-semi-bold medium">Vet Doctors</div>
                     <div className="top-margin">
-                      <div>
-                        Taking a spa treatment is the most effective way.
-                      </div>
+                      <div>Your Pet's Wellbeing Starts Here</div>
                     </div>
                   </div>
                 </div>
@@ -593,7 +588,8 @@ export default function IndexPage() {
                     <div className="title-semi-bold medium">Pet Store</div>
                     <div className="top-margin">
                       <div>
-                        Taking a spa treatment is the most effective way.
+                        From essential supplies in our comprehensive e-commerce
+                        store to personalized vet consultations.
                       </div>
                     </div>
                   </div>
@@ -613,7 +609,7 @@ export default function IndexPage() {
                     <div className="title-semi-bold medium">Best Quality</div>
                     <div className="top-margin">
                       <div>
-                        Taking a spa treatment is the most effective way.
+                        Empower, Engage, and Elevate Your Pet Care Experience
                       </div>
                     </div>
                   </div>
@@ -635,7 +631,8 @@ export default function IndexPage() {
                     </div>
                     <div className="top-margin">
                       <div>
-                        Taking a spa treatment is the most effective way.
+                        Your pet's wellbeing is our priority, and we're
+                        dedicated to providing prompt and personalized support.
                       </div>
                     </div>
                   </div>
@@ -655,7 +652,7 @@ export default function IndexPage() {
                     <div className="title-semi-bold medium">Pet products</div>
                     <div className="top-margin">
                       <div>
-                        Taking a spa treatment is the most effective way.
+                        Inquire about our products, or schedule an appointment
                       </div>
                     </div>
                   </div>
@@ -712,7 +709,7 @@ export default function IndexPage() {
                     transition={{ duration: 0.5 }}
                   >
                     <SpinnerList />
-                  </motion.div>
+                  </motion.div> 
                 )}
 
                 {services && services.length ? (

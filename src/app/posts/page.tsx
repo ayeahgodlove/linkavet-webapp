@@ -1,5 +1,6 @@
 "use client";
-import NewsletterForm from "@components/blog/newsletter.component";
+import SideNavigation from "@components/blog/side-post-nav.component";
+import NewsletterForm from "@components/blog/side-post-nav.component";
 import PostItem from "@components/blog/post-item.component";
 import SpinnerList from "@components/shared/spinner-list";
 import DefaultLayout from "@layouts/default-layout";
@@ -99,10 +100,10 @@ export default function IndexPage() {
                                 opacity: 1,
                                 transformStyle: "preserve-3d",
                               }}
-                              href="/posts/we-launch-pet-doctor-webflow-template-this-week"
+                              href="#"
                               className="hero-heading-link"
                             >
-                              We Launch Pet Doctor Webflow Template this Week!
+                              Our Latest Vet Insights
                             </Link>
                           </div>
                           <div style={{ display: "block" }} className="hidden">
@@ -116,8 +117,8 @@ export default function IndexPage() {
                                   opacity: 1,
                                 }}
                               >
-                                Pet Place is a Webflow Non Code Template for
-                                Business like you
+                                Informed Pet Farming: Read Our Latest Veterinary
+                                Insights and Tips
                               </p>
                             </div>
                           </div>
@@ -239,7 +240,7 @@ export default function IndexPage() {
                     </Col>
                   )}
                 </div>
-                <NewsletterForm />
+                <SideNavigation />
               </div>
             </div>
           </div>

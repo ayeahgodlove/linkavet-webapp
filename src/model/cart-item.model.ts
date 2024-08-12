@@ -9,6 +9,10 @@ export interface CartItem {
   total: number;
   discountPercentage: number;
   discountedPrice: number;
+
+  product?: any;
+  user?: any;
+  productId?: string
 }
 
 export interface CartState {
@@ -23,5 +27,5 @@ export const emptyCartItem: CartItem = {
   imageUrl: "",
   total: 0,
   discountPercentage: 0,
-  discountedPrice: 0
+  discountedPrice: 0,
 };

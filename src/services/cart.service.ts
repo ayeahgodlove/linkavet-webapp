@@ -1,28 +1,38 @@
 import { API_URL } from "@constants/api-url";
 import axios from "axios";
 
+import { requestType } from "@services";
+import { CartItem } from "@model/cart-item.model";
+
+export const CartService = {
+  list: (): Promise<any> => requestType.get("/api/carts/items"),
+  create: (productId: string, quantity: number): Promise<CartItem> =>
+    requestType.post(`/api/carts/add`, { productId, quantity }),
+  remove: (itemId: string): Promise<CartItem> =>
+    requestType.del(`/api/carts/remove?itemId=${itemId}`, {}),
+  clear: (): Promise<CartItem> => requestType.del(`/api/carts/clear`, {}),
+};
+
 export const addToCard = async (id: string) => {
   try {
-    const resp = await axios.post(`${API_URL}/carts/add`, {
+    const resp = await axios.post(`${API_URL}/api/carts/add`, {
       userId: "1",
       products: [
         {
           id: id,
-          quantity: 1, 
+          quantity: 1,
         },
       ],
     });
-    console.log("🚀 ~ file: index.js:25 ~ addToCard ~ resp:", resp.data);
     return resp.data;
   } catch (error) {
-    console.log("🚀 ~ file: index.js:28 ~ addToCard ~ error:", error);
     return [];
   }
 };
 
 export const getAllCarts = async () => {
   try {
-    const resp = await axios.get(`${API_URL}/carts`);
+    const resp = await axios.get(`${API_URL}/api/carts/items`);
     console.log("🚀 ~ file: index.js:69 ~ getAllCarts ~ resp:", resp.data);
     return resp.data;
   } catch (error) {

@@ -19,22 +19,12 @@ import { useCart } from "@hook/cart.hook";
 
 const AddToCardButton = ({ item }: { item: IProduct }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { addToCart } = useCart();
+  const { addToCard } = useCart();
 
   const onClick = () => {
     setIsLoading(true);
     message.success(`${item.name} has been added to cart 👌`);
-    addToCart({
-      id: item.id,
-      name: item.name,
-      amount: item.amount,
-      quantity: item.qtty,
-      imageUrl: item.images[0].url,
-      discountPercentage: item.discountPercentage,
-      total: 0,
-      discountedPrice: 0,
-    });
-
+    addToCard(item.id, item.qtty);
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
@@ -127,7 +117,8 @@ const ListProducts = ({ products }: { products: any[] }) => {
                       Price:
                       {parseFloat(
                         (
-                          (product.amount * (100 - product.discountPercentage)) /
+                          (product.amount *
+                            (100 - product.discountPercentage)) /
                           100
                         ).toString()
                       ).toFixed(0)}
@@ -161,7 +152,7 @@ interface ProductProps {
 const Products: React.FC<ProductProps> = ({ category, query }) => {
   const { data: productsByKeyWord } =
     productAPI.useFetchAllProductsByKeyWordQuery(query || "");
-  const { data: productsByCategory } = 
+  const { data: productsByCategory } =
     productAPI.useFetchAllProductsByCategoryQuery(category || "");
   const { data: allProducts } = productAPI.useFetchAllProductsQuery();
 

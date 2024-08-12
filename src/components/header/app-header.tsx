@@ -1,19 +1,74 @@
+// "use client";
 import "./app-header.scss";
 import ShoppingCart from "../shopping-cart/shopping-cart";
 import Link from "next/link";
 import MainMenu from "@components/menu/main-menu";
 import SearchBox from "@components/search-box/search-box";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, ConfigProvider, Space } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import useWindowSize from "@hook/shared/window-resize.hook";
+import { USER_DATA } from "@constants/constant";
+import { CartItem } from "@model/cart-item.model";
+import { CartService } from "@services/cart.service";
+import { io } from "socket.io-client";
+import { useSocket } from "@contexts/socket-provider.context";
 
 function AppHeader() {
   const [visible, setVisible] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   const menuBtnRef = useRef(null);
   const { width } = useWindowSize();
 
+  const data = getData();
+
+  useEffect(() => {
+    CartService.list()
+      .then((res) => {
+        setCartItems(res);
+        setCartCount(res.length);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const socket: any = useSocket();
+
+  useEffect(() => {
+    const handleCartEvent = (data: CartItem[]) => {
+      console.log("Cart Event Received:", data);
+      setCartItems(data); // Update the cartItems state with the received data
+      setCartCount(data.length);
+    };
+
+    if (socket) {
+      socket.on("cart-items", handleCartEvent);
+    }
+  }, [socket]);
+
+  // useEffect(() => {
+  //   // Establish a connection to the server
+  //   const socket = io("http://localhost:8000"); // Adjust the URL if necessary
+
+  //   const handleCartEvent = (data: CartItem[]) => {
+  //     console.log("Cart Event Received:", data);
+  //     setCartItems(data); // Update the cartItems state with the received data
+  //     setCartCount(data.length)
+  //   };
+
+  //   socket.on("cart-items", handleCartEvent);
+
+  //   socket.on("disconnect", () => {
+  //     console.log("Disconnected from the server");
+  //   });
+
+  //   return () => {
+  //     socket.off("cart-items", handleCartEvent);
+  //     socket.disconnect();
+  //   };
+  // }, []);
   return (
     <>
       <ConfigProvider
@@ -63,9 +118,11 @@ function AppHeader() {
           </div>
 
           <Space size={"middle"}>
-            <div className="shoppingCart">
-              <ShoppingCart />
-            </div>
+            {data && (
+              <div className="shoppingCart">
+                <ShoppingCart cartItems={cartItems} cartCount={cartCount} />
+              </div>
+            )}
             <Button
               className="menuBtn"
               type="dashed"
@@ -81,3 +138,12 @@ function AppHeader() {
 }
 
 export default AppHeader;
+function getData() {
+  let user = null;
+
+  if (typeof window !== "undefined") {
+    user = JSON.parse(localStorage.getItem(USER_DATA)!);
+  }
+
+  return user;
+}

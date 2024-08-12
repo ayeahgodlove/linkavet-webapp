@@ -23,8 +23,6 @@ interface Props {
 const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
   const pathname = usePathname();
 
-  console.log("pathname: ", pathname)
-
   const menuMobile = [
     {
       label: (
@@ -77,16 +75,16 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       icon: <MdOutlineArticle size={21} />,
       className: `nav-link link-active`,
     },
-    {
-      label: (
-        <Link href="/courses" style={{ padding: 0 }}>
-          Courses
-        </Link>
-      ),
-      key: "courses",
-      icon: <MdOutlineLibraryBooks size={21} />,
-      className: `nav-link link-active`,
-    },
+    // {
+    //   label: (
+    //     <Link href="/courses" style={{ padding: 0 }}>
+    //       Courses
+    //     </Link>
+    //   ),
+    //   key: "courses",
+    //   icon: <MdOutlineLibraryBooks size={21} />,
+    //   className: `nav-link link-active`,
+    // },
     {
       label: (
         <Link href="/contact-us" style={{ padding: 0 }}>
@@ -156,15 +154,15 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       key: "posts",
       className: `nav-link link-active`,
     },
-    {
-      label: (
-        <Link href="/courses" style={{ padding: 0 }}>
-          Courses
-        </Link>
-      ),
-      key: "courses",
-      className: `nav-link link-active`,
-    },
+    // {
+    //   label: (
+    //     <Link href="/courses" style={{ padding: 0 }}>
+    //       Courses
+    //     </Link>
+    //   ),
+    //   key: "courses",
+    //   className: `nav-link link-active`,
+    // },
     {
       label: (
         <Link href="/contact-us" style={{ padding: 0 }}>

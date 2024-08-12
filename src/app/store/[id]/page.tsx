@@ -1,14 +1,32 @@
 "use client";
 import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
+import { useCart } from "@hook/cart.hook";
 import DefaultLayout from "@layouts/default-layout";
+import { useIsAuthenticated } from "@refinedev/core";
 import { productAPI } from "@store/api/product_api";
 import { format } from "@utils/format";
-import { Col, Row, Skeleton, Space, Spin } from "antd";
+import {
+    Alert,
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  notification,
+  Row,
+  Skeleton,
+  Space,
+  Spin,
+} from "antd";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import React, { Suspense, useCallback } from "react";
 
 export default function IndexPage({ params }: { params: { id: string } }) {
+  const [api, contextHolder] = notification.useNotification();
+  const { data: item, isSuccess, isError } = useIsAuthenticated();
   const key = params.id;
+
+  console.log("isSuccess: ", isSuccess, key);
 
   const {
     data: product,
@@ -16,6 +34,42 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     isFetching,
   } = productAPI.useGetSingleProductQuery(key);
 
+  const { addToCard } = useCart();
+
+  const onAddToCart = useCallback(
+    async (values: any) => {
+      debugger
+      console.log("values: ", JSON.stringify(values))
+      if (item?.authenticated) {
+        await addToCard(product ? product.id : "", values.quantity);
+      } else {
+        openNotification();
+      }
+    },
+    [addToCard]
+  );
+
+  const openNotification = () => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Space>
+        <Button type="link" size="small" onClick={() => api.destroy()}>
+          Destroy All
+        </Button>
+        <Button type="primary" size="small" onClick={() => api.destroy(key)}>
+          Confirm
+        </Button>
+      </Space>
+    );
+    api.open({
+      message: "Notification Title",
+      description:
+        'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
+      btn,
+      key,
+      onClose: close,
+    });
+  };
   return (
     <>
       <Suspense
@@ -31,19 +85,20 @@ export default function IndexPage({ params }: { params: { id: string } }) {
           />
         }
       >
+        {contextHolder}
         <DefaultLayout>
           <div id="Intro" className="content-section product-page">
             <div className="content-wrapper w-container">
               <div>
-                <a href="/" className="breadcrumb-link">
+                <Link href="/" className="breadcrumb-link">
                   Home
-                </a>
+                </Link>
                 <div className="breadcrumb">&gt;</div>
-                <a href="/store" className="breadcrumb-link">
+                <Link href="/store" className="breadcrumb-link">
                   Store
-                </a>
+                </Link>
                 <div className="breadcrumb">&gt;</div>
-                <div className="breadcrumb-text">Dog Trash Bag</div>
+                <div className="breadcrumb-text">{product?.name}</div>
               </div>
               {isLoading || isFetching || product === undefined ? (
                 <Row gutter={[8, 16]} wrap>
@@ -88,7 +143,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       </div>
                       <div className="productMeta">
                         <Skeleton
-                          paragraph={{
+                          paragraph={{ 
                             rows: 3,
                           }}
                           active
@@ -126,9 +181,9 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                             alt={product.name}
                             data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_main_image_4dr%22%2C%22to%22%3A%22src%22%7D%5D"
                             loading="lazy"
-                            style={{ 
-                                width: "100%",
-                                marginBottom: "20px"
+                            style={{
+                              width: "100%",
+                              marginBottom: "20px",
                             }}
                           />
                         </div>
@@ -164,41 +219,44 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                         </div>
                         <div className="top-margin">
                           <div>
-                            <form
-                              data-node-type="commerce-add-to-cart-form"
-                              data-commerce-sku-id="64bc73e877b71a930377af43"
-                              data-loading-text="Adding to cart..."
-                              data-commerce-product-id="64bc73e84bea106fb5f3175d"
+                            <Form
                               className="w-commerce-commerceaddtocartform"
+                              onFinish={onAddToCart}
+                              layout="horizontal"
                             >
-                              <div className="quantity-input">
-                                <label
-                                  htmlFor="quantity-0c85752a420946ff050b6d3a1d771aa"
-                                  className="field-label"
-                                >
-                                  Quantity
-                                </label>
-                                <input
+                              <Form.Item
+                                label={"Quantity"}
+                                name={"quantity"}
+                                className="field-label"
+                              >
+                                <InputNumber
+                                  size="large"
                                   type="number"
                                   pattern="^[0-9]+$"
                                   inputMode="numeric"
-                                  id="quantity-0c85752a420946ff050b6d3a1d771aa7"
-                                  name="commerce-add-to-cart-quantity-input"
                                   min={1}
                                   className="w-commerce-commerceaddtocartquantityinput quantity-box"
                                   defaultValue={1}
+                                  style={{
+                                    textAlign: "right",
+                                    width: "100%",
+                                    textAlignLast: "right",
+                                    padding: "0 1rem",
+                                  }}
                                 />
-                              </div>
-                              <input
-                                type="submit"
+                              </Form.Item>
+                              <Button
+                                type="primary"
+                                htmlType="submit"
                                 data-node-type="commerce-add-to-cart-button"
                                 data-loading-text="Adding to cart..."
                                 aria-busy="false"
                                 aria-haspopup="dialog"
                                 className="w-commerce-commerceaddtocartbutton add-to-cart-button"
-                                value="Add to Cart"
-                              />
-                            </form>
+                              >
+                                Add to Cart
+                              </Button>
+                            </Form>
                             <div
                               style={{ display: "none" }}
                               className="w-commerce-commerceaddtocartoutofstock out-of-stock"

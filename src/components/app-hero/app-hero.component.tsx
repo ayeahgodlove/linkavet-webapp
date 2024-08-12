@@ -3,7 +3,6 @@ import React from "react";
 import Link from "next/link";
 
 const AppHero = () => {
-
   return (
     <>
       <div id="hero" className="hero-section">
@@ -101,8 +100,8 @@ const AppHero = () => {
                   }}
                   className="hero-subtitle"
                 >
-                  Pets Webflow eCommerce Template is a modern and fresh approach
-                  of an online store.
+                  Comprehensive Veterinary Services and Premium Vet Products for
+                  Your Furry Friends and Farms
                 </p>
                 <div className="hero-button-box">
                   <Link
@@ -155,7 +154,7 @@ const AppHero = () => {
           <div className="hero-mini-pic"></div>
           <div className="curve-text-box">
             <Link href="#" className="mini-title-link">
-              Call Us Today &nbsp;800-236-789
+              Call Us Today &nbsp;990-004-450
             </Link>
           </div>
         </div>

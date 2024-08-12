@@ -3781,7 +3781,7 @@ blockquote {
 
 .content-section.pricing {
     background-color: var(--bg-5);
-    padding-top: 80px; 
+    padding-top: 80px;
 }
 
 .content-section.team-section {
@@ -4016,7 +4016,7 @@ blockquote {
     position: relative;
 }
 
-.change-this-image {
+/* .change-this-image {
     background-image: url("https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg");
     background-position: 50%;
     background-repeat: no-repeat;
@@ -4063,7 +4063,7 @@ blockquote {
     background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc5a2310876e0aae6780e6_Insta-3.jpg");
 }
 
-.change-this-image._1 { 
+.change-this-image._1 {
 
     background-image: url("../../public/images/gulf_breeze_animal_hospital.jpg");
 }
@@ -4123,7 +4123,7 @@ blockquote {
 
 .change-this-image._11 {
     background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bf116f4176fe2fb1c00717_1508%20(1).jpg");
-}
+} */
 
 .preloader {
     z-index: 2147483647;
@@ -5145,7 +5145,7 @@ blockquote {
     z-index: 1;
     width: 500px;
     height: 66px;
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc5f78e3df2ded5dd0c63c_Curve.png");
+    background-image: url("../../public/images/64bc5f78e3df2ded5dd0c63c_Curve.png");
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 464px;
@@ -5868,27 +5868,27 @@ blockquote {
 }
 
 .mini-feature-blue._1 {
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc53a22c9c6b8f88de21e5_Icon.png");
+    background-image: url("../../public/icons/64bc53a22c9c6b8f88de21e5_Icon.png");
     background-size: 43px;
 }
 
 .mini-feature-blue._2 {
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc53a26430fa15b0c79177_Icon-2.png");
+    background-image: url("../../public/icons/64bc53a26430fa15b0c79177_Icon-2.png");
     background-size: 36px;
 }
 
 .mini-feature-blue._3 {
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc53a2cc874d4a3f8e3b95_Icon-3.png");
+    background-image: url("../../public/icons/64bc53a2cc874d4a3f8e3b95_Icon-3.png");
     background-size: 43px;
 }
 
 .mini-feature-blue._4 {
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bd5e3efbdbe6e05f6d2828_Check.png");
+    background-image: url("../../public/icons/64bd5e3efbdbe6e05f6d2828_Check.png");
     background-size: 38px;
 }
 
 .mini-feature-blue._5 {
-    background-image: url("https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc53a22c9c6b8f88de21fa_Icon-4.png");
+    background-image: url("../../public/icons/64bc53a22c9c6b8f88de21fa_Icon-4.png");
     background-size: 43px;
 }
 
@@ -6687,22 +6687,6 @@ blockquote {
     justify-content: flex-end;
 }
 
-.quantity-input {
-    height: 35px;
-    border-bottom: 1px solid #bcc6d0;
-    align-items: flex-end;
-    margin-bottom: 15px;
-    padding-bottom: 3px;
-    padding-left: 11px;
-    font-size: 13px;
-    font-weight: 400;
-    display: flex;
-}
-
-.quantity-input:hover {
-    border-bottom-color: #1a8ef7;
-}
-
 .accordion-box {
     border-bottom: 1px solid var(--lines);
     margin-bottom: 8px;
@@ -6783,11 +6767,12 @@ blockquote {
 
 .quantity-box {
     width: 100%;
-    height: 35px;
     text-align: right;
     background-color: rgba(0, 0, 0, 0);
     border-style: none;
     flex: 1;
+    justify-content: space-between;
+    align-items: first baseline;
     margin-bottom: 0;
     padding-bottom: 0;
     padding-right: 0;

@@ -5,7 +5,7 @@ import { ColorModeContext } from "@contexts/color-mode";
 import { IReview } from "@model/review.model";
 import type { RefineThemedLayoutV2HeaderProps } from "@refinedev/antd";
 import { useGetIdentity } from "@refinedev/core";
-import { getSingleCart } from "@services/mock-endpoints";
+import { getSingleCart } from "@services/cart.service";
 import { reviewAPI } from "@store/api/review_api";
 import {
   Layout as AntdLayout,

@@ -1,6 +1,6 @@
 import { DevtoolsProvider } from "@providers/devtools";
 import { useNotificationProvider } from "@refinedev/antd";
-import { CanParams, CanReturnType, Refine } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 import { Metadata } from "next";
@@ -17,10 +17,7 @@ import ClientProvider from "@contexts/provider";
 import "../styles/main.scss";
 import "../styles/app.css";
 import { useDashboardMenu } from "@utils/dashboard-menus";
-import {
-  accessControlProviderQuery,
-  accessControlProviderV2,
-} from "@utils/access-control";
+import { SocketProvider } from "@contexts/socket-provider.context";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -41,10 +38,6 @@ export default async function RootLayout({
   const data = await getData();
   const { dashboardMenus, filterMenuItemsByRole } = useDashboardMenu();
   const userRoles = data.user ? data.user?.roles.map((ur: any) => ur.name) : [];
-  // const { can } = accessControlProviderQuery(
-  //   data ? data.user?.roles.map((ur: any) => ur.name) : [],
-  //   dashboardMenus
-  // );
 
   return (
     <html lang="en">
@@ -62,29 +55,31 @@ export default async function RootLayout({
             <AntdRegistry>
               <ClientProvider>
                 <ColorModeContextProvider defaultMode={defaultMode}>
-                  <DevtoolsProvider>
-                    <Refine
-                      routerProvider={routerProvider}
-                      dataProvider={dataProvider}
-                      notificationProvider={useNotificationProvider}
-                      authProvider={authProvider}
-                      resources={filterMenuItemsByRole(
-                        dashboardMenus,
-                        userRoles
-                      )}
-                      options={{
-                        syncWithLocation: true,
-                        warnWhenUnsavedChanges: true,
-                        useNewQueryKeys: true,
-                        projectId: "JVzy3N-QCyo8k-c3ejgO",
-                        breadcrumb: true,
-                        liveMode: "auto",
-                      }}
-                    >
-                      {children}
-                      <RefineKbar />
-                    </Refine>
-                  </DevtoolsProvider>
+                  <SocketProvider>
+                    <DevtoolsProvider>
+                      <Refine
+                        routerProvider={routerProvider}
+                        dataProvider={dataProvider}
+                        notificationProvider={useNotificationProvider}
+                        authProvider={authProvider}
+                        resources={filterMenuItemsByRole(
+                          dashboardMenus,
+                          userRoles
+                        )}
+                        options={{
+                          syncWithLocation: true,
+                          warnWhenUnsavedChanges: true,
+                          useNewQueryKeys: true,
+                          projectId: "JVzy3N-QCyo8k-c3ejgO",
+                          breadcrumb: true,
+                          liveMode: "auto",
+                        }}
+                      >
+                        {children}
+                        <RefineKbar />
+                      </Refine>
+                    </DevtoolsProvider>
+                  </SocketProvider>
                 </ColorModeContextProvider>
               </ClientProvider>
             </AntdRegistry>

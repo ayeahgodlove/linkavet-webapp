@@ -32,6 +32,7 @@ import { SiAmazonsimpleemailservice, SiGoogleclassroom } from "react-icons/si";
 import { BiSolidDashboard } from "react-icons/bi";
 import { TfiGallery } from "react-icons/tfi";
 import { ROLES } from "@constants/constant";
+import { FaCircleQuestion } from "react-icons/fa6";
 
 export const useDashboardMenu = () => {
   function filterMenuItemsByRole(items: any["items"], userRoles: string[]) {
@@ -127,6 +128,20 @@ export const useDashboardMenu = () => {
       icon: <RiUserStarFill />,
       roles: [ROLES.ADMIN],
     },
+    {
+      name: "faqs",
+      list: "/dashboard/faqs",
+      create: "/dashboard/faqs/create",
+      edit: "/dashboard/faqs/edit/:id",
+      show: "/dashboard/faqs/show/:id",
+      // parentName: "settings",
+      meta: {
+        canDelete: true,
+        // parent: "settings",
+      },
+      icon: <FaCircleQuestion />,
+      roles: [ROLES.ADMIN],
+    },
 
     // blogging
     {
@@ -175,19 +190,19 @@ export const useDashboardMenu = () => {
       icon: <SiAmazonsimpleemailservice />,
       roles: [ROLES.ADMIN, ROLES.TRAINER, ROLES.STUDENT],
     },
-    {
-      name: "courses",
-      list: "/dashboard/lms/courses",
-      create: "/dashboard/lms/courses/create",
-      edit: "/dashboard/lms/courses/edit/:id",
-      show: "/dashboard/lms/courses/show/:id",
-      meta: {
-        canDelete: true,
-        parent: "lms",
-      },
-      icon: <MdOutlineLibraryBooks />,
-      roles: [ROLES.ADMIN, ROLES.TRAINER, ROLES.STUDENT],
-    },
+    // {
+    //   name: "courses",
+    //   list: "/dashboard/lms/courses",
+    //   create: "/dashboard/lms/courses/create",
+    //   edit: "/dashboard/lms/courses/edit/:id",
+    //   show: "/dashboard/lms/courses/show/:id",
+    //   meta: {
+    //     canDelete: true,
+    //     parent: "lms",
+    //   },
+    //   icon: <MdOutlineLibraryBooks />,
+    //   roles: [ROLES.ADMIN, ROLES.TRAINER, ROLES.STUDENT],
+    // },
     {
       name: "enrollments",
       list: "/dashboard/lms/enrollments",

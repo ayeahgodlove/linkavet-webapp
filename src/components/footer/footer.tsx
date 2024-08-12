@@ -42,15 +42,15 @@ export const AppFooter: React.FC<Props> = ({ logoPath }) => {
           </div>
           <div className={styles.content_group}>
             <h4>Discover</h4>
-            <Link href="/our_services">Services</Link>
-            <Link href="/products">Products</Link>
-            <Link href="/courses">Courses</Link>
-            <Link href="/about_us">About</Link>
+            <Link href="/services">Services</Link>
+            <Link href="/store">Products</Link>
+            {/* <Link href="/courses">Courses</Link> */}
+            <Link href="/about-us">About</Link>
           </div>
           <div className={styles.content_group}>
             <h4>Info</h4>
             <Link href="/posts">Blog Posts</Link>
-            <Link href="/contact_us">Contact us</Link>
+            <Link href="/contact-us">Contact us</Link>
             <Link href="/faqs">FAQs</Link>
           </div>
           <div className={styles.content_group_waitlist}>

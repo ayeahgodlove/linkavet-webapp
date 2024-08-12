@@ -42,8 +42,6 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
     <Spin size="large" style={{ height: "65vh", width: "100%" }} />;
   }
 
-  console.log("test: ", categories, users, post);
-
   return (
     <Suspense
       fallback={

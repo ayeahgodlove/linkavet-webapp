@@ -50,8 +50,8 @@ const AboutUs = () => {
               </div>
               <div>
                 <p>
-                  We take care of risk and compliance headaches, so you don’t
-                  have to — including transaction monitoring, merchant KYC
+                  Comprehensive health check-ups to ensure your pet is in the
+                  best condition.
                 </p>
               </div>
             </div>
@@ -66,8 +66,8 @@ const AboutUs = () => {
               </div>
               <div>
                 <p>
-                  We take care of risk and compliance headaches, so you don’t
-                  have to — including transaction monitoring, merchant KYC
+                  Stay up-to-date with vaccinations to protect your pet from
+                  common diseases.
                 </p>
               </div>
             </div>
@@ -116,8 +116,9 @@ const AboutUs = () => {
               </div>
               <div>
                 <p>
-                  We take care of risk and compliance headaches, so you don’t
-                  have to — including transaction monitoring, merchant KYC
+                  Specialized care for specific conditions, such as dermatology,
+                  ophthalmology, and internal medicine, provided by our skilled
+                  team of specialists
                 </p>
               </div>
             </div>

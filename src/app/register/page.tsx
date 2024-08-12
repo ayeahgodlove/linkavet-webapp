@@ -19,7 +19,7 @@ export default async function Register() {
         <>
           <Link href="/">
             <Image
-              src={`/honeyman.png`}
+              src={`/logo/logo-2-removebg-preview.png`}
               height={80}
               width={100}
               quality={100}

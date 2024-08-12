@@ -11,10 +11,22 @@ export const eventAPI = createApi({
   endpoints: (build) => ({
     getSingleEvent: build.query<IEvent, string>({
       query: (eventId) => `/events/${eventId}`,
+      transformResponse: (response: any) => ({
+        ...response,
+        createdAt: new Date(response.createdAt).toISOString(), // Ensure createdAt is a string
+      }),
       providesTags: (result, error, id) => [{ type: "Event", id }],
     }),
     fetchAllEvents: build.query<IEvent[], number | void>({
       query: (page = 1) => `/events?page=${page}`,
+      transformResponse: (response: any[]) => {
+        // Ensure each category's createdAt field is an ISO string
+        const transformedCategories = response.map((category: any) => ({
+          ...category,
+          createdAt: new Date(category.createdAt).toISOString(), // Convert date to ISO string
+        }));
+        return transformedCategories;
+      },
       providesTags: (result) =>
         result
           ? [

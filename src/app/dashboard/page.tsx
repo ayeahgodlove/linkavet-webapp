@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Authenticated, useIsAuthenticated } from "@refinedev/core";
+import { Authenticated } from "@refinedev/core";
 import { NavigateToResource } from "@refinedev/nextjs-router";
 import { Card, Col, Row } from "antd";
 import { FcMoneyTransfer, FcSalesPerformance } from "react-icons/fc";
@@ -17,10 +17,6 @@ export default function IndexPage() {
     isLoading: isLoadingEvent,
     isFetching: isFetchEvent,
   } = eventAPI.useFetchAllEventsQuery(1);
-
-  const { data: item, isSuccess, isLoading, isError } = useIsAuthenticated();
-
-  console.log("item: ", item);
 
   return (
     <div>

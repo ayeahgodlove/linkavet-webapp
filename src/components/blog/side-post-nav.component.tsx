@@ -1,74 +1,8 @@
 import React from "react";
 
-const NewsletterForm = () => {
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    // Handle form submission logic here
-  };
-
+const SideNavigation = () => {
   return (
     <div className="blog-side-right">
-      <h4 className="blog-side-title no-top-margin">Newsletter</h4>
-      <div className="top-margin w-form">
-        <form
-          method="get"
-          name="wf-form-Newsletter-Form"
-          data-name="Newsletter Form"
-          id="wf-form-Newsletter-Form"
-          aria-label="Newsletter Form"
-          onSubmit={handleSubmit}
-        >
-          <input
-            className="text-field-input w-input"
-            maxLength={256}
-            name="name"
-            data-name="Name"
-            placeholder="Your Name"
-            type="text"
-            id="name"
-            required
-          />
-          <input
-            className="text-field-input w-input"
-            maxLength={256}
-            name="Email"
-            data-name="Email"
-            placeholder="Your Email"
-            type="email"
-            id="Email"
-            required
-          />
-          <input
-            type="submit"
-            className="rounded-fill-button w-button"
-            value="Submit"
-            data-wait="Please wait..."
-          />
-        </form>
-        <div
-          className="success-message w-form-done"
-          tabIndex={-1}
-          role="region"
-          aria-label="Newsletter Form success"
-        >
-          <img
-            src="https://assets-global.website-files.com/64bc51e851d39e9358ee467b/64bc57ecb9c30f671933640a_comment%20(1).png"
-            width="35"
-            alt=""
-          />
-          <div className="top-margin">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-        </div>
-        <div
-          className="error-message w-form-fail"
-          tabIndex={-1}
-          role="region"
-          aria-label="Newsletter Form failure"
-        >
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
-      </div>
       <div className="top-margin _40-pixels">
         <h4 className="blog-side-title">Find us</h4>
         <div className="social-icons">
@@ -122,7 +56,7 @@ const NewsletterForm = () => {
           </div>
         </div>
       </div>
-      <div className="top-margin _40-pixels">
+      {/* <div className="top-margin _40-pixels">
         <h4 className="blog-side-title">Featured</h4>
         <div className="w-dyn-list">
           <div role="list" className="flex w-dyn-items">
@@ -171,7 +105,7 @@ const NewsletterForm = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="top-margin _40-pixels">
         <div className="blog-side-title">Category</div>
         <div className="w-dyn-list">
@@ -193,4 +127,4 @@ const NewsletterForm = () => {
   );
 };
 
-export default NewsletterForm;
+export default SideNavigation;
