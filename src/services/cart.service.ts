@@ -9,7 +9,7 @@ export const CartService = {
   create: (productId: string, quantity: number): Promise<CartItem> =>
     requestType.post(`/api/carts/add`, { productId, quantity }),
   remove: (itemId: string): Promise<CartItem> =>
-    requestType.del(`/api/carts/remove?itemId=${itemId}`, {}),
+    requestType.del(`/api/carts/remove/${itemId}`, {}),
   clear: (): Promise<CartItem> => requestType.del(`/api/carts/clear`, {}),
 };
 

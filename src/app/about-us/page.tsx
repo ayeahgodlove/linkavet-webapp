@@ -549,7 +549,7 @@ export default function IndexPage() {
                   <div>
                     <div className="title-semi-bold medium">Vet Doctors</div>
                     <div className="top-margin">
-                      <div>Your Pet's Wellbeing Starts Here</div>
+                      <div>Your Pet&apos;s Wellbeing Starts Here</div>
                     </div>
                   </div>
                 </div>
@@ -631,7 +631,7 @@ export default function IndexPage() {
                     </div>
                     <div className="top-margin">
                       <div>
-                        Your pet's wellbeing is our priority, and we're
+                        Your pet&apos;s wellbeing is our priority, and we&apos;re
                         dedicated to providing prompt and personalized support.
                       </div>
                     </div>

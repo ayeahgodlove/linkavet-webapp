@@ -36,7 +36,6 @@ const useEvent = () => {
   // };
 
   const addEvent = async (event: IEvent) => {
-    debugger;
     return await EventService.create(event)
       .then((eventResponse) => {
         dispatch(addEventSuccess(eventResponse.data));

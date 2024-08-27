@@ -28,6 +28,12 @@ import { postAPI } from "./api/post_api";
 import { serviceAPI } from "./api/service_api";
 import { faqAPI } from "./api/faq_api";
 import { contactAPI } from "./api/contact_api";
+import { paymentMethodReducer } from "./slice/payment-method.slice";
+import { initTransactionReducer } from "./slice/init-transaction.slice";
+import { bannerReducer } from "./slice/banner.slice";
+import { commentReducer } from "./slice/comment.slice";
+import { contactReducer } from "./slice/contact.slice";
+import { documentReducer } from "./slice/document.slice";
 
 // Persist configuration
 const persistConfig = {
@@ -55,6 +61,12 @@ export const rootReducer = combineReducers({
   tag: tagReducer,
   // roles
   event: eventReducer,
+  paymentMethod: paymentMethodReducer,
+  initTransaction: initTransactionReducer,
+  banner: bannerReducer,
+  comment: commentReducer,
+  contact: contactReducer,
+  document: documentReducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

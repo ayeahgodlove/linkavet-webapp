@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { useRole } from "./role.hook";
-import { useUserRole } from "./user-role.hook";
 import { RootState } from "@store/store";
 import { emptyUser, IUser } from "@model/user.model";
 import { setUser } from "@store/slice/user.slice";
@@ -26,24 +24,6 @@ const useUser = () => {
     return user;
   };
 
-  const { roles } = useRole();
-  const { userRoles } = useUserRole();
-  function getUsersByRole(roleName: string) {
-    // Find the role id corresponding to the given role name
-    const roleId = roles.find((role) => role.name === roleName)?.id;
-
-    if (roleId) {
-      const usersWithRole = userRoles
-        .filter((userRole) => userRole.roleId === roleId)
-        .map((userRole) => users.find((user) => user.id === userRole.userId));
-
-      return usersWithRole;
-    }
-    // Filter users based on the roleId
-
-    return [];
-  }
-
   const userCount = users.length;
   useEffect(() => {
     // loadUsers();
@@ -54,7 +34,6 @@ const useUser = () => {
     users,
     setUser,
     getUser,
-    getUsersByRole,
     userCount,
   };
 };

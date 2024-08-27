@@ -8,7 +8,10 @@ import {
   Form,
   Input,
   InputNumber,
+  Radio,
+  RadioChangeEvent,
   Row,
+  Space,
   Spin,
   Table,
   Typography,
@@ -26,18 +29,99 @@ import { CartItem } from "@model/cart-item.model";
 import { format } from "@utils/format";
 import Image from "next/image";
 import { useSocket } from "@contexts/socket-provider.context";
-import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
+import { API_URL_UPLOADS_PRODUCTS, APP_URL } from "@constants/api-url";
+import { OrderService } from "@services/order.service";
+import { emptyOrder, IOrder } from "@model/order.model";
+import { generateOrderNumber } from "@utils/order-no";
+import { usePaymentMethod } from "@hook/payment-method.hook";
+import { ProcessPaymentService } from "@services/process-payment.service";
+import { useInitTransaction } from "@hook/init-transaction.hook";
 
 interface ICheckoutBtn {
   onFinish: () => void;
+  cartItems: CartItem[];
 }
-const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish }) => {
+const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish, cartItems }) => {
   const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState(false);
-  const onConfirmOrder = (data: any) => {
-    console.log("🚀 ~ file: index.js:216 ~ onConfirmOrder ~ data:", data);
-    setCheckoutDrawerOpen(false);
-    onFinish();
+  const [method, setMethod] = useState("MOMO");
+  const { setPaymentMethod } = usePaymentMethod();
+  const { setInitTransaction } = useInitTransaction();
+  const [orderId, setOrderId] = useState<any>(null);
+  const navigator = useRouter();
+
+  const onChange = (event: RadioChangeEvent) => {
+    event.preventDefault();
+    setMethod(event.target.value);
+    setPaymentMethod(event.target.value);
   };
+
+  const total = cartItems.reduce((prev, curr) => {
+    return prev + curr.total;
+  }, 0);
+
+  const discountPrice = cartItems.reduce((prev, curr) => {
+    return prev + curr.discountedPrice;
+  }, 0);
+
+  const totalQtty = cartItems.reduce((prev, curr) => {
+    return prev + curr.quantity;
+  }, 0);
+
+  const onConfirmOrder = async (data: any) => {
+    const obj: any = {
+      ...emptyOrder,
+      orderNo: generateOrderNumber(),
+      products: cartItems.map((mp) => {
+        return {
+          productId: mp.productId,
+          qtty: mp.quantity,
+          amount: mp.amount,
+        };
+      }),
+      status: "ORDERED",
+      totalAmount: total - discountPrice,
+      totalQtty: totalQtty,
+      address: data.address,
+      cellPhone: data.telephone,
+      email: data.email,
+      username: data.username,
+    };
+    try {
+      const response = await OrderService.create(obj);
+
+      if (response.success) {
+        setCheckoutDrawerOpen(false);
+        onFinish();
+        message.success("Placing your order!");
+        navigator.push("/");
+        // set orderId
+        setOrderId(response.data.id);
+      }
+      return response;
+    } catch (error) {
+      message.error("An error occured!");
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    const initPayment = async () => {
+      if (orderId) {
+        try {
+          const transaction = await ProcessPaymentService.initPayment({
+            amount: 50,
+            description: "payment for your order",
+            returnUrl: `${APP_URL}`,
+          });
+          setInitTransaction(transaction);
+        } catch (error) {
+          console.error("Payment initialization failed:", error);
+        }
+      }
+    };
+
+    initPayment();
+  }, [method, orderId]);
 
   return (
     <>
@@ -56,48 +140,53 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish }) => {
         open={checkoutDrawerOpen}
         onClose={() => setCheckoutDrawerOpen(false)}
         title="Checkout Your Cart"
-        contentWrapperStyle={{ width: "500px" }}
+        styles={{ wrapper: { width: "500px" } }}
       >
-        <Form
-          onFinish={onConfirmOrder}
-          labelCol={{
-            span: 6,
-          }}
-          wrapperCol={{
-            span: 18,
-          }}
-        >
+        <Space style={{ marginBottom: 20 }}>
+          <Radio.Group size="large" onChange={onChange}>
+            <Radio value="COD"> Cash On Delivery 💸 </Radio>
+            <Radio value="MOMO"> Mobile Money Payment 💸 </Radio>
+          </Radio.Group>
+        </Space>
+
+        <Form onFinish={onConfirmOrder} layout="vertical">
           <Form.Item
             label="Full name"
-            name="full_name"
+            name="username"
             rules={[{ required: true, message: "Please enter your full name" }]}
+            style={{ marginBottom: 10 }}
           >
             <Input placeholder="Enter your full name..." />
           </Form.Item>
           <Form.Item
             label="Email"
-            name="your_email"
+            name="email"
             rules={[{ required: true, message: "Please enter your email" }]}
+            style={{ marginBottom: 10 }}
           >
             <Input placeholder="Enter your email..." />
           </Form.Item>
           <Form.Item
             label="Address"
-            name="your_address"
+            name="address"
             rules={[{ required: true, message: "Please enter your address" }]}
           >
             <Input placeholder="Enter your address..." />
           </Form.Item>
-          <Form.Item name="cod" valuePropName="checked" noStyle>
-            <Checkbox defaultChecked={true}>Cash On Delivery 💸</Checkbox>
+
+          <Form.Item
+            label="Telephone"
+            name="telephone"
+            rules={[{ required: true, message: "Please enter your telephone" }]}
+          >
+            <Input placeholder="Enter your telephone..." />
           </Form.Item>
 
-          <Typography.Paragraph type="secondary">
-            More payment methods will be updated soon...
-          </Typography.Paragraph>
-          <Button type="primary" htmlType="submit">
-            Confirm Order
-          </Button>
+          <Space align="end" style={{ marginTop: 20 }}>
+            <Button type="primary" htmlType="submit">
+              Confirm Order
+            </Button>
+          </Space>
         </Form>
       </Drawer>
     </>
@@ -107,8 +196,9 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish }) => {
 export default function IndexPage() {
   const navigator = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isDeleting, setDeleting] = useState<boolean>(false);
 
-  const { addToCard, clearItem, removeItem } = useCart();
+  const { addToCard, clearItem, removeItem, loadCartItems } = useCart();
   const socket: any = useSocket();
 
   const handleCheckoutSubmit = () => {
@@ -116,9 +206,19 @@ export default function IndexPage() {
     clearItem();
     navigator.push("/thank-you");
   };
+  const handleCartEvent = (data: CartItem[]) => {
+    console.log("Cart Event Received:", data);
+    setCartItems(data); // Update the cartItems state with the received data
+  };
 
-  const handleRemoveCartItem = (item: CartItem) => {
-    removeItem(item.id);
+  const handleRemoveCartItem = async (item: CartItem) => {
+    setDeleting(true);
+    try {
+      await removeItem(item.id);
+      const cartItems = await loadCartItems();
+      setCartItems(cartItems);
+    } catch (error) {}
+    setDeleting(false);
   };
 
   const getCartSummary = () => {
@@ -131,9 +231,13 @@ export default function IndexPage() {
       return prev + curr.discountedPrice;
     }, 0);
 
-    const totalQty = data.reduce((prev, curr) => {
+    const totalQtty = data.reduce((prev, curr) => {
       return prev + curr.quantity;
     }, 0);
+
+    // const discountPercentage = data.reduce((prev, curr) => {
+    //   return prev + curr.discountPercentage;
+    // }, 0);
 
     return (
       <div style={{ margin: "3rem 0 1rem 0" }} className="services-text-box">
@@ -142,8 +246,7 @@ export default function IndexPage() {
           {parseFloat((total - discountPrice).toString()).toFixed(0)} XAF
         </div>
         <div className="cartSummary">
-          Total amount ({totalQty} items):{" "}
-          {parseFloat(discountPrice.toString()).toFixed(0)} XAF
+          Total amount ({totalQtty} items):{" "}
           <Typography.Text delete type="danger">
             {" "}
             {parseFloat(total.toString()).toFixed(0)} XAF
@@ -154,15 +257,11 @@ export default function IndexPage() {
   };
 
   useEffect(() => {
-    const handleCartEvent = (data: CartItem[]) => {
-      console.log("Cart Event Received:", data);
-      setCartItems(data); // Update the cartItems state with the received data
-    };
-
     if (socket) {
       socket.on("cart-items", handleCartEvent);
     }
-  }, [socket]);
+  }, [socket, isDeleting]);
+
   return (
     <Suspense
       fallback={
@@ -292,12 +391,12 @@ export default function IndexPage() {
                         fixed: "left",
                         width: 80,
                         render: (_, record) => (
-                          <a
-                            href="#delete"
+                          <Button
+                            type="link"
                             onClick={() => handleRemoveCartItem(record)}
                           >
                             <DeleteOutlined style={{ color: "red" }} />
-                          </a>
+                          </Button>
                         ),
                       },
                     ]}
@@ -305,11 +404,14 @@ export default function IndexPage() {
                   <Typography.Paragraph>
                     {getCartSummary()}
                   </Typography.Paragraph>
-                  <CheckoutCartBtn onFinish={() => handleCheckoutSubmit()} />
+                  <CheckoutCartBtn
+                    cartItems={cartItems}
+                    onFinish={() => handleCheckoutSubmit()}
+                  />
                 </div>
               </Col>
             ) : (
-              <Col xs={22} md={16}>
+              <Col xs={22} md={16} style={{ textAlign: "center" }}>
                 <h2>
                   👋 Your shopping cart is empty. How about adding some items to
                   it? <br /> Return <Link href="/"> home page</Link>.

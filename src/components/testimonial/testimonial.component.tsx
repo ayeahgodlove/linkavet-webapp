@@ -178,7 +178,7 @@ const Testimonials = () => {
               <div aria-hidden="true">
                 <p aria-hidden="true">
                   Our go-to vet for years. Trustworthy, skilled, and attentive
-                  to our pet's needs. Wouldn't go anywhere else!
+                  to our pet&apos;s needs. Wouldn&apos;t go anywhere else!
                 </p>
               </div>
             </div>

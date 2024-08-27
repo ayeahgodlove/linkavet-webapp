@@ -6,7 +6,7 @@ import { useIsAuthenticated } from "@refinedev/core";
 import { productAPI } from "@store/api/product_api";
 import { format } from "@utils/format";
 import {
-    Alert,
+  Alert,
   Button,
   Col,
   Form,
@@ -17,14 +17,17 @@ import {
   Skeleton,
   Space,
   Spin,
+  Typography,
 } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { Suspense, useCallback } from "react";
 
 export default function IndexPage({ params }: { params: { id: string } }) {
   const [api, contextHolder] = notification.useNotification();
   const { data: item, isSuccess, isError } = useIsAuthenticated();
   const key = params.id;
+  const navigator = useRouter();
 
   console.log("isSuccess: ", isSuccess, key);
 
@@ -38,8 +41,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
 
   const onAddToCart = useCallback(
     async (values: any) => {
-      debugger
-      console.log("values: ", JSON.stringify(values))
+      console.log("values: ", JSON.stringify(values));
       if (item?.authenticated) {
         await addToCard(product ? product.id : "", values.quantity);
       } else {
@@ -54,20 +56,24 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     const btn = (
       <Space>
         <Button type="link" size="small" onClick={() => api.destroy()}>
-          Destroy All
+          Close
         </Button>
-        <Button type="primary" size="small" onClick={() => api.destroy(key)}>
-          Confirm
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => navigator.push("/login")}
+        >
+          Sign-in
         </Button>
       </Space>
     );
     api.open({
-      message: "Notification Title",
+      message: <Typography.Title level={5}>Sign-In Required</Typography.Title>,
       description:
-        'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
+        "To add items to your cart, please sign in to your account. If you don't have an account, you can easily create one in just a few steps.",
       btn,
       key,
-      onClose: close,
+      // onClose: close,
     });
   };
   return (
@@ -143,7 +149,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       </div>
                       <div className="productMeta">
                         <Skeleton
-                          paragraph={{ 
+                          paragraph={{
                             rows: 3,
                           }}
                           active

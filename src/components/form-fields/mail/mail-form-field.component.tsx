@@ -1,5 +1,5 @@
 import UploadImage from "@components/products/upload-image";
-import { useSubscriber } from "@hook/subscriber.hook";
+// import { useSubscriber } from "@hook/subscriber.hook";
 import { useForm } from "@refinedev/antd";
 import { Col, Form, Input, Row, Select } from "antd";
 import React from "react";
@@ -22,7 +22,7 @@ const MailFormField = () => {
     console.log("search:", value);
   };
 
-  const { subscribers } = useSubscriber();
+  // const { subscribers } = useSubscriber();
   return (
     <>
       <>
@@ -40,7 +40,7 @@ const MailFormField = () => {
         </Form.Item>
       </>
       <Form.Item name="email" label="Email" style={{ marginBottom: 3 }}>
-        <Select
+        {/* <Select
           size="large"
           showSearch
           placeholder="Select a user email"
@@ -57,7 +57,7 @@ const MailFormField = () => {
               label: c.email,
             };
           })}
-        />
+        /> */}
       </Form.Item>
 
       <Form.Item name="headline" label="Headline" style={{ marginBottom: 3 }}>

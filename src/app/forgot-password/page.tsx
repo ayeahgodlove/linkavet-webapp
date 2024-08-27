@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function ForgotPassword() {
+export default async function IndexPage() {
   const data = await getData();
 
   if (data.authenticated) {

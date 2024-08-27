@@ -12,7 +12,6 @@ interface Props {
 const ServiceFormFields: React.FC<Props> = ({ form }) => {
   const handleImageUpload = (url: string) => {
     const imageName = form.getFieldValue("fileName") || url;
-    debugger;
     form.setFieldValue("fileName", imageName);
   };
 

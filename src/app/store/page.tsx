@@ -124,7 +124,7 @@ export default function IndexPage() {
                         className="hero-subtitle"
                       >
                         Browse through a carefully curated collection of
-                        vet-approved products and Elevate your pet's
+                        vet-approved products and Elevate your pet&apos;s
                         lifestyle with our premium range of nutrition, grooming
                         essentials, toys, and wellness products.
                       </p>

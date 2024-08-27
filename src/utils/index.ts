@@ -13,7 +13,7 @@ export function makeUpLabel(item: any) {
 }
 
 export function hashidsEncode(anything: any) {
-  debugger
+  
   return hashids.encode(anything);
 }
 

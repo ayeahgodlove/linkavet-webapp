@@ -29,7 +29,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
   const [cartQty, setCartQty] = useState<number>(1);
   const [loadingCheckOut, setLoadingCheckOut] = useState<boolean>(false);
   const [loadingAddToCart, setLoadingAddToCart] = useState<boolean>(false);
-  const { cartItems, addCartItems, addToCart } = useCart();
+  const { addToCard } = useCart();
   const navigator = useRouter();
   const key = params.id;
 
@@ -42,18 +42,18 @@ export default function IndexPage({ params }: { params: { id: string } }) {
     message.success(`${data?.name} has been added to cart 👌`);
     if (data) {
       let addedItems = Array.from({ length: cartQty }, () => data);
-      addCartItems(addedItems.map(a=> {
-        return {
-          id: a.id,
-          name: a.name,
-          amount: a.amount,
-          quantity: a.qtty,
-          imageUrl: a.images[0].url,
-          discountPercentage: data.discountPercentage,
-          discountedPrice: 0,
-          total: 0,
-        }
-      }));
+      // addCartItems(addedItems.map(a=> {
+      //   return {
+      //     id: a.id,
+      //     name: a.name,
+      //     amount: a.amount,
+      //     quantity: a.qtty,
+      //     imageUrl: a.images[0].url,
+      //     discountPercentage: data.discountPercentage,
+      //     discountedPrice: 0,
+      //     total: 0,
+      //   }
+      // }));
     }
     setTimeout(() => {
       setLoadingAddToCart(false);
@@ -65,16 +65,7 @@ export default function IndexPage({ params }: { params: { id: string } }) {
 
     message.success(`${data?.name} has been added to cart 👌`);
     if (data) {
-      addToCart({
-        id: data.id,
-        name: data.name,
-        amount: data.amount,
-        quantity: data.qtty,
-        imageUrl: data.images[0].url,
-        discountPercentage: data.discountPercentage,
-        total: 0,
-        discountedPrice: 0,
-      });
+      addToCard(data.id, data.qtty);
     }
     setTimeout(() => {
       setLoadingCheckOut(false);
@@ -197,15 +188,12 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                 <div className="productRating">
                   <Space>
                     <Rate value={data.rating} allowHalf disabled></Rate>
-                    <Typography.Text strong>
-                      {"Hanco Inc"}
-                    </Typography.Text>
+                    <Typography.Text strong>{"Hanco Inc"}</Typography.Text>
                   </Space>
                 </div>
                 <div className="productPrice">
                   Price:{" "}
                   <span className="spanPrice">
-                    
                     {parseFloat(
                       (
                         (data.amount * (100 - data.discountPercentage)) /

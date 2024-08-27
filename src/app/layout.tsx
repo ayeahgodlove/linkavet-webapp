@@ -90,10 +90,12 @@ export default async function RootLayout({
           type="text/javascript"
           integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
           crossOrigin="anonymous"
+          async
         ></script>
         <script
           src="https://assets-global.website-files.com/64bc51e851d39e9358ee467b/js/webflow.fd77f6562.js"
           type="text/javascript"
+          async
         ></script>
       </body>
     </html>

@@ -2,7 +2,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Button, Result, Space, Tooltip, Typography } from "antd";
 
 // pages/unauthorized.js
-export default function Unauthorized() {
+export default function IndexPage() {
   return (
     <Result
       status="warning"

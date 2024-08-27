@@ -27,7 +27,6 @@ const UploadImage = ({
     setFileList(info.fileList);
     if (info.file.status === "done") {
       const url = info.file.response.data; // Assume the response contains the URL
-      debugger;
       onUpload(url);
     }
   };

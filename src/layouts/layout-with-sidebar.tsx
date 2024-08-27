@@ -1,4 +1,4 @@
-import AppFooter from "@components/footer/app-footer";
+import { AppFooter } from "@components/footer/footer";
 import AppHeader from "@components/header/app-header";
 import { Layout, Breadcrumb, theme } from "antd";
 const { Header, Footer, Sider, Content } = Layout;
@@ -66,7 +66,7 @@ function LayoutWithSidebar(props: Props) {
           </Layout>
         </Content>
         <Footer style={footerStyle}>
-          <AppFooter />
+          <AppFooter logoPath={"./logo/logo-2-removebg-preview.png"} />
         </Footer>
       </Layout>
     </div>
