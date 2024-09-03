@@ -7,8 +7,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export default function IndexPage() {
-
-  
   return (
     <Suspense
       fallback={
@@ -23,7 +21,14 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={"Connect with Linkavet - Your Pet's Wellbeing Starts Here"}
+        description={
+          "Have a question, need assistance, or simply want to reach out? We're here for you at Linkavet. Contact our friendly team of veterinary experts to discuss your pet's needs, inquire about our products, or schedule an appointment. Your pet's wellbeing is our priority, and we're dedicated to providing prompt and personalized support. Reach out via phone, email, or through our convenient online form. Connect with Linkavet – where every interaction is a step towards ensuring a happy and healthy life for your furry friends."
+        }
+        keywords="linkavet, connect, pets, experts, animal, farm, assistance, appointments"
+        uri="contact-us"
+      >
         <div style={{ opacity: 1, width: "100%" }} className="content">
           <div id="Top" className="hero-section">
             <div className="hero-content-wrapper reverse w-container">

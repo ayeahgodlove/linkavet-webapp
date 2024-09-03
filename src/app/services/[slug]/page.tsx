@@ -36,7 +36,12 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
           />
         }
       >
-        <DefaultLayout>
+        <DefaultLayout
+          title={`Our Services - LinkaVet | ${service?.title}`}
+          description={`${service?.short_description}`}
+          keywords="veterinary services, pet care, LinkaVet, animal care, preventive care, emergency vet"
+          uri={`services/${params.slug}`}
+        >
           <div
             id="Top"
             style={{

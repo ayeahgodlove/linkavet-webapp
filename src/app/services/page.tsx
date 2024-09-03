@@ -33,7 +33,14 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={"Our Services - LinkaVet | Comprehensive Veterinary Care"}
+        description={
+          "Discover the range of veterinary services we offer at LinkaVet, including preventive care, emergency services, and specialized treatments."
+        }
+        keywords="veterinary services, pet care, LinkaVet, animal care, preventive care, emergency vet"
+        uri="services"
+      >
         <div style={{ opacity: 1 }} className="content">
           <div id="Top" className="inner-hero-section">
             <div className="content-wrapper w-container">

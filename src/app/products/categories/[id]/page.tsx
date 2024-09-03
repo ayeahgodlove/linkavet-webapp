@@ -16,9 +16,16 @@ export default function IndexPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {}, [data, isLoading, isFetching]);
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      title={"Vet Products - Your Pet's Wellbeing, Our Priority"}
+      description={
+        "Elevate your farm and pet's lifestyle with our premium range of nutrition, grooming essentials, toys, and wellness products. Each item is selected with your pet's health and happiness in mind. Shop confidently for top-quality products that complement our commitment to excellence in veterinary care. Enhance your pet's life today with Linkavet."
+      }
+      keywords="veterinary, pet care, store, products, LinkaVet, animal care"
+      uri="products"
+    >
       <PageContent hasSider>
-        <Typography.Title level={4} style={{ marginBottom: 0}}>
+        <Typography.Title level={4} style={{ marginBottom: 0 }}>
           Category {makeUpLabel(isLoading || isFetching ? emptyCategory : data)}
         </Typography.Title>
         <div>

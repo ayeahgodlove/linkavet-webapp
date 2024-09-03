@@ -92,7 +92,12 @@ export default function IndexPage({ params }: { params: { id: string } }) {
         }
       >
         {contextHolder}
-        <DefaultLayout>
+        <DefaultLayout
+          title={`Store - LinkaVet | ${product?.name}`}
+          description={`${product?.shortDescription}`}
+          uri={`store/${params.id}`}
+          keywords="pet products, veterinary store, LinkaVet store, pet food, pet accessories, buy pet supplies"
+        >
           <div id="Intro" className="content-section product-page">
             <div className="content-wrapper w-container">
               <div>

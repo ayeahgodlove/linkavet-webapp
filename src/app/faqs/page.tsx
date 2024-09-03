@@ -19,7 +19,14 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={"FAQs - Find answers to the questions"}
+        description={
+          "Find answers to the most common questions about our veterinary services at LinkaVet. From appointments to pet care, we have you covered."
+        }
+        keywords="veterinary, pet care, faqs, LinkaVet, animal care, vet questions"
+        uri="faqs"
+      >
         <div style={{ opacity: 1, width: "100%" }} className="content">
           <div id="Top" className="inner-hero-section">
             <div className="content-wrapper w-container">

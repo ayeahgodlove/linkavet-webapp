@@ -7,7 +7,14 @@ import Image from "next/image";
 
 export default function IndexPage() {
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      title={"Store - LinkaVet | Quality Pet Products"}
+      description={
+        "Shop high-quality pet products at LinkaVet. From pet food to accessories, find everything your pet needs in our online store."
+      }
+      keywords="pet products, veterinary store, LinkaVet store, pet food, pet accessories, buy pet supplies"
+      uri="store"
+    >
       <PageContent>
         <h2>
           🥰 Thanks for your order. Return <Link href="/"> home page</Link>.

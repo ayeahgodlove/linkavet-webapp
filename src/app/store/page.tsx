@@ -31,7 +31,14 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={"Store - LinkaVet | Quality Pet Products"}
+        description={
+          "Shop high-quality pet products at LinkaVet. From pet food to accessories, find everything your pet needs in our online store."
+        }
+        keywords="pet products, veterinary store, LinkaVet store, pet food, pet accessories, buy pet supplies"
+        uri="store"
+      >
         <div style={{ opacity: 1, width: "100%" }} className="content">
           <div id="Top" className="hero-section">
             <div className="hero-content-wrapper reverse w-container">

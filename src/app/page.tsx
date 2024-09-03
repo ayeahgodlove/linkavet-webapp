@@ -28,11 +28,19 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={
+          "Welcome to Linkavet - Comprehensive Veterinary Services for Your Furry Friends and Animal Farms "
+        }
+        description={
+          "From routine check-ups to specialized treatments, we prioritize the health and happiness of your furry companions and farm. Additionally, explore our online store for a wide range of vet products, including nutrition, grooming essentials, and wellness items. Trust Linkavet for all your veterinary needs – where compassion meets excellence in pet care."
+        }
+        keywords="linkavet, homepage, veterinary, animal, farm, appointments, faqs"
+      >
         <AppHero />
         <IntroSection />
         <AboutUs />
-        <ProductSection /> 
+        <ProductSection />
         <TeamSection />
         <ServicesSection />
         <FaqSection />

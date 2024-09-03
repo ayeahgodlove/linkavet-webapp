@@ -34,7 +34,14 @@ export default function IndexPage() {
         />
       }
     >
-      <DefaultLayout>
+      <DefaultLayout
+        title={"About Us - Where Passion Meets Pet Care Excellence "}
+        description={
+          "Welcome to Linkavet, where our love for animals and commitment to exceptional pet care converge. Meet our team of dedicated veterinary professionals, each driven by a passion for ensuring the health and happiness of your beloved pets. Learn about our values, mission, and the personalized approach we bring to every veterinary service and product we offer. Discover the faces behind the care, and trust Linkavet as your partner in creating a thriving and joyful life for your furry companions."
+        }
+        keywords="linkavet, about, mission, vision, values, company, veterinary, animal, farm, appointments"
+        uri="about-us"
+      >
         <div style={{ opacity: 1 }} className="content">
           <div id="Top" className="hero-section">
             <div className="hero-content-wrapper reverse w-container">
@@ -631,8 +638,9 @@ export default function IndexPage() {
                     </div>
                     <div className="top-margin">
                       <div>
-                        Your pet&apos;s wellbeing is our priority, and we&apos;re
-                        dedicated to providing prompt and personalized support.
+                        Your pet&apos;s wellbeing is our priority, and
+                        we&apos;re dedicated to providing prompt and
+                        personalized support.
                       </div>
                     </div>
                   </div>
@@ -709,7 +717,7 @@ export default function IndexPage() {
                     transition={{ duration: 0.5 }}
                   >
                     <SpinnerList />
-                  </motion.div> 
+                  </motion.div>
                 )}
 
                 {services && services.length ? (
