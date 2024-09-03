@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import { Form, Input, InputNumber } from "antd";
 import ReactQuill from "react-quill";

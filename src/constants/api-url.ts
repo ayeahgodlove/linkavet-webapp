@@ -1,5 +1,5 @@
-// export const API_URL = "http://api.honeyman.shop";
-export const API_URL = "http://localhost:8000"
+export const API_URL = "https://linkavet-api.onrender.com";
+// export const API_URL = "http://localhost:8000"
 export const API_URL_UPLOADS_POSTS = `${API_URL}/uploads/posts`;
 export const API_URL_UPLOADS_DOCUMENTS = `${API_URL}/uploads/document`;
 export const API_URL_UPLOADS_EVENTS = `${API_URL}/uploads/events`;
@@ -10,4 +10,5 @@ export const API_URL_UPLOADS_SERVICES = `${API_URL}/uploads/services`;
 export const TINYMCE_KEY = `jmee0ymvhn8xuoj51dz5vzj032x5887fw5aa4yojvi9pu68z`;
 
 export const BASE_URL =`${API_URL}/api`;
-export const APP_URL = "http://localhost:3000"
+// export const APP_URL = "http://localhost:3000"
+export const APP_URL = "https://linkavet-webapp-p6h4etutb-ayeahgodloves-projects.vercel.app/"

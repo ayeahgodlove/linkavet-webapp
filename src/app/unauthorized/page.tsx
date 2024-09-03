@@ -1,3 +1,5 @@
+"use client";
+
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Button, Result, Space, Tooltip, Typography } from "antd";
 
