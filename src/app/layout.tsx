@@ -1,4 +1,4 @@
-import { DevtoolsProvider } from "@providers/devtools";
+// import { DevtoolsProvider } from "@providers/devtools";
 import { useNotificationProvider } from "@refinedev/antd";
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
@@ -56,7 +56,7 @@ export default async function RootLayout({
               <ClientProvider>
                 <ColorModeContextProvider defaultMode={defaultMode}>
                   <SocketProvider>
-                    <DevtoolsProvider>
+                    {/* <DevtoolsProvider> */}
                       <Refine
                         routerProvider={routerProvider}
                         dataProvider={dataProvider}
@@ -78,7 +78,7 @@ export default async function RootLayout({
                         {children}
                         <RefineKbar />
                       </Refine>
-                    </DevtoolsProvider>
+                    {/* </DevtoolsProvider> */}
                   </SocketProvider>
                 </ColorModeContextProvider>
               </ClientProvider>
