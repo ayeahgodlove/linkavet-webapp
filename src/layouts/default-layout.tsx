@@ -24,7 +24,7 @@ const DefaultLayout = (props: Props) => {
 
   const headerStyle: React.CSSProperties = {
     background: colorBgContainer,
-    padding: width > 768 ? "0 50px" : "0 20px",
+    padding: width > 768 ? "0 50px !important" : "0 20px !important",
   };
 
   return (
