@@ -2,6 +2,7 @@
 import { AppFooter } from "@components/footer/footer";
 import { AppFootnote } from "@components/footnote/footnote";
 import AppHeader from "@components/header/app-header";
+import useWindowSize from "@hook/shared/window-resize.hook";
 import { Affix, Layout, theme } from "antd";
 import React from "react";
 
@@ -14,9 +15,11 @@ const DefaultLayout = (props: Props) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const { width } = useWindowSize();
 
   const headerStyle: React.CSSProperties = {
     background: colorBgContainer,
+    padding: width > 768 ? "0 50px" : "0 20px",
   };
 
   return (

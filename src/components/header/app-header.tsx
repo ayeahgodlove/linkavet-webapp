@@ -12,7 +12,6 @@ import useWindowSize from "@hook/shared/window-resize.hook";
 import { USER_DATA } from "@constants/constant";
 import { CartItem } from "@model/cart-item.model";
 import { CartService } from "@services/cart.service";
-import { io } from "socket.io-client";
 import { useSocket } from "@contexts/socket-provider.context";
 
 function AppHeader() {
@@ -48,27 +47,6 @@ function AppHeader() {
     }
   }, [socket]);
 
-  // useEffect(() => {
-  //   // Establish a connection to the server
-  //   const socket = io("http://localhost:8000"); // Adjust the URL if necessary
-
-  //   const handleCartEvent = (data: CartItem[]) => {
-  //     console.log("Cart Event Received:", data);
-  //     setCartItems(data); // Update the cartItems state with the received data
-  //     setCartCount(data.length)
-  //   };
-
-  //   socket.on("cart-items", handleCartEvent);
-
-  //   socket.on("disconnect", () => {
-  //     console.log("Disconnected from the server");
-  //   });
-
-  //   return () => {
-  //     socket.off("cart-items", handleCartEvent);
-  //     socket.disconnect();
-  //   };
-  // }, []);
   return (
     <>
       <ConfigProvider
@@ -93,7 +71,7 @@ function AppHeader() {
             <Image
               src={`/logo/logo-2-removebg-preview.png`}
               height={width > 768 ? 90 : 80}
-              width={width > 768 ? 88 : 50}
+              width={width > 768 ? 88 : 80}
               alt="linkavet logo"
               style={{
                 marginRight: 15,

@@ -139,26 +139,26 @@ const AppHero = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      <div
-        style={{
-          transform:
-            "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg)",
-          opacity: 1,
-          transformStyle: "preserve-3d",
-        }}
-        className="curve-bg"
-      >
-        <div className="curve-text-container">
-          <div className="hero-mini-pic"></div>
-          <div className="curve-text-box">
-            <Link href="#" className="mini-title-link">
-              Call Us Today &nbsp;990-004-450
-            </Link>
+        <div
+          style={{
+            transform:
+              "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg)",
+            opacity: 1,
+            transformStyle: "preserve-3d",
+          }}
+          className="curve-bg"
+        >
+          <div className="curve-text-container">
+            <div className="hero-mini-pic"></div>
+            <div className="curve-text-box">
+              <Link href="#" className="mini-title-link">
+                Call Us Today &nbsp;990-004-450
+              </Link>
+            </div>
           </div>
+          <div className="right-white-bg"></div>
         </div>
-        <div className="right-white-bg"></div>
       </div>
 
       <Link

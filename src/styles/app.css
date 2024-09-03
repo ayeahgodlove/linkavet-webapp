@@ -5142,7 +5142,7 @@ blockquote {
 }
 
 .curve-bg {
-    z-index: 1;
+    z-index: 1; 
     width: 500px;
     height: 66px;
     background-image: url("../../public/images/64bc5f78e3df2ded5dd0c63c_Curve.png");

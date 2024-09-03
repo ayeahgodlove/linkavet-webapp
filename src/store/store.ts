@@ -42,6 +42,8 @@ const persistConfig = {
   storage,
 };
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const rootReducer = combineReducers({
   [categoryAPI.reducerPath]: categoryAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
@@ -73,13 +75,13 @@ export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware): any =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat([
-      logger,
+      isProduction ? undefined : logger,
       categoryAPI.middleware,
       paymentAPI.middleware,
       userAPI.middleware,
@@ -94,6 +96,7 @@ export const store = configureStore({
       faqAPI.middleware,
       contactAPI.middleware,
     ]),
+  devTools: !isProduction,
 });
 
 export type AppDispatch = typeof store.dispatch;
