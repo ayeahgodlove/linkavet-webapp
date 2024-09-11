@@ -11,7 +11,7 @@ const useInitTransaction = () => {
 
   const dispatch = useDispatch();
 
-  const setInitTransaction = (initTransaction: string) => {
+  const setInitTransaction = (initTransaction: any) => {
     dispatch(setActiveInitTransaction(initTransaction));
   };
 

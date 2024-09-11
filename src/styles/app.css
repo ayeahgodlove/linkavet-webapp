@@ -7531,7 +7531,7 @@ blockquote {
 
 .services-text-box {
     width: 80%;
-    background-color: var(--bg-2);
+    background-color: var(--blue-bg);
     border-radius: 10px;
     margin-top: -85px;
     margin-left: auto;

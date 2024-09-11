@@ -5,7 +5,7 @@ import { requestType } from "@services";
 import { CartItem } from "@model/cart-item.model";
 
 export const CartService = {
-  list: (): Promise<any> => requestType.get("/api/carts/items"),
+  list: (): Promise<CartItem[]> => requestType.get("/api/carts/items"),
   create: (productId: string, quantity: number): Promise<CartItem> =>
     requestType.post(`/api/carts/add`, { productId, quantity }),
   remove: (itemId: string): Promise<CartItem> =>

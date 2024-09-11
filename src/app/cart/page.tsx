@@ -2,7 +2,6 @@
 import {
   Avatar,
   Button,
-  Checkbox,
   Col,
   Drawer,
   Form,
@@ -29,13 +28,12 @@ import { CartItem } from "@model/cart-item.model";
 import { format } from "@utils/format";
 import Image from "next/image";
 import { useSocket } from "@contexts/socket-provider.context";
-import { API_URL_UPLOADS_PRODUCTS, APP_URL } from "@constants/api-url";
+import { API_URL_UPLOADS_PRODUCTS } from "@constants/api-url";
 import { OrderService } from "@services/order.service";
-import { emptyOrder, IOrder } from "@model/order.model";
+import { emptyOrder } from "@model/order.model";
 import { generateOrderNumber } from "@utils/order-no";
 import { usePaymentMethod } from "@hook/payment-method.hook";
-import { ProcessPaymentService } from "@services/process-payment.service";
-import { useInitTransaction } from "@hook/init-transaction.hook";
+import { getCartSummary } from "@components/shared/cart-summary-table.component";
 
 interface ICheckoutBtn {
   onFinish: () => void;
@@ -43,10 +41,8 @@ interface ICheckoutBtn {
 }
 const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish, cartItems }) => {
   const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState(false);
-  const [method, setMethod] = useState("MOMO");
+  const [method, setMethod] = useState("momo");
   const { setPaymentMethod } = usePaymentMethod();
-  const { setInitTransaction } = useInitTransaction();
-  const [orderId, setOrderId] = useState<any>(null);
   const navigator = useRouter();
 
   const onChange = (event: RadioChangeEvent) => {
@@ -93,9 +89,10 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish, cartItems }) => {
         setCheckoutDrawerOpen(false);
         onFinish();
         message.success("Placing your order!");
-        navigator.push("/");
-        // set orderId
-        setOrderId(response.data.id);
+        const query = { orderId: response.data.id, method };
+        navigator.push(
+          `/process-payment?${new URLSearchParams(query).toString()}`
+        );
       }
       return response;
     } catch (error) {
@@ -103,25 +100,6 @@ const CheckoutCartBtn: React.FC<ICheckoutBtn> = ({ onFinish, cartItems }) => {
       return error;
     }
   };
-
-  useEffect(() => {
-    const initPayment = async () => {
-      if (orderId) {
-        try {
-          const transaction = await ProcessPaymentService.initPayment({
-            amount: 50,
-            description: "payment for your order",
-            returnUrl: `${APP_URL}`,
-          });
-          setInitTransaction(transaction);
-        } catch (error) {
-          console.error("Payment initialization failed:", error);
-        }
-      }
-    };
-
-    initPayment();
-  }, [method, orderId]);
 
   return (
     <>
@@ -198,12 +176,11 @@ export default function IndexPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isDeleting, setDeleting] = useState<boolean>(false);
 
-  const { addToCard, clearItem, removeItem, loadCartItems } = useCart();
+  const { addToCard, removeItem, loadCartItems } = useCart();
   const socket: any = useSocket();
 
   const handleCheckoutSubmit = () => {
     message.success("Your order has been placed successfully.");
-    clearItem();
     navigator.push("/thank-you");
   };
   const handleCartEvent = (data: CartItem[]) => {
@@ -219,41 +196,6 @@ export default function IndexPage() {
       setCartItems(cartItems);
     } catch (error) {}
     setDeleting(false);
-  };
-
-  const getCartSummary = () => {
-    const data = cartItems;
-    const total = data.reduce((prev, curr) => {
-      return prev + curr.total;
-    }, 0);
-
-    const discountPrice = data.reduce((prev, curr) => {
-      return prev + curr.discountedPrice;
-    }, 0);
-
-    const totalQtty = data.reduce((prev, curr) => {
-      return prev + curr.quantity;
-    }, 0);
-
-    // const discountPercentage = data.reduce((prev, curr) => {
-    //   return prev + curr.discountPercentage;
-    // }, 0);
-
-    return (
-      <div style={{ margin: "3rem 0 1rem 0" }} className="services-text-box">
-        <div className="cartSummary">
-          Discounted amount:{" "}
-          {parseFloat((total - discountPrice).toString()).toFixed(0)} XAF
-        </div>
-        <div className="cartSummary">
-          Total amount ({totalQtty} items):{" "}
-          <Typography.Text delete type="danger">
-            {" "}
-            {parseFloat(total.toString()).toFixed(0)} XAF
-          </Typography.Text>
-        </div>
-      </div>
-    );
   };
 
   useEffect(() => {
@@ -344,15 +286,6 @@ export default function IndexPage() {
                               min={0}
                               style={{ width: "65px" }}
                               onChange={(value) => {
-                                console.log(
-                                  "🚀 ~ file: index.js:160 ~ ShoppingCart ~ record:",
-                                  record
-                                );
-                                console.log(
-                                  "🚀 ~ file: index.js:160 ~ ShoppingCart ~ value:",
-                                  value
-                                );
-
                                 const item = cartItems.find((item) => {
                                   return item.id === record.id
                                     ? {
@@ -409,7 +342,7 @@ export default function IndexPage() {
                     ]}
                   />
                   <Typography.Paragraph>
-                    {getCartSummary()}
+                    {getCartSummary(cartItems)}
                   </Typography.Paragraph>
                   <CheckoutCartBtn
                     cartItems={cartItems}

@@ -5,9 +5,9 @@ const useCart = () => {
   const loadCartItems = async () => {
     try {
       const response = await CartService.list();
-      return response.data;
+      return response;
     } catch (error) {
-      return null
+      return []
     }
   };
 
