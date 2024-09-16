@@ -48,6 +48,17 @@ export default async function RootLayout({
           rel="preconnect"
           crossOrigin="anonymous"
         />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charSet="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
       </head>
       <body>
         <Suspense>
@@ -57,27 +68,27 @@ export default async function RootLayout({
                 <ColorModeContextProvider defaultMode={defaultMode}>
                   <SocketProvider>
                     {/* <DevtoolsProvider> */}
-                      <Refine
-                        routerProvider={routerProvider}
-                        dataProvider={dataProvider}
-                        notificationProvider={useNotificationProvider}
-                        authProvider={authProvider}
-                        resources={filterMenuItemsByRole(
-                          dashboardMenus,
-                          userRoles
-                        )}
-                        options={{
-                          syncWithLocation: true,
-                          warnWhenUnsavedChanges: true,
-                          useNewQueryKeys: true,
-                          projectId: "JVzy3N-QCyo8k-c3ejgO",
-                          breadcrumb: true,
-                          liveMode: "auto",
-                        }}
-                      >
-                        {children}
-                        <RefineKbar />
-                      </Refine>
+                    <Refine
+                      routerProvider={routerProvider}
+                      dataProvider={dataProvider}
+                      notificationProvider={useNotificationProvider}
+                      authProvider={authProvider}
+                      resources={filterMenuItemsByRole(
+                        dashboardMenus,
+                        userRoles
+                      )}
+                      options={{
+                        syncWithLocation: true,
+                        warnWhenUnsavedChanges: true,
+                        useNewQueryKeys: true,
+                        projectId: "JVzy3N-QCyo8k-c3ejgO",
+                        breadcrumb: true,
+                        liveMode: "auto",
+                      }}
+                    >
+                      {children}
+                      <RefineKbar />
+                    </Refine>
                     {/* </DevtoolsProvider> */}
                   </SocketProvider>
                 </ColorModeContextProvider>

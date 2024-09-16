@@ -5,6 +5,7 @@ import Hashids from "hashids";
 const hashids = new Hashids("Cumi", 10);
 
 export function makeUpLabel(item: any) {
+  debugger
   let newTitle: string = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
   return newTitle.replace(/-(.)/g, function (match, group) {

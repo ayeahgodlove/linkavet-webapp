@@ -30,6 +30,7 @@ export const productAPI = createApi({
     fetchAllProductsByCategory: build.query<IProduct[], string | void>({
       query: (category) => `/products/category/${category}`,
       transformResponse: (response: any[]) => {
+        console.log("API Response:", response); // Check the response here
         // Ensure each category's createdAt field is an ISO string
         const transformedCategories = response.map((category: any) => ({
           ...category,

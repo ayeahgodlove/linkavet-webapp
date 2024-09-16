@@ -7,7 +7,7 @@ import { useInitTransaction } from "@hook/init-transaction.hook";
 import { ProcessPaymentService } from "@services/process-payment.service";
 import { API_URL_UPLOADS_PRODUCTS, APP_URL } from "@constants/api-url";
 import { useSearchParams } from "next/navigation";
-import { Typography, Row, Col, Spin, Table, Avatar, Button, Card } from "antd";
+import { Typography, Row, Col, Spin, Table, Avatar } from "antd";
 import { CartItem } from "@model/cart-item.model";
 import { useSocket } from "@contexts/socket-provider.context";
 import { format } from "@utils/format";
@@ -17,6 +17,7 @@ import {
   dummyData,
   PaymentDetails,
 } from "@components/shared/payment-details.component";
+import { SuccessPaymentDetails } from "@components/shared/success-details.component";
 
 const { Title, Text } = Typography;
 
@@ -24,7 +25,7 @@ export default function IndexPage() {
   const { setInitTransaction, initTransaction } = useInitTransaction();
   const params = useSearchParams();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [transactionStatus, setTransactionStatus] = useState<any>();
+  // const [transactionStatus, setTransactionStatus] = useState<any>();
   const socket: any = useSocket();
 
   const { clearItem } = useCart();
@@ -65,26 +66,28 @@ export default function IndexPage() {
     const getTransactionStatus = async (requestId: string) => {
       if (requestId) {
         try {
-          const transaction = await ProcessPaymentService.getTransactionStatus(
+          debugger;
+          const transaction = await ProcessPaymentService.transactionStatus(
             requestId
           );
-          setTransactionStatus(transaction.data);
+          setInitTransaction(transaction.data);
         } catch (error) {
           console.error("Payment initialization failed:", error);
         }
       }
     };
 
-    if (method === "momo") {
+    if (method === "MOMO") {
       initPayment();
     }
     if (success) {
       clearItem();
       getTransactionStatus(requestId!);
+      // setInitTransaction(transactionStatus);
     }
-  }, [socket, orderId, method, success]);
+  }, [socket, orderId, method, success, requestId]);
 
-  console.log("transt-status: ", initTransaction, transactionStatus);
+  console.log("transt-status: ", initTransaction);
 
   return (
     <Suspense
@@ -110,90 +113,124 @@ export default function IndexPage() {
       >
         <PageContent>
           <Row
-            gutter={[16, 18]}
+            gutter={[100, 0]}
             align={"middle"}
             justify={"center"}
             style={{ margin: "2rem 0" }}
           >
-            <Col xs={22} md={18}>
-              <div className="payment-overview" style={{ marginBottom: 15 }}>
-                <Title level={2}>Processing Your Payment</Title>
-                <Text>
-                  Please do not close or refresh this page while we process your
-                  payment. The process may take a few moments.
-                </Text>
-              </div>
-
-              <Table
-                dataSource={cartItems}
-                pagination={false}
-                rowKey={(data) => data.id}
-                columns={[
-                  {
-                    title: "No",
-                    dataIndex: "no",
-                    render(value, record, index) {
-                      return (
-                        <span key={record.id}>
-                          {format.twoChar((index + 1).toString())}
-                        </span>
-                      );
-                    },
-                  },
-
-                  {
-                    title: "Image",
-                    dataIndex: "image",
-                    render: (value, record, index) => {
-                      return (
-                        <Avatar
-                          src={`${API_URL_UPLOADS_PRODUCTS}/${record.product.productImages[0]}`}
-                          size={"large"}
-                          alt={record.product.name}
-                        />
-                      );
-                    },
-                  },
-                  {
-                    title: "Name",
-                    dataIndex: "name",
-                    width: "8rem",
-                    render: (value, record, index) => record.product?.name,
-                  },
-                  {
-                    title: "Quantity",
-                    dataIndex: "quantity",
-                    width: 120,
-                  },
-                  {
-                    title: "Price",
-                    dataIndex: "discountedPrice",
-                    render: (value, record) => {
-                      return `${format.number(value)} XAF`;
-                    },
-                    align: "right",
-                  },
-                  {
-                    title: "Total",
-                    dataIndex: "total",
-                    render: (value, record) => {
-                      return `${format.number(value)} XAF`;
-                    },
-                    align: "right",
-                  },
-                ]}
-              />
-              <Typography.Paragraph>
-                {getCartSummary(cartItems)}
-              </Typography.Paragraph>
-            </Col>
-            <Col xs={22} md={18}>
-              <div className="payment-instructions">
-                <PaymentDetails
-                  data={initTransaction ? initTransaction : dummyData}
+            {initTransaction === undefined ? (
+              <Col xs={22} md={18}>
+                <Spin
+                  size="large"
+                  style={{
+                    minHeight: "65vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    // alignItems: "center",
+                  }}
                 />
-              </div>
-            </Col>
+              </Col>
+            ) : (
+              <>
+                {cartItems && cartItems.length > 0 ? (
+                  <Col xs={22} md={18}>
+                    <div
+                      className="payment-overview"
+                      style={{ marginBottom: 15 }}
+                    >
+                      <Title level={2}>Processing Your Payment</Title>
+                      <Text>
+                        Please do not close or refresh this page while we
+                        process your payment. The process may take a few
+                        moments.
+                      </Text>
+                    </div>
+
+                    <Table
+                      dataSource={cartItems}
+                      pagination={false}
+                      rowKey={(data) => data.id}
+                      columns={[
+                        {
+                          title: "No",
+                          dataIndex: "no",
+                          render(value, record, index) {
+                            return (
+                              <span key={record.id}>
+                                {format.twoChar((index + 1).toString())}
+                              </span>
+                            );
+                          },
+                        },
+
+                        {
+                          title: "Image",
+                          dataIndex: "image",
+                          render: (value, record, index) => {
+                            return (
+                              <Avatar
+                                src={`${API_URL_UPLOADS_PRODUCTS}/${record.product.productImages[0]}`}
+                                size={"large"}
+                                alt={record.product.name}
+                              />
+                            );
+                          },
+                        },
+                        {
+                          title: "Name",
+                          dataIndex: "name",
+                          width: "8rem",
+                          render: (value, record, index) =>
+                            record.product?.name,
+                        },
+                        {
+                          title: "Quantity",
+                          dataIndex: "quantity",
+                          width: 120,
+                        },
+                        {
+                          title: "Price",
+                          dataIndex: "discountedPrice",
+                          render: (value, record) => {
+                            return `${format.number(value)} XAF`;
+                          },
+                          align: "right",
+                        },
+                        {
+                          title: "Total",
+                          dataIndex: "total",
+                          render: (value, record) => {
+                            return `${format.number(value)} XAF`;
+                          },
+                          align: "right",
+                        },
+                      ]}
+                    />
+                    <Typography.Paragraph>
+                      {getCartSummary(cartItems)}
+                    </Typography.Paragraph>
+                  </Col>
+                ) : (
+                  <Col xs={22} md={18}>
+                    <div
+                      className="payment-overview"
+                      style={{ marginBottom: 15 }}
+                    >
+                      <SuccessPaymentDetails data={initTransaction} />
+                    </div>
+                  </Col>
+                )}
+
+                <Col xs={22} md={18}>
+                  <div className="payment-instructions">
+                    <PaymentDetails
+                      data={initTransaction ? initTransaction : null}
+                    />
+                  </div>
+                </Col>
+              </>
+            )}
+
             <Col xs={22} md={18}>
               <div className="payment-support">
                 <Title level={4}>Need Help?</Title>

@@ -1,15 +1,14 @@
-import { Typography, Descriptions, Button, Row, Col } from "antd";
+import { Typography, Descriptions, Button, Row, Col, Badge } from "antd";
 
 const { Title, Text } = Typography;
 
 export const PaymentDetails = ({ data }: { data: any }) => {
-  debugger
   const paymentData = data.data;
 
   return (
     <Row gutter={[16, 16]} justify="center" style={{ padding: "20px" }}>
       <Col span={24}>
-        <Title level={2}>Payment Details</Title>
+        <Title level={3}>Transaction Details</Title>
 
         <Descriptions bordered size="middle">
           <Descriptions.Item
@@ -39,14 +38,26 @@ export const PaymentDetails = ({ data }: { data: any }) => {
           <Descriptions.Item
             label={<Typography.Title level={5}>Status</Typography.Title>}
           >
-            {paymentData.status}
+            <Badge
+              status={
+                paymentData.status === "SUCCESSFUL" ? "success" : "processing"
+              }
+              text={paymentData.status}
+            />
           </Descriptions.Item>
           <Descriptions.Item
             label={
               <Typography.Title level={5}>Transaction Status</Typography.Title>
             }
           >
-            {paymentData.transactionStatus}
+            <Badge
+              status={
+                paymentData.transactionStatus === "SUCCESSFUL"
+                  ? "success"
+                  : "processing"
+              }
+              text={paymentData.transactionStatus}
+            />
           </Descriptions.Item>
           <Descriptions.Item
             label={<Typography.Title level={5}>Payment At</Typography.Title>}
@@ -87,41 +98,51 @@ export const PaymentDetails = ({ data }: { data: any }) => {
       <Col span={24} style={{ marginTop: "20px" }}>
         <Text>To authorize the payment, please click the button below:</Text>
         <br />
-        <Button
-          type="primary"
-          href={paymentData.links.paymentAuthUrl}
-          target="_blank"
-          style={{ marginTop: "10px" }}
-        >
-          Authorize Payment
-        </Button>
+        {paymentData.status === "PENDING" ? (
+          <Button
+            type="primary"
+            href={paymentData.links.paymentAuthUrl}
+            target="_blank"
+            style={{ marginTop: "10px" }}
+          >
+            Authorize Payment
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            href={paymentData.links.paymentAuthUrl}
+            target="_blank"
+            style={{ marginTop: "10px" }}
+          >
+            Save Receipt
+          </Button>
+        )}
       </Col>
     </Row>
   );
 };
 
-
 export const dummyData = {
-  "data": {
-    "requestId": "REQ240911U61BD2A9YVA",
-    "amount": 50,
-    "currencyCode": "XAF",
-    "description": "A plate of fufu and eru",
-    "mobileWalletNumber": null,
-    "status": "PENDING",
-    "transactionStatus": "PENDING",
-    "createdAt": "2024-09-11T18:05:19+00:00",
-    "mchTransactionRef": "myorder234555666",
-    "appId": "apnthte7t4gemh",
-    "payerNote": "",
-    "serviceDiscountAmount": null,
-    "receivingEntityName": null,
-    "transactionTag": null,
-    "links": {
-      "returnUrl": "http://localhost:3000/",
-      "cancelUrl": null,
-      "paymentAuthUrl": "https://pay.tranzak.net/?rid=REQ240911U61BD2A9YVA"
-    }
+  data: {
+    requestId: "",
+    amount: 0,
+    currencyCode: "",
+    description: "",
+    mobileWalletNumber: null,
+    status: "PENDING",
+    transactionStatus: "",
+    createdAt: "",
+    mchTransactionRef: "myorder234555666",
+    appId: "apnthte7t4gemh",
+    payerNote: "",
+    serviceDiscountAmount: null,
+    receivingEntityName: null,
+    transactionTag: null,
+    links: {
+      returnUrl: "",
+      cancelUrl: null,
+      paymentAuthUrl: "",
+    },
   },
-  "success": true
+  success: true,
 };

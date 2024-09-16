@@ -6,8 +6,6 @@ export const ProcessPaymentService = {
     requestType.post(`/api/process-payments`, initPayment),
   getTransactions: (): Promise<ITransactionHistoryResponses> =>
     requestType.get(`/api/process-payments/history`),
-  getTransactionStatus: (
-    requestId: string
-  ): Promise<ITransactionHistoryResponses> =>
-    requestType.post(`/api/process-payments/status`, requestId),
+  transactionStatus: (requestId: string): Promise<any> =>
+    requestType.get(`/api/process-payments/status/${requestId}`),
 };
