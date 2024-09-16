@@ -23,6 +23,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { Suspense, useCallback } from "react";
+import { AiFillCaretRight } from "react-icons/ai";
 
 export default function IndexPage({ params }: { params: { id: string } }) {
   const [api, contextHolder] = notification.useNotification();
@@ -75,24 +76,6 @@ export default function IndexPage({ params }: { params: { id: string } }) {
       // onClose: close,
     });
   };
-
-  const items: CollapseProps["items"] = [
-    {
-      key: "1",
-      label: "Description",
-      children: <div>{product?.description}</div>,
-    },
-    {
-      key: "2",
-      label: "Delivery",
-      children: (
-        <div>
-          After we receive your payment you will get a purchase confirmation
-          that will deliver immediately your product.
-        </div>
-      ),
-    },
-  ];
 
   return (
     <>
@@ -315,9 +298,37 @@ export default function IndexPage({ params }: { params: { id: string } }) {
                       </div>
                       <div>
                         <Collapse
+                          expandIcon={(props) => (
+                            <AiFillCaretRight size={15} {...props} />
+                          )}
                           defaultActiveKey={["1"]}
                           ghost
-                          items={items}
+                          items={[
+                            {
+                              key: "1",
+                              label: (
+                                <Typography.Title level={4}>
+                                  Description
+                                </Typography.Title>
+                              ),
+                              children: <div>{product?.description}</div>,
+                            },
+                            {
+                              key: "2",
+                              label: (
+                                <Typography.Title level={4}>
+                                  Delivery
+                                </Typography.Title>
+                              ),
+                              children: (
+                                <div>
+                                  After we receive your payment you will get a
+                                  purchase confirmation that will deliver
+                                  immediately your product.
+                                </div>
+                              ),
+                            },
+                          ]}
                         />
                       </div>
                     </div>

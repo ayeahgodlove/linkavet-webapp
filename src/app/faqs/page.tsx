@@ -121,7 +121,7 @@ export default function IndexPage() {
                       transition={{ duration: 0.5 }}
                     >
                       <Collapse
-                        expandIcon={() => <FiPlus size={30} />}
+                        expandIcon={(props) => <FiPlus size={30} {...props} />}
                         expandIconPosition="end"
                         defaultActiveKey={["1"]}
                         ghost
