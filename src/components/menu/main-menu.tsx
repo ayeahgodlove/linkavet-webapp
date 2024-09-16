@@ -10,7 +10,7 @@ import {
   MdOutlineLibraryBooks,
   MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
-import { FiHome, FiInfo, FiPhoneCall } from "react-icons/fi";
+import { FiHome, FiInfo, FiPhoneCall, FiUserPlus } from "react-icons/fi";
 import { GrServices } from "react-icons/gr";
 import { FcBusinessContact } from "react-icons/fc";
 import { usePathname } from "next/navigation";
@@ -75,16 +75,7 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       icon: <MdOutlineArticle size={21} />,
       className: `nav-link link-active`,
     },
-    // {
-    //   label: (
-    //     <Link href="/courses" style={{ padding: 0 }}>
-    //       Courses
-    //     </Link>
-    //   ),
-    //   key: "courses",
-    //   icon: <MdOutlineLibraryBooks size={21} />,
-    //   className: `nav-link link-active`,
-    // },
+
     {
       label: (
         <Link href="/contact-us" style={{ padding: 0 }}>
@@ -103,6 +94,16 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       ),
       key: "faqs",
       icon: <FiInfo size={21} />,
+      className: `nav-link link-active`,
+    },
+    {
+      label: (
+        <Link href="/login" style={{ padding: 0 }}>
+          Login
+        </Link>
+      ),
+      key: "login",
+      icon: <FiUserPlus size={21} />,
       className: `nav-link link-active`,
     },
   ];
@@ -154,15 +155,7 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
       key: "posts",
       className: `nav-link link-active`,
     },
-    // {
-    //   label: (
-    //     <Link href="/courses" style={{ padding: 0 }}>
-    //       Courses
-    //     </Link>
-    //   ),
-    //   key: "courses",
-    //   className: `nav-link link-active`,
-    // },
+
     {
       label: (
         <Link href="/contact-us" style={{ padding: 0 }}>
@@ -179,6 +172,15 @@ const MainMenu: React.FC<Props> = ({ visible, setVisible, menuBtnRef }) => {
         </Link>
       ),
       key: "faqs",
+      className: `nav-link link-active`,
+    },
+    {
+      label: (
+        <Link href="/login" style={{ padding: 0 }}>
+          Login
+        </Link>
+      ),
+      key: "login",
       className: `nav-link link-active`,
     },
   ];
