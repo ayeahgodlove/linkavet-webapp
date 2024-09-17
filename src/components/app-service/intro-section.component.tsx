@@ -41,7 +41,7 @@ const IntroSection = () => {
             </div>
             <div className="button-box">
               <Link
-                href="//pet-expers"
+                href="/services"
                 className="button-outline-small yellow w-button"
               >
                 Read More

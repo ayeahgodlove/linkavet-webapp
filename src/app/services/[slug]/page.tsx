@@ -7,6 +7,7 @@ import { serviceAPI } from "@store/api/service_api";
 import { format } from "@utils/format";
 import { Col, Empty, Spin } from "antd";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Suspense } from "react";
 
 export default function IndexPage({ params }: { params: { slug: string } }) {
@@ -113,12 +114,12 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
                         <div className="side-title">Hire Us</div>
                       </div>
                       <div className="button-box">
-                        <a
-                          href="https://webflow.com/templates/designers/pablo-ramos"
+                        <Link
+                          href="/contact-us"
                           className="button-outline-small blue w-button"
                         >
                           Contact Us
-                        </a>
+                        </Link>
                       </div>
                       <div
                         style={{
@@ -138,7 +139,9 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
                   >
                     <h1>{service?.title}</h1>
                     <div>
-                      <p className="subtitle">{service?.short_description}</p>
+                      <p style={{ fontSize: 15 }}>
+                        {service?.short_description}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -151,7 +154,7 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
                   </div>
                   <div className="w-richtext">
                     <div
-                      style={{ padding: 30, background: "#f2f2f2" }}
+                      style={{ padding: 30, background: "#fff" }}
                       dangerouslySetInnerHTML={{
                         __html: service?.description as any,
                       }}

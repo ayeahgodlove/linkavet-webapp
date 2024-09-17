@@ -7564,7 +7564,7 @@ blockquote {
 }
 
 .subtitle {
-    color: #939394;
+    color: #292934;
     font-size: 19px;
     line-height: 25px;
 }
@@ -9424,7 +9424,7 @@ blockquote {
     }
 
     .flex-page {
-        flex-wrap: wrap-reverse;
+        flex-wrap: wrap;
     }
 
     .utility-left-column {

@@ -1,9 +1,9 @@
 import { AuthPage } from "@components/auth-page";
+import DefaultLayout from "@layouts/default-layout";
 import { authProviderServer } from "@providers/auth-provider";
-import { Input } from "antd";
-import Image from "next/image";
-import Link from "next/link";
+import {Spin } from "antd";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function IndexPage() {
   const data = await getData();
@@ -13,23 +13,27 @@ export default async function IndexPage() {
   }
 
   return (
-    <AuthPage
-      type="register"
-      title={
-        <>
-          <Link href="/">
-            <Image
-              src={`/logo/logo-2-removebg-preview.png`}
-              height={80}
-              width={100}
-              quality={100}
-              alt="Cumi logo"
-              style={{ marginRight: 15 }}
-            />
-          </Link>
-        </>
+    <Suspense
+      fallback={
+        <Spin
+          size="large"
+          style={{
+            minHeight: "65vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
       }
-    />
+    >
+      <DefaultLayout
+        title={"Register - linkavet.com Account Register"}
+        description={"Sign up to access your account at linkavet.com"}
+        keywords="linkavet, register, authentication"
+      >
+        <AuthPage type="register" title={""} />
+      </DefaultLayout>
+    </Suspense>
   );
 }
 

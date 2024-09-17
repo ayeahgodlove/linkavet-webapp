@@ -2,7 +2,6 @@
 import { AppFooter } from "@components/footer/footer";
 import { AppFootnote } from "@components/footnote/footnote";
 import AppHeader from "@components/header/app-header";
-import { SEOHead } from "@components/shared/seo-head.component";
 import useWindowSize from "@hook/shared/window-resize.hook";
 import { Affix, Layout, theme } from "antd";
 import React from "react";
@@ -29,12 +28,12 @@ const DefaultLayout = (props: Props) => {
 
   return (
     <>
-      <SEOHead
+      {/* <SEOHead
         title={props.title}
         description={props.description}
         keywords={props.keywords}
         uri={props.uri}
-      />
+      /> */}
       <Layout>
         <Affix offsetTop={0}>
           <Header className="appHeader" style={headerStyle}>
