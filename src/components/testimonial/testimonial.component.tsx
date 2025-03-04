@@ -50,9 +50,6 @@ const Testimonials = () => {
     >
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">Testimonials</div>
-          </div>
           <h3 className="h3 small">What people say about us</h3>
         </div>
       </div>

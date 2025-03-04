@@ -15,9 +15,6 @@ const FaqSection = () => {
     <div className="content-section double">
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">Faq</div>
-          </div>
           <h3 className="no-top-margin">Frequently Asked Questions</h3>
         </div>
 

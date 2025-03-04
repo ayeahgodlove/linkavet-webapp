@@ -40,10 +40,7 @@ const BlogSection = () => {
     <div className="content-section" style={{ paddingBottom: "7rem" }}>
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">Blog</div>
-          </div>
-          <h3 className="no-top-margin">Latest news &amp; updates</h3>
+          <h3 className="no-top-margin">Latest updates</h3>
         </div>
         <div className="w-dyn-list">
           {posts && posts.length ? (

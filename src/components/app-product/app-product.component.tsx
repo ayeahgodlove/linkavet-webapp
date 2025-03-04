@@ -28,11 +28,6 @@ const ProductSection = () => {
       <div className="products-bottom-bg"></div>
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div id="Products" className="title-regular">
-              Products
-            </div>
-          </div>
           <h3 className="no-top-margin">Featured Veterinary products</h3>
         </div>
         <div className="w-dyn-list">

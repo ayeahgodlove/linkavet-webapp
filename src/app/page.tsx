@@ -44,7 +44,7 @@ export default function IndexPage() {
         <TeamSection />
         <ServicesSection />
         <FaqSection />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <BlogSection />
       </DefaultLayout>
     </Suspense>

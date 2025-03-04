@@ -115,8 +115,12 @@ export default function IndexPage({ params }: { params: { slug: string } }) {
                       </div>
                       <div className="button-box">
                         <Link
-                          href="/contact-us"
+                          // href="https://wa.me/237675280634?text=Hello!%20I%20need%20more%20information."
+                          href={`https://wa.me/237675280634?text=${encodeURIComponent(
+                            "Hello! I need" + service?.title
+                          )}`}
                           className="button-outline-small blue w-button"
+                          target="_blank"
                         >
                           Contact Us
                         </Link>

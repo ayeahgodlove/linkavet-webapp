@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const OfficesComponent = () => {
@@ -105,9 +106,9 @@ const OfficesComponent = () => {
                   >
                     <div className="title-regular">Phone</div>
                     <div>
-                      <a href="#" className="contact-link">
-                        990-004-450
-                      </a>
+                      <Link href="tel+:+237699004450" className="contact-link">
+                        237699004450
+                      </Link>
                     </div>
                   </div>
                   <div
@@ -122,8 +123,11 @@ const OfficesComponent = () => {
                   >
                     <div>Email</div>
                     <div>
-                      <a href="#" className="contact-link">
-                        support@linkavet.com
+                      <a
+                        href="mailto:fonayzichah@gmail.com"
+                        className="contact-link"
+                      >
+                        fonayzichah@gmail.com
                       </a>
                     </div>
                   </div>
@@ -181,19 +185,6 @@ const OfficesComponent = () => {
                         </div>
                         <div>
                           <a
-                            data-w-id="098a511f-9f57-29cd-201a-2e574aea9378"
-                            href="#"
-                            target="_blank"
-                            className="social-icon-rounded w-inline-block"
-                          >
-                            <div className="social-icons-container">
-                              <div className="social-icon-up pinterest"></div>
-                              <div className="social-icon-down pinterest"></div>
-                            </div>
-                          </a>
-                        </div>
-                        <div>
-                          <a
                             data-w-id="098a511f-9f57-29cd-201a-2e574aea937d"
                             href="#"
                             target="_blank"
@@ -202,32 +193,6 @@ const OfficesComponent = () => {
                             <div className="social-icons-container">
                               <div className="social-icon-up tiktok"></div>
                               <div className="social-icon-down tiktok"></div>
-                            </div>
-                          </a>
-                        </div>
-                        <div>
-                          <a
-                            data-w-id="098a511f-9f57-29cd-201a-2e574aea9382"
-                            href="#"
-                            target="_blank"
-                            className="social-icon-rounded w-inline-block"
-                          >
-                            <div className="social-icons-container">
-                              <div className="social-icon-up linkedin"></div>
-                              <div className="social-icon-down linkedin"></div>
-                            </div>
-                          </a>
-                        </div>
-                        <div>
-                          <a
-                            data-w-id="098a511f-9f57-29cd-201a-2e574aea9387"
-                            href="#"
-                            target="_blank"
-                            className="social-icon-rounded instagram w-inline-block"
-                          >
-                            <div className="social-icons-container">
-                              <div className="social-icon-up insta"></div>
-                              <div className="social-icon-down insta"></div>
                             </div>
                           </a>
                         </div>

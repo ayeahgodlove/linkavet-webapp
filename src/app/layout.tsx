@@ -18,6 +18,7 @@ import "../styles/main.scss";
 import "../styles/app.css";
 import { useDashboardMenu } from "@utils/dashboard-menus";
 import { SocketProvider } from "@contexts/socket-provider.context";
+import WhatsAppButton from "@components/shared/whatsapp-button.component";
 
 // export const metadata: Metadata = {
 //   title: "Refine",
@@ -87,6 +88,7 @@ export default async function RootLayout({
                       }}
                     >
                       {children}
+                      <WhatsAppButton />
                       <RefineKbar />
                     </Refine>
                     {/* </DevtoolsProvider> */}

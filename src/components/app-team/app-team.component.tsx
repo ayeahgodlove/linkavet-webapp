@@ -1,15 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const TeamSection = () => {
   return (
-    <div className="content-section team-section" style={{ marginTop: "7rem"}}>
+    <div className="content-section team-section" style={{ marginTop: "7rem" }}>
       <div className="team-bottom-bg"></div>
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">Team</div>
-          </div>
-          <h3 className="h3">Our Team</h3>
+          <h3 className="h3">Our Experts</h3>
         </div>
         <div className="flex-team">
           {/* Team Member 1 */}
@@ -22,12 +19,22 @@ const TeamSection = () => {
                 width="307"
                 alt=""
               />
-              <div className="on-scroll-slide bluer" style={{ display: 'block', width: '0%', height: '402.65px' }}></div>
-              <div className="hover-bg" style={{ opacity: 0, display: 'none', width: '0%' }}>
+              <div
+                className="on-scroll-slide bluer"
+                style={{ display: "block", width: "0%", height: "402.65px" }}
+              ></div>
+              <div
+                className="hover-bg"
+                style={{ opacity: 0, display: "none", width: "0%" }}
+              >
                 <div className="hover-content">
                   <div className="social-icons">
                     <div className="social-1">
-                      <a href="#" target="_blank" className="social-icon w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up facebook"></div>
                           <div className="social-icon-down facebook"></div>
@@ -35,7 +42,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-2">
-                      <a href="#" target="_blank" className="social-icon twittter w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon twittter w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up twitter"></div>
                           <div className="social-icon-down twitter"></div>
@@ -43,7 +54,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-3">
-                      <a href="#" target="_blank" className="social-icon instagram w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon instagram w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up instagram"></div>
                           <div className="social-icon-down instagram"></div>
@@ -60,7 +75,9 @@ const TeamSection = () => {
                 <div className="job-title">CEO</div>
               </div>
               <div>
-                <p>Awarded dermatologist of our city with 13 years of experience.</p>
+                <p>
+                  Awarded dermatologist of our city with 13 years of experience.
+                </p>
               </div>
             </div>
           </div>
@@ -73,12 +90,22 @@ const TeamSection = () => {
                 width="307"
                 alt=""
               />
-              <div className="on-scroll-slide bluer" style={{ display: 'block', width: '0%', height: '402.65px' }}></div>
-              <div className="hover-bg" style={{ opacity: 0, display: 'none', width: '0%' }}>
+              <div
+                className="on-scroll-slide bluer"
+                style={{ display: "block", width: "0%", height: "402.65px" }}
+              ></div>
+              <div
+                className="hover-bg"
+                style={{ opacity: 0, display: "none", width: "0%" }}
+              >
                 <div className="hover-content">
                   <div className="social-icons">
                     <div className="social-1">
-                      <a href="#" target="_blank" className="social-icon w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up facebook"></div>
                           <div className="social-icon-down facebook"></div>
@@ -86,7 +113,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-2">
-                      <a href="#" target="_blank" className="social-icon twittter w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon twittter w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up twitter"></div>
                           <div className="social-icon-down twitter"></div>
@@ -94,7 +125,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-3">
-                      <a href="#" target="_blank" className="social-icon instagram w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon instagram w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up instagram"></div>
                           <div className="social-icon-down instagram"></div>
@@ -111,7 +146,9 @@ const TeamSection = () => {
                 <div className="job-title">CEO</div>
               </div>
               <div>
-                <p>Awarded dermatologist of our city with 13 years of experience.</p>
+                <p>
+                  Awarded dermatologist of our city with 13 years of experience.
+                </p>
               </div>
             </div>
           </div>
@@ -125,12 +162,22 @@ const TeamSection = () => {
                 width="307"
                 alt=""
               />
-              <div className="on-scroll-slide bluer" style={{ display: 'block', width: '0%', height: '402.65px' }}></div>
-              <div className="hover-bg" style={{ opacity: 0, display: 'none', width: '0%' }}>
+              <div
+                className="on-scroll-slide bluer"
+                style={{ display: "block", width: "0%", height: "402.65px" }}
+              ></div>
+              <div
+                className="hover-bg"
+                style={{ opacity: 0, display: "none", width: "0%" }}
+              >
                 <div className="hover-content">
                   <div className="social-icons">
                     <div className="social-1">
-                      <a href="#" target="_blank" className="social-icon w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up facebook"></div>
                           <div className="social-icon-down facebook"></div>
@@ -138,7 +185,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-2">
-                      <a href="#" target="_blank" className="social-icon twittter w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon twittter w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up twitter"></div>
                           <div className="social-icon-down twitter"></div>
@@ -146,7 +197,11 @@ const TeamSection = () => {
                       </a>
                     </div>
                     <div className="social-3">
-                      <a href="#" target="_blank" className="social-icon instagram w-inline-block">
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="social-icon instagram w-inline-block"
+                      >
                         <div className="social-icons-container">
                           <div className="social-icon-up instagram"></div>
                           <div className="social-icon-down instagram"></div>
@@ -163,7 +218,9 @@ const TeamSection = () => {
                 <div className="job-title">CEO</div>
               </div>
               <div>
-                <p>Awarded dermatologist of our city with 13 years of experience.</p>
+                <p>
+                  Awarded dermatologist of our city with 13 years of experience.
+                </p>
               </div>
             </div>
           </div>

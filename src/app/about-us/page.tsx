@@ -185,8 +185,8 @@ export default function IndexPage() {
               <div className="curve-text-container">
                 <div className="hero-mini-pic"></div>
                 <div className="curve-text-box">
-                  <Link href="#" className="mini-title-link">
-                    Call Us Today &nbsp;990-004-450
+                  <Link href="tel+:+237699004450" className="mini-title-link">
+                    Call Us Today &nbsp;699004450
                   </Link>
                 </div>
               </div>

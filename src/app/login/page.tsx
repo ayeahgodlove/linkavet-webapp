@@ -2,10 +2,9 @@ import { AuthPage } from "@components/auth-page";
 import DefaultLayout from "@layouts/default-layout";
 import { authProviderServer } from "@providers/auth-provider";
 import { Spin } from "antd";
-import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { AiFillFacebook, AiFillGoogleCircle } from "react-icons/ai";
 
 export default async function IndexPage() {
   const data = await getData();
@@ -33,7 +32,22 @@ export default async function IndexPage() {
         description={"Log in to access your account at linkavet.com"}
         keywords="linkavet, login, authentication"
       >
-        <AuthPage type="login" title={""} />
+        <AuthPage
+          type="login"
+          title={""}
+          providers={[
+            {
+              name: "google",
+              icon: <AiFillGoogleCircle />,
+              label: "Sign in with Google",
+            },
+            {
+              name: "github",
+              icon: <AiFillFacebook />,
+              label: "Sign in with Facebook",
+            },
+          ]}
+        />
       </DefaultLayout>
     </Suspense>
   );

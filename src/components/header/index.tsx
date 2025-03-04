@@ -1,17 +1,15 @@
 "use client";
 
-import { BellOutlined, MailOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import { ColorModeContext } from "@contexts/color-mode";
 import { IReview } from "@model/review.model";
 import type { RefineThemedLayoutV2HeaderProps } from "@refinedev/antd";
-import { useGetIdentity } from "@refinedev/core";
-import { getSingleCart } from "@services/cart.service";
+import { useActiveAuthProvider, useGetIdentity } from "@refinedev/core";
 import { reviewAPI } from "@store/api/review_api";
 import {
   Layout as AntdLayout,
   Avatar,
   Badge,
-  Drawer,
   List,
   Popover,
   Space,
@@ -34,14 +32,14 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky,
 }) => {
   const { token } = useToken();
+  const authProvider = useActiveAuthProvider();
   const { data: user } = useGetIdentity<IUser>();
+
   const { mode, setMode } = useContext(ColorModeContext);
-  const [showingMessages, setShowingMessages] = useState(false);
   const [comments, setComments] = useState<IReview[]>([]);
-  const [messages, setMessages] = useState([]);
+  const [isAuthenticated, setIsAuthencated] = useState<boolean>(false);
 
   const { data } = reviewAPI.useFetchAllReviewsQuery();
-
   const headerStyles: React.CSSProperties = {
     backgroundColor: token.colorBgElevated,
     display: "flex",
@@ -54,16 +52,20 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   if (sticky) {
     headerStyles.position = "sticky";
     headerStyles.top = 0;
-    headerStyles.zIndex = 1; 
+    headerStyles.zIndex = 1;
   }
 
   useEffect(() => {
     setComments(data!);
 
-    getSingleCart().then((res) => {
-      setMessages(res.products.slice(0, 10));
-    });
-  }, [data]);
+    authProvider
+      ?.check()
+      .then((resp) => {
+        console.log("resp: ", resp);
+        setIsAuthencated(resp.authenticated);
+      })
+      .catch((err) => console.log("err: ", err));
+  }, [data, isAuthenticated]);
 
   return (
     <AntdLayout.Header style={headerStyles}>
@@ -90,36 +92,14 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             <MailOutlined style={{ fontSize: "24px" }} />
           </Badge>
         </Popover>
-        <Badge
-          count={messages.length}
-          className="appNotifStyle"
-          // onClick={() => setShowingMessages(true) as any}
-        >
-          <BellOutlined style={{ fontSize: "24px" }} />
-        </Badge>
-        <Drawer
-          title="New Messages"
-          placement="right"
-          onClose={() => setShowingMessages(false)}
-          open={showingMessages}
-        >
-          <List
-            dataSource={messages}
-            renderItem={(message: any) => (
-              <List.Item>
-                🔔 <Typography.Text strong>{message.title}</Typography.Text> has
-                been ordered
-              </List.Item>
-            )}
-          ></List>
-        </Drawer>
+
         <Switch
           checkedChildren="🌛"
           unCheckedChildren="🔆"
           onChange={() => setMode(mode === "light" ? "dark" : "light")}
           defaultChecked={mode === "dark"}
         />
-        {(user?.name || user?.avatar) && (
+        {isAuthenticated && (
           <Space style={{ marginLeft: "8px" }} size="middle">
             {user?.name && <Text strong>{user.name}</Text>}
             {user?.avatar && <Avatar src={user?.avatar} alt={user?.name} />}

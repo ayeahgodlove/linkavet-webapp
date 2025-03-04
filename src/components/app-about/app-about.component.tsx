@@ -5,9 +5,6 @@ const AboutUs = () => {
     <div id="About-Us" className="content-section double">
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">About Us</div>
-          </div>
           <h3 className="no-top-margin">What we can do for you</h3>
         </div>
         <div className="section-item">

@@ -21,7 +21,6 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getIdentity"> = {
   getIdentity: async () => {
     const cookieStore = cookies();
     const auth = cookieStore.get("auth");
-
     if (auth) {
       // Assuming 'auth' cookie contains user information in JSON format
       const user = JSON.parse(auth.value);

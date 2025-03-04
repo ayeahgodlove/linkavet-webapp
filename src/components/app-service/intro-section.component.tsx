@@ -6,9 +6,6 @@ const IntroSection = () => {
     <div id="Intro" className="content-section">
       <div className="content-wrapper w-container">
         <div className="heading-box">
-          <div>
-            <div className="title-regular">Intro</div>
-          </div>
           <h2 className="no-top-margin">Get to know us more</h2>
         </div>
         <div className="intro-flex">
@@ -41,10 +38,12 @@ const IntroSection = () => {
             </div>
             <div className="button-box">
               <Link
-                href="/services"
+                href={`https://wa.me/237675280634?text=${encodeURIComponent(
+                  "Hello! I need to speak with a Linkavet Professional"
+                )}`}
                 className="button-outline-small yellow w-button"
               >
-                Read More
+                Meet our experts
               </Link>
             </div>
           </div>
@@ -79,7 +78,7 @@ const IntroSection = () => {
                 href="/services"
                 className="button-outline-small blue w-button"
               >
-                Read More
+                Our Services
               </Link>
             </div>
           </div>
@@ -111,10 +110,13 @@ const IntroSection = () => {
             </div>
             <div className="button-box">
               <Link
-                href="/contact-us"
+                // href="/contact-us"
+                href={`https://wa.me/237675280634?text=${encodeURIComponent(
+                  "Hello! I need to speak with a Linkavet Professional"
+                )}`}
                 className="button-outline-small pink w-button"
               >
-                Read More
+                Speak with a professional
               </Link>
             </div>
           </div>
